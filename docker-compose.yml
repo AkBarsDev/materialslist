@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  materialslist-backend:
+    image: ${DOCKER_REGISTRY-}materialslistbackend
+    build:
+      context: .
+      dockerfile: ../materialslist-backend/Dockerfile
+
+  materialslist-ui:
+    image: ${DOCKER_REGISTRY-}materialslistui
+    build:
+      context: .
+      dockerfile: ../materialslist-ui/Dockerfile
+
