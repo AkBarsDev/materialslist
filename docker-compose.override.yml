@@ -1,21 +1,44 @@
-version: '3.9'
-
+version: '3.4'
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
 services:
+  database:
+    container_name: "app-database"
+    hostname: database
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password12!
+    ports:
+      - "1433:1433"
+    # volumes:
+    #   - ./database:/var/opt/mssql/data
+    restart: always
+    networks:
+      - back
   materialslist-backend:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
     ports:
       - "8080"
+    networks:
+      - back
+      - front
 
   materialslist-ui:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
     ports:
       - "8080"
       - "8081"
+    networks:
+      - back
+      - front
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
