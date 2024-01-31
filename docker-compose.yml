@@ -11,5 +11,4 @@ services:
     container_name: ui
     image: ${DOCKER_REGISTRY-}materialslistui
     build: ../materialslist-ui
-    
 
