@@ -25,9 +25,9 @@ services:
     hostname: backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTP_PORTS=8090
     ports:
-      - "8080"
+      - "8090:8090"
     networks:
       - back
       - front
