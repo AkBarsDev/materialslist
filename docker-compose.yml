@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  materialslist-backend:
+    container_name: backend
+    image: ${DOCKER_REGISTRY-}materialslistbackend
+    build: ../materialslist-backend
+
+
+  materialslist-ui:
+    container_name: ui
+    image: ${DOCKER_REGISTRY-}materialslistui
+    build: ../materialslist-ui
+
