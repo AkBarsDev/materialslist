@@ -26,8 +26,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8090
+    depends_on:
+      - database
     ports:
       - "8090"
+    restart: always
     networks:
       - back
       - front
@@ -36,6 +39,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
+    depends_on:
+      - materialslist-backend
+    restart: always
     ports:
       - "8080:8080"
       - "8081:8081"
