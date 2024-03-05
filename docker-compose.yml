@@ -12,3 +12,9 @@ services:
     image: ${DOCKER_REGISTRY-}materialslistui
     build: ../materialslist-ui
 
+
+  materialslist-us:
+    container_name: us
+    image: ${DOCKER_REGISTRY-}materialslistus
+    build: ../materialslist-us
+
