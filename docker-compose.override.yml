@@ -4,6 +4,21 @@ networks:
     driver: bridge
   back:
     driver: bridge
+volumes:
+  db:
+    name: db
+    driver: local
+    driver_opts:
+      o: bind
+      type: volume
+      device: ./database
+  source:
+    name: db
+    driver: local
+    driver_opts:
+      o: bind 
+      type: volume
+      device: ../materialslist-us/Source/
 services:
   database:
     container_name: "app-database"
@@ -17,7 +32,7 @@ services:
     ports:
       - "1433:1433"
     volumes:
-       - ./database:/var/opt/mssql/data
+       - db:/var/opt/mssql/data
     restart: always
     networks:
       - back
@@ -39,6 +54,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
     depends_on:
       - materialslist-backend
       - materialslist-us
@@ -65,6 +81,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - source:/app/source
   proxy:
     container_name: nginx
     image: nginx:latest
