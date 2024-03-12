@@ -4,21 +4,7 @@ networks:
     driver: bridge
   back:
     driver: bridge
-volumes:
-  db:
-    name: db
-    driver: local
-    driver_opts:
-      o: bind
-      type: volume
-      device: ./database
-  source:
-    name: db
-    driver: local
-    driver_opts:
-      o: bind 
-      type: volume
-      device: ../materialslist-us/Source/
+
 services:
   database:
     container_name: "app-database"
@@ -31,11 +17,12 @@ services:
      - "1433"
     ports:
       - "1433:1433"
-    volumes:
-       - db:/var/opt/mssql/data
     restart: always
     networks:
       - back
+    volumes:
+       - ./database:/var/opt/mssql/data
+  
   materialslist-backend:
     hostname: backend
     environment:
@@ -67,6 +54,7 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+ 
   materialslist-us:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
@@ -81,7 +69,8 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-      - source:/app/source
+      - ../materialslist-us/Source:/app/source
+
   proxy:
     container_name: nginx
     image: nginx:latest
@@ -94,3 +83,18 @@ services:
       - materialslist-ui
     networks:
       - front
+volumes:
+  db:
+    name: db
+    driver: local
+    driver_opts:
+      o: bind
+      type: volume
+      device: /mnt/c/Users/unist/Documents/WebMaterials/materialslist/database/
+  source:
+    name: source
+    driver: local
+    driver_opts:
+      o: bind 
+      type: volume
+      device: /mnt/c/Users/unist/Documents/WebMaterials/materialslist-us/Source/
