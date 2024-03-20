@@ -13,7 +13,7 @@ volumes:
     driver_opts:
       o: bind 
       type: volume
-      device: $PWD/../materialslist-us/Source/
+      device: ./Source
 services:
   materialslist-backend:
     container_name: backend
