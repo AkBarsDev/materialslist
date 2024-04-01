@@ -15,6 +15,18 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
+    <None Include="nginx\nginx.conf" />
+    <None Include="Source\Materials\Files\Свая металлическая.rfa" />
+    <None Include="Source\Materials\Images\ecdff7ff25b6a1c6091f430c8496a6f8.jpeg" />
+    <None Include="Source\Requrements\Приложение №3 - Таблица LOD и LOI.xlsx" />
+    <None Include="Source\Requrements\Приложение №6 - Использование BCF.docx" />
+    <None Include="Source\Requrements\Технические_требования_к_BIM_модели от 23.05.23.docx" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_АР_r2021_v2.0.2.rte" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_ВК_r2019_v1.2.rte" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_ВК_r2021_v2.1.3.rte" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_КЖ_r2019_v1.2.rte" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_ОВ_r2019_v1.2.rte" />
+    <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_ЭОМ_r2019_v1.2.rte" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="database\" />
