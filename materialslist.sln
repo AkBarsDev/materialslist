@@ -7,13 +7,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{07
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{47427F78-2C97-46A8-94EE-27A0604A5FAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "materialslist-backend", "..\materialslist-backend\materialslist-backend.csproj", "{29ADE9D2-709F-44CB-AAB3-D1B83A09535E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API", "..\materialslist-backend\B2H.MaterialsList.API.csproj", "{29ADE9D2-709F-44CB-AAB3-D1B83A09535E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "materialslist-ui", "..\materialslist-ui\materialslist-ui.csproj", "{5AFF434C-1ED2-4194-8D8A-D775D43AA355}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F680973F-1E54-490D-AD00-9B36044C9436}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "materialslist-us", "..\materialslist-us\materialslist-us.csproj", "{BB00DB89-F01A-450D-BCCA-E4F6860356FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.WebStorage", "..\materialslist-us\B2H.MaterialsList.API.WebStorage.csproj", "{BB00DB89-F01A-450D-BCCA-E4F6860356FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.DataTransfer", "B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj", "{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Core", "B2H.MaterialsList.Core\B2H.MaterialsList.Core.csproj", "{CD427EE4-21BC-4392-B28B-6705D698C0C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Core.Mapper", "B2H.MaterialsList.Core.Mapper\B2H.MaterialsList.Core.Mapper.csproj", "{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Infrastructure.ApprovalManagement", "B2H.MaterialsList.Infrastructure.ApprovalManagement\B2H.MaterialsList.Infrastructure.ApprovalManagement.csproj", "{16DDE006-7220-487D-9F5E-664BEBEFC24E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Infrastructure.Repository", "B2H.MaterialsList.Infrastructure.Repository\B2H.MaterialsList.Infrastructure.Repository.csproj", "{85031A8C-5B42-47B8-9D4C-2086BF932838}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +47,26 @@ Global
 		{BB00DB89-F01A-450D-BCCA-E4F6860356FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB00DB89-F01A-450D-BCCA-E4F6860356FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB00DB89-F01A-450D-BCCA-E4F6860356FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16DDE006-7220-487D-9F5E-664BEBEFC24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16DDE006-7220-487D-9F5E-664BEBEFC24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16DDE006-7220-487D-9F5E-664BEBEFC24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16DDE006-7220-487D-9F5E-664BEBEFC24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85031A8C-5B42-47B8-9D4C-2086BF932838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85031A8C-5B42-47B8-9D4C-2086BF932838}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85031A8C-5B42-47B8-9D4C-2086BF932838}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85031A8C-5B42-47B8-9D4C-2086BF932838}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +75,11 @@ Global
 		{29ADE9D2-709F-44CB-AAB3-D1B83A09535E} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 		{5AFF434C-1ED2-4194-8D8A-D775D43AA355} = {0755C788-72E4-473E-B495-EDC692D6C396}
 		{BB00DB89-F01A-450D-BCCA-E4F6860356FA} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{16DDE006-7220-487D-9F5E-664BEBEFC24E} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{85031A8C-5B42-47B8-9D4C-2086BF932838} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D7ED8AA3-1DC8-40BE-AE81-20216921A11F}
