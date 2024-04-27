@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using B2H.MaterialsList.Repository.Interfaces;
 using B2H.MaterialsList.Mapper.Externsions;
 using B2H.MaterialsList.Core.Service;
 using B2H.MaterialsList.Core.Models;
 using B2H.MaterialsList.API.DataTransfer.Dto;
+using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 
-namespace B2H.MaterialsList.Repository
+namespace B2H.MaterialsList.Infrastructure.Repository
 {
     public class CategoryRepository(MaterialsListContext context) : ICategoryRepository
     {
@@ -14,7 +14,7 @@ namespace B2H.MaterialsList.Repository
         public async Task<CategoryDto> CreateUpdateCategoryAsync(CategoryDto value)
         {
             //Category category = _mapper.Map<CategoryDto, Category>(value);
-            Category category = CategoryExtensions.ToCategory(value);
+            Category category = value.ToCategory();
             if (category.CategoryId != default)
             {
                 _context.CategoriesMaterials.Update(category);
@@ -24,11 +24,11 @@ namespace B2H.MaterialsList.Repository
                 _context.CategoriesMaterials.Add(category);
             }
             await _context.SaveChangesAsync();
-            return CategoryExtensions.ToCategory(category);
+            return category.ToCategory();
         }
         public async Task<CategoryDto> CreateUpdateCategoryAsync(Guid id, CategoryDto value)
         {
-            Category category = CategoryExtensions.ToCategory(value);
+            Category category = value.ToCategory();
             if (id != default)
             {
                 _context.CategoriesMaterials.Update(category);
@@ -38,7 +38,7 @@ namespace B2H.MaterialsList.Repository
                 _context.CategoriesMaterials.Add(category);
             }
             await _context.SaveChangesAsync();
-            return CategoryExtensions.ToCategory(category);
+            return category.ToCategory();
         }
 
         public async Task<bool> DeleteAllAsync()
@@ -110,9 +110,9 @@ namespace B2H.MaterialsList.Repository
         {
             try
             {
-                IEnumerable<Category> categories = _context.CategoriesMaterials.AsNoTracking()
-                                        .AsEnumerable().Where(x => x.ParentId != null);
-                return CategoryExtensions.ToCategories(categories);
+                IEnumerable<Category> categories = await _context.CategoriesMaterials.AsNoTracking().Where(x => x.ParentId != null)
+                                        .ToListAsync();
+                return categories.ToCategories();
             }
             catch
             {
@@ -129,7 +129,7 @@ namespace B2H.MaterialsList.Repository
                                                                             .ThenInclude(categories => categories.InverseParent).OrderBy(x => x.Name)
                                                                         .Include(x => x.InverseParent)
                                                                             .ThenInclude(categories => categories.Materials).First();
-            return CategoryExtensions.ToCategory(category);
+            return category.ToCategory();
         }
 
         public async Task<IEnumerable<ShortCategoryDto>> Search(string qweryRequest)

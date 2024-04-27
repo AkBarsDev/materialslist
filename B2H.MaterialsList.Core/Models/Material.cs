@@ -29,7 +29,7 @@ public partial class Material
 
     public virtual Category? Category { get; set; }
 
-    public virtual Filebasis? File { get; set; }
+    public virtual Filebase? File { get; set; }
 
     public virtual ICollection<HistoryUpdate> HistoryUpdates { get; set; } = new List<HistoryUpdate>();
     [DeleteBehavior(DeleteBehavior.Restrict)]

@@ -1,7 +1,7 @@
 ﻿using B2H.MaterialsList.Core.Models;
 using System.Linq.Expressions;
 
-namespace B2H.MaterialsList.Repository.Interfaces
+namespace B2H.MaterialsList.Infrastructure.Repository.Interfaces
 {
     public interface IMaterialRepository
     {

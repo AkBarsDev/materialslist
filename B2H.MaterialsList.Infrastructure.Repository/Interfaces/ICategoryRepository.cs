@@ -1,7 +1,7 @@
 ﻿using B2H.MaterialsList.API.DataTransfer.Dto;
 
 
-namespace B2H.MaterialsList.Repository.Interfaces
+namespace B2H.MaterialsList.Infrastructure.Repository.Interfaces
 {
     public interface ICategoryRepository
     {

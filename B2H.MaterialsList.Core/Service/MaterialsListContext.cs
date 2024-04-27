@@ -19,7 +19,7 @@ public partial class MaterialsListContext : DbContext
 
 	public virtual DbSet<Category> CategoriesMaterials { get; set; }
 
-	public virtual DbSet<Filebasis> Filebases { get; set; }
+	public virtual DbSet<Filebase> Filebases { get; set; }
 
 	public virtual DbSet<HistoryUpdate> HistoryUpdates { get; set; }
 
@@ -44,7 +44,7 @@ public partial class MaterialsListContext : DbContext
 			entity.HasOne(d => d.Parent).WithMany(p => p.InverseParent).HasForeignKey(d => d.ParentId);
 		});
 
-		modelBuilder.Entity<Filebasis>(entity =>
+		modelBuilder.Entity<Filebase>(entity =>
 		{
 			entity.HasKey(e => e.FileId);
 

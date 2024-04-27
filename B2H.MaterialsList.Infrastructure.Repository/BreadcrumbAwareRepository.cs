@@ -1,12 +1,12 @@
 ﻿using B2H.MaterialsList.API.DataTransfer.Dto;
 using B2H.MaterialsList.Core.Service;
-using B2H.MaterialsList.Repository.Interfaces;
+using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
 
-namespace B2H.MaterialsList.Repository
+namespace B2H.MaterialsList.Infrastructure.Repository
 {
-	public class BreadcrumbAwareRepository(MaterialsListContext context) : IBreadcrumbAwareRepository
+    public class BreadcrumbAwareRepository(MaterialsListContext context) : IBreadcrumbAwareRepository
     {
         private readonly MaterialsListContext _context = context;
         public async Task<IEnumerable<ShortCategoryDto>> GetBreadcrumbCategory(Guid categoryId)

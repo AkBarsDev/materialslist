@@ -1,11 +1,11 @@
 ﻿using B2H.MaterialsList.Core.Models;
 using B2H.MaterialsList.Core.Service;
-using B2H.MaterialsList.Repository.Interfaces;
+using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace B2H.MaterialsList.Repository
+namespace B2H.MaterialsList.Infrastructure.Repository
 {
     public class MaterialImageRepository(MaterialsListContext context) : IMaterialImageRepository
     {

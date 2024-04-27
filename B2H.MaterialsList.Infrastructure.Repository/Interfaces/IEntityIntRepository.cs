@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace B2H.MaterialsList.Infrastructure.Repository.Interfaces
 {
-	internal interface IRepository<T> 
+	public interface IEntityIntRepository<T> 
 	{
 		public Task<IEnumerable<T>> GetAllAsync();
 		public Task<T> GetByIdAsync(int id);
-		public Task<T> UpdateAsync(int id, T material);
-		public Task<T> AddAsync(T materialImage);
-		public Task<bool> DeleteAsync(int id);
+		public Task UpdateAsync(T data);
+		public Task AddAsync(T data);
+		public Task DeleteAsync(int id);
 		public Task<IList<T>?> GetAllByFunc(Expression<Func<T, bool>> func);
 		public Task<T?> GetByFunc(Expression<Func<T, bool>> func);
 	}
