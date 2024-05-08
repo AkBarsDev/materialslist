@@ -111,7 +111,9 @@ namespace B2H.MaterialsList.Infrastructure.Repository
             try
             {
                 IEnumerable<Category> categories = await _context.CategoriesMaterials.AsNoTracking().Where(x => x.ParentId != null)
-                                        .ToListAsync();
+					                                                                                .Include(x => x.InverseParent)
+																			                            .ThenInclude(categories => categories.InverseParent).OrderBy(x => x.Name)
+										                                                            .ToListAsync();
                 return categories.ToCategories();
             }
             catch
