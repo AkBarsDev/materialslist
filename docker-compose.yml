@@ -20,12 +20,13 @@ services:
     image: ${DOCKER_REGISTRY-}materialslistbackend
     build: ../materialslist-backend
 
-
   materialslist-ui:
     container_name: ui
     image: ${DOCKER_REGISTRY-}materialslistui
     build: ../materialslist-ui
-
+    environment:
+    - URL_MATERIALSAPI = ${URL_MATERIALSAPI}
+    - URL_FILESAPI = ${URL_FILESAPI}
 
   materialslist-us:
     container_name: us
