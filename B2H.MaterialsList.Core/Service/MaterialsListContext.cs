@@ -27,10 +27,6 @@ public partial class MaterialsListContext : DbContext
 
 	public virtual DbSet<Material> Materials { get; set; }
 	public virtual DbSet<MaterialImage> MaterialImages { get; set; }
-
-	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		=> optionsBuilder.UseSqlServer("Name=ConnectionStrings:MSServerConnection");
-
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
 		modelBuilder.Entity<Category>(entity =>

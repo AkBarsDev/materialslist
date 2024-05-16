@@ -9,8 +9,6 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD= ${PASSWORD_MSDATABASE}
-      - URL_MATERIALSAPI = ${URL_MATERIALSAPI}
-      - URL_FILESAPI = ${URL_FILESAPI}
     expose:
      - "1433"
     ports:
@@ -26,25 +24,23 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - CONNECTINGSTRING=${MATERIALS_CONNECTINGSTRING}
     depends_on:
       - database
     ports:
       - "8090:8080"
-      - "8091:8081"
     restart: always
     networks:
       - back
       - front
-    volumes:
-      - ${USERS_SECRETS_WIND}:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
   materialslist-ui:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - URL_FILESAPI=${URL_FILESAPI}
+      - URL_MATERIALSAPI=${URL_MATERIALSAPI}
     depends_on:
       - materialslist-backend
       - materialslist-us
@@ -64,6 +60,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - SOURCE_STORAGE=/home/
+      - CONNECTINGSTRING=${FILEBASE_CONNECTINGSTRING}
     ports:
       - "8085:8080"
       - "8086:8081"
