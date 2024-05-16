@@ -3,19 +3,25 @@ version: '3.4'
 services:
   materialslist-backend:
     container_name: backend
-    image: ${DOCKER_REGISTRY-}materialslistbackend
-    build: ../materialslist-backend
+    image: materialslist/backend
+    build:
+      context: ..
+      dockerfile: materialslist-backend/Dockerfile
 
   materialslist-ui:
     container_name: ui
-    image: ${DOCKER_REGISTRY-}materialslistui
-    build: ../materialslist-ui
+    image: materialslist/ui
+    build:
+      context: ../materialslist-ui/
+      dockerfile: ../materialslist-ui/Dockerfile
 
 
   materialslist-us:
     container_name: us
-    image: ${DOCKER_REGISTRY-}materialslistus
-    build: ../materialslist-us
+    image: materialslist/us
+    build:
+      context: ..
+      dockerfile: materialslist-us/Dockerfile
 
   proxy:
     container_name: nginx
