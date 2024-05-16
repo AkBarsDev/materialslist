@@ -1,19 +1,5 @@
 version: '3.4'
-volumes:
-  db:
-    name: db
-    driver: local
-    driver_opts:
-      o: bind
-      type: volume
-      device: /mnt/c/Users/unist/Documents/WebMaterials/materialslist/database/
-  source:
-    name: source
-    driver: local
-    driver_opts:
-      o: bind 
-      type: volume
-      device: ./Source
+
 services:
   materialslist-backend:
     container_name: backend
@@ -24,12 +10,21 @@ services:
     container_name: ui
     image: ${DOCKER_REGISTRY-}materialslistui
     build: ../materialslist-ui
-    environment:
-    - URL_MATERIALSAPI = ${URL_MATERIALSAPI}
-    - URL_FILESAPI = ${URL_FILESAPI}
+
 
   materialslist-us:
     container_name: us
     image: ${DOCKER_REGISTRY-}materialslistus
     build: ../materialslist-us
 
+  proxy:
+    container_name: nginx
+    image: nginx:latest
+    depends_on:
+      - materialslist-ui
+  database:
+    container_name: "app-database"
+    hostname: database
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  
