@@ -6,7 +6,8 @@
       "serviceActions": {
         "materialslist-ui": "StartDebugging",
         "materialslist-backend": "StartDebugging",
-        "materialslist-us": "StartDebugging"
+        "materialslist-us": "StartDebugging",
+        "b2h.identityserver": "StartDebugging"
       }
     }
   }

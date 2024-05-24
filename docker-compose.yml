@@ -17,18 +17,39 @@ volumes:
 services:
   materialslist-backend:
     container_name: backend
-    image: ${DOCKER_REGISTRY-}materialslistbackend
-    build: ../materialslist-backend
-
+    image: b2h.cr.cloud.ru/materialslist/backend
+    build:
+      context: ..
+      dockerfile: materialslist-backend/Dockerfile
 
   materialslist-ui:
     container_name: ui
-    image: ${DOCKER_REGISTRY-}materialslistui
-    build: ../materialslist-ui
+    image: b2h.cr.cloud.ru/materialslist/ui:latest
+    build:
+      context: ../materialslist-ui/
+      dockerfile: ../materialslist-ui/Dockerfile
 
 
   materialslist-us:
     container_name: us
-    image: ${DOCKER_REGISTRY-}materialslistus
-    build: ../materialslist-us
+    image: b2h.cr.cloud.ru/materialslist/us
+    build:
+      context: ..
+      dockerfile: materialslist-us/Dockerfile
+
+  proxy:
+    container_name: nginx
+    image: nginx:latest
+    depends_on:
+      - materialslist-ui
+  database:
+    container_name: "app-database"
+    hostname: database
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  identityserver:
+    image: b2h.cr.cloud.ru/identityserver
+    build:
+      context: .
+      dockerfile: B2H.IdentityServer/Dockerfile
 
