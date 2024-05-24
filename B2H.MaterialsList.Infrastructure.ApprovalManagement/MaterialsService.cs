@@ -16,8 +16,13 @@ namespace B2H.MaterialsList.Core.ApprovalManagement
 		public MaterialDto CreateMaterials(MaterialDto materialDto)
 		{
 			var material = _materialRepository.CreateMaterialAsync(materialDto.ToMaterial()).Result;
+<<<<<<< Updated upstream
 			if (materialDto.Images != null && materialDto.Images?.Count() != 0)
 			{
+=======
+			if (materialDto.Images != null)
+            {
+>>>>>>> Stashed changes
 				foreach (var image in materialDto.Images)
 					_imageRepository.AddAsync(new MaterialImage { ImageId = image, MaterialId = material.MaterialId });
 			}
@@ -27,8 +32,15 @@ namespace B2H.MaterialsList.Core.ApprovalManagement
 
 		public async Task<MaterialDto> CreateMaterialsAsync(MaterialDto materialDto)
 		{
-			return (await _materialRepository.CreateMaterialAsync(materialDto.ToMaterial())).ToMaterialDto();
-		}
+            var material = await _materialRepository.CreateMaterialAsync(materialDto.ToMaterial());
+            if (materialDto.Images != null)
+            {
+                foreach (var image in materialDto.Images)
+                    await _imageRepository.AddAsync(new MaterialImage { ImageId = image, MaterialId = material.MaterialId });
+            }
+            materialDto.MaterialId = material.MaterialId;
+            return materialDto;
+        }
 		public MaterialDto UpdateMaterials(MaterialDto materialDto)
 		{
 			Material material = _materialRepository.GetMaterialByIdAsync(materialDto.MaterialId).Result;
