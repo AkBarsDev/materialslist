@@ -1,38 +1,27 @@
-version: '3.4'
-volumes:
-  db:
-    name: db
-    driver: local
-    driver_opts:
-      o: bind
-      type: volume
-      device: /mnt/c/Users/unist/Documents/WebMaterials/materialslist/database/
-  source:
-    name: source
-    driver: local
-    driver_opts:
-      o: bind 
-      type: volume
-      device: ./Source
+
 services:
   materialslist-backend:
     container_name: backend
-    image: b2h.cr.cloud.ru/materialslist/backend
+    image: b2h.cr.cloud.ru/materialslist/backend:test
+    depends_on:
+      - database
     build:
       context: ..
       dockerfile: materialslist-backend/Dockerfile
 
   materialslist-ui:
     container_name: ui
-    image: b2h.cr.cloud.ru/materialslist/ui:latest
+    image: b2h.cr.cloud.ru/materialslist/ui:test
+    depends_on:
+      - materialslist-backend
+      - materialslist-us
     build:
       context: ../materialslist-ui/
       dockerfile: ../materialslist-ui/Dockerfile
 
-
   materialslist-us:
     container_name: us
-    image: b2h.cr.cloud.ru/materialslist/us
+    image: b2h.cr.cloud.ru/materialslist/us:test
     build:
       context: ..
       dockerfile: materialslist-us/Dockerfile
@@ -42,14 +31,15 @@ services:
     image: nginx:latest
     depends_on:
       - materialslist-ui
+  
   database:
     container_name: "app-database"
     hostname: database
     image: mcr.microsoft.com/mssql/server:2019-latest
 
   identityserver:
-    image: b2h.cr.cloud.ru/identityserver
+    container_name: "identityserver"
+    image: b2h.cr.cloud.ru/identityserver:test
     build:
       context: .
       dockerfile: B2H.IdentityServer/Dockerfile
-

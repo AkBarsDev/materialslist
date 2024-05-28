@@ -18,7 +18,6 @@ internal static class HostingExtensions
             .AddInMemoryApiScopes(Config.ApiScopes)
             .AddInMemoryClients(Config.Clients)
             .AddTestUsers(TestUsers.Users);
-
         return builder.Build();
     }
     
@@ -30,7 +29,6 @@ internal static class HostingExtensions
         {
             app.UseDeveloperExceptionPage();
         }
-
         //uncomment if you want to add a UI
         app.UseStaticFiles();
         app.UseRouting();
@@ -39,6 +37,9 @@ internal static class HostingExtensions
 
         //uncomment if you want to add a UI
         app.UseAuthorization();
+        app.MapControllerRoute(
+        name: "default",
+        pattern: "identity/{controller=Home}/{action=Index}/{id?}");
         app.MapRazorPages().RequireAuthorization();
 
         return app;

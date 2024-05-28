@@ -16,13 +16,8 @@ namespace B2H.MaterialsList.Core.ApprovalManagement
 		public MaterialDto CreateMaterials(MaterialDto materialDto)
 		{
 			var material = _materialRepository.CreateMaterialAsync(materialDto.ToMaterial()).Result;
-<<<<<<< Updated upstream
-			if (materialDto.Images != null && materialDto.Images?.Count() != 0)
-			{
-=======
 			if (materialDto.Images != null)
             {
->>>>>>> Stashed changes
 				foreach (var image in materialDto.Images)
 					_imageRepository.AddAsync(new MaterialImage { ImageId = image, MaterialId = material.MaterialId });
 			}

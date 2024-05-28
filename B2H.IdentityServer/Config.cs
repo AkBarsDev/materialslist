@@ -1,4 +1,6 @@
-﻿using Duende.IdentityServer.Models;
+﻿using Duende.IdentityServer;
+using Duende.IdentityServer.Models;
+using IdentityModel;
 
 namespace B2H.IdentityServer;
 
@@ -7,7 +9,16 @@ public static class Config
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
         { 
-            new IdentityResources.OpenId()
+            new IdentityResources.OpenId(),
+            new IdentityResource()
+            {
+                Name = "verification",
+                UserClaims = new List<string>
+                {
+                    JwtClaimTypes.Email,
+                    JwtClaimTypes.EmailVerified
+                }
+            }
         };
 
     public static IEnumerable<ApiScope> ApiScopes =>
@@ -33,6 +44,26 @@ public static class Config
 
             // scopes that client has access to
             AllowedScopes = { "m-backend" }
+        },
+         new Client
+        {
+            ClientId = "web",
+            ClientSecrets = { new Secret("b2hSecret".Sha256()) },
+
+            AllowedGrantTypes = GrantTypes.Code,
+            
+            // where to redirect to after login
+            RedirectUris = { $"{Environment.GetEnvironmentVariable("URL_GLOBALUI")}/signin-oidc" },
+
+            // where to redirect to after logout
+            PostLogoutRedirectUris = { $"{Environment.GetEnvironmentVariable("URL_GLOBALUI")}/signout-callback-oidc" },
+
+            AllowedScopes =
+            {
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Profile,
+                "verification"
+            }
         }
     };
 

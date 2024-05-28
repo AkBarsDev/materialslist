@@ -17,6 +17,8 @@ RUN dotnet build "./B2H.IdentityServer.csproj" -c $BUILD_CONFIGURATION -o /app/b
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
+#RUN dotnet tool update -g linux-dev-certs 
+#RUN dotnet linux-dev-certs install
 RUN dotnet publish "./B2H.IdentityServer.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
