@@ -62,7 +62,6 @@ services:
   proxy:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - is-www:/etc/nginx/is-www/
       - ui-www:/etc/nginx/ui-www/
     restart: always
     ports:

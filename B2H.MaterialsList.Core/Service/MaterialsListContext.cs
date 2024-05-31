@@ -15,6 +15,7 @@ public partial class MaterialsListContext : DbContext
 	public MaterialsListContext(DbContextOptions<MaterialsListContext> options)
 		: base(options)
 	{
+		Database.Migrate();
 	}
 
 	public virtual DbSet<Category> CategoriesMaterials { get; set; }
