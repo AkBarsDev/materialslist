@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using B2H.MaterialsList.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
+using Serilog;
 
 namespace B2H.MaterialsList.Core.Service;
 
@@ -15,7 +16,15 @@ public partial class MaterialsListContext : DbContext
 	public MaterialsListContext(DbContextOptions<MaterialsListContext> options)
 		: base(options)
 	{
-		Database.Migrate();
+		try
+		{
+			Database.Migrate();
+
+		}
+		catch (Exception ex)
+		{
+			Log.Write(Serilog.Events.LogEventLevel.Error,ex.Message);
+		}
 	}
 
 	public virtual DbSet<Category> CategoriesMaterials { get; set; }
