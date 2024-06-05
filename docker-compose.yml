@@ -37,6 +37,9 @@ services:
     hostname: database
     image: mcr.microsoft.com/mssql/server:2019-latest
 
+  seq:
+    container_name: serilog
+    image: datalust/seq
   # identityserver:
   #   container_name: "identityserver"
   #   image: b2h.cr.cloud.ru/identityserver:test

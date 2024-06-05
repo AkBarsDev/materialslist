@@ -87,6 +87,15 @@ services:
     volumes:
        - ./database:/var/opt/mssql/data
 
+  seq:
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 82:80
+      - 5341:5341 
+    restart: unless-stopped
+    networks:
+      - back
   # identityserver:
     # environment:
     #   - ASPNETCORE_ENVIRONMENT=Development
