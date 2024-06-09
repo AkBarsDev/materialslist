@@ -1,0 +1,6 @@
+@materialslist_us_HostAddress = http://localhost:5101
+
+GET {{materialslist_us_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

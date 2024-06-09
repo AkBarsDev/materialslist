@@ -2,13 +2,13 @@
 {
     public partial class AuthUserDto
     {
-        public AuthUserDto(Guid GuId, string Name, string Mail, string Role, string AccessToken)
+        public AuthUserDto(Guid guId, string name, string mail, string role, string accessToken)
         {
-            GuId = GuId;
-            Name = Name;
-            Mail = Mail;
-            Role = Role;
-            AccessToken = AccessToken;
+            GuId = guId;
+            Name = name;
+            Mail = mail;
+            Role = role;
+            AccessToken = accessToken;
         }
 
         public Guid GuId { get; set; }
