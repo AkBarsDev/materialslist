@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <RootNamespace>B2H.MaterialsList.API</RootNamespace>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\materialslist</DockerfileContext>
+    <DockerComposeProjectPath>..\materialslist\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>49ce903b-d7d8-4b49-a192-328e1c2780a8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="database\**" />
+    <Content Remove="database\**" />
+    <EmbeddedResource Remove="database\**" />
+    <None Remove="database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="Azure.Identity" Version="1.11.2" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
+    <!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.0" />-->
+    <!--<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\materialslist\B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj" />
+    <ProjectReference Include="..\materialslist\B2H.MaterialsList.Core.Mapper\B2H.MaterialsList.Core.Mapper.csproj" />
+    <ProjectReference Include="..\materialslist\B2H.MaterialsList.Core\B2H.MaterialsList.Core.csproj" />
+    <ProjectReference Include="..\materialslist\B2H.MaterialsList.Infrastructure.ApprovalManagement\B2H.MaterialsList.Infrastructure.ApprovalManagement.csproj">
+      <Private>True</Private>
+      <CopyLocalSatelliteAssemblies>True</CopyLocalSatelliteAssemblies>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <ReferenceOutputAssembly>True</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\materialslist\B2H.MaterialsList.Infrastructure.Repository\B2H.MaterialsList.Infrastructure.Repository.csproj" />
+  </ItemGroup>
+
+</Project>
