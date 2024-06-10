@@ -95,6 +95,7 @@ services:
       - 5341:5341 
     restart: unless-stopped
     networks:
+      - front
       - back
   # identityserver:
     # environment:
