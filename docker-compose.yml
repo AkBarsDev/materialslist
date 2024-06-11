@@ -7,7 +7,7 @@ services:
       - database
     build:
       # context: ..
-      dockerfile: ../materialslist-backend/Dockerfile
+      dockerfile: ./B2H.MaterialsList.API/Dockerfile
 
   materialslist-ui:
     container_name: ui
@@ -24,7 +24,7 @@ services:
     image: b2h.cr.cloud.ru/materialslist/us:test
     build:
       # context: ..
-      dockerfile: ../materialslist-us/Dockerfile
+      dockerfile: ./B2H.MaterialsList.API.WebStorage/Dockerfile
 
   proxy:
     container_name: nginx

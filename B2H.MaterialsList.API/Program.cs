@@ -2,9 +2,11 @@
 using B2H.MaterialsList.API;
 using Serilog;
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
+	.MinimumLevel.Information()
+	.Enrich.WithProperty("Application", "Backend")
+	.WriteTo.Console()
 	.WriteTo.Seq("http://seq:5341")
-	.CreateBootstrapLogger();
+	.CreateLogger();
 
 Log.Information("Starting up");
 try

@@ -5,10 +5,12 @@ using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using B2H.MaterialsList.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Serilog;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using B2H.MaterialsList.Core.Models;
 
 namespace B2H.MaterialsList.API
 {
@@ -17,11 +19,17 @@ namespace B2H.MaterialsList.API
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddCors();
-            if (Environment.GetEnvironmentVariable("CONNECTINGSTRING") != null)
-                builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTINGSTRING")));
-            else
-                builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("MSServerConnection")));
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(
+                                                                        Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
+																	    builder.Configuration.GetConnectionString("MSServerConnection") ??
+                                                                        string.Empty));
+			builder.Services.AddDbContext<IdentityContext>(option => option.UseSqlServer(
+															Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
+															builder.Configuration.GetConnectionString("MSServerConnection") ??
+															string.Empty));
+			builder.Services.AddIdentity<B2HUser, B2HRole>(options => options.SignIn.RequireConfirmedAccount = true)
+		        .AddEntityFrameworkStores<IdentityContext>();
+			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = true;
@@ -55,7 +63,10 @@ namespace B2H.MaterialsList.API
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            return builder.Build();
+            // Serilog
+			builder.Services.AddSerilog(Log.Logger);
+
+			return builder.Build();
         }
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
@@ -72,8 +83,7 @@ namespace B2H.MaterialsList.API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
-            app.MapControllers();
+			app.MapControllers();
             return app;
         }
         public class AuthOptions

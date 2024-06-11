@@ -9,10 +9,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["materialslist-us/B2H.MaterialsList.API.WebStorage.csproj", "materialslist-us/"]
-RUN dotnet restore "./materialslist-us/./B2H.MaterialsList.API.WebStorage.csproj"
+COPY ["B2H.MaterialsList.API.WebStorage.csproj", "."]
+RUN dotnet restore "./././B2H.MaterialsList.API.WebStorage.csproj"
 COPY . .
-WORKDIR "/src/materialslist-us"
+WORKDIR "/src/."
 RUN dotnet build "./B2H.MaterialsList.API.WebStorage.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
