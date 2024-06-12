@@ -59,12 +59,13 @@ namespace B2H.MaterialsList.API.Controller
             Response.Result = new AuthUserDto(Guid.NewGuid(), person.Email, "guest", "Guest" , encodedJwt);
             return Response;
         }
-		[HttpGet("Register")]
-		public async Task<object> RegisterUser(AuthRequest person)
+
+		[HttpPost("registration")]
+		public async Task<object> registrationUser(AuthRequest person)
         {
-            
             var result = _userManager.CreateAsync(new B2HUser { UserName = person.UserName, Email = person.Email }, person.Password);
-            return _context.Users.Find(person.Email);
+            Response.Result = _context.Users.Find(person.Email);
+            return Response;
         }
     }
     public class AuthRequest
