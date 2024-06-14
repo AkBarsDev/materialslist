@@ -2,7 +2,7 @@
 services:
   materialslist-backend:
     container_name: backend
-    image: b2h.cr.cloud.ru/materialslist/backend:test
+    image: b2h.cr.cloud.ru/materialslist/backend:latest
     depends_on:
       - database
     build:
@@ -11,7 +11,7 @@ services:
 
   materialslist-ui:
     container_name: ui
-    image: b2h.cr.cloud.ru/materialslist/ui:test
+    image: b2h.cr.cloud.ru/materialslist/ui:latest
     depends_on:
       - materialslist-backend
       - materialslist-us
@@ -21,7 +21,7 @@ services:
 
   materialslist-us:
     container_name: us
-    image: b2h.cr.cloud.ru/materialslist/us:test
+    image: b2h.cr.cloud.ru/materialslist/us:latest
     build:
       context: .
       dockerfile: ./B2H.MaterialsList.API.WebStorage/Dockerfile
