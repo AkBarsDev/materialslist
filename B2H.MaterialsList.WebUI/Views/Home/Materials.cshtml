@@ -1,0 +1,128 @@
+﻿@using MaterialsList.Frontend.Models.Dto
+@model ViewModel<List<ShortMaterialDto>,ShortCategoryDto>
+@{
+	ViewData["Title"] = "Каталог материалов";
+	Layout = "/Views/Shared/_LayoutWithSearch.cshtml";
+	List<ShortMaterialDto> items = (List<ShortMaterialDto>)Model.ViewObject;
+	var crumbs = Model.ViewBreadCrumbs;
+	string searchTitle = ViewBag.SearchTitle;
+	string searchRequest = ViewBag.SearchRequest;
+
+}
+<script src="~/js/jquery-1.10.2.min.js" asp-append-version="true"></script>
+
+
+<div class="container" >
+	<div class="breadcrumps">
+		@{
+											@try
+			{
+												@if (crumbs != null)
+				{
+													<span class="light-15">
+														<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
+														<span class="light-15"> > </span>
+														@for (int i = 1; i < crumbs.Count; i++)
+						{
+							Guid crumbId = crumbs[i].Id;
+							string title = crumbs[i].Name;
+							List<string> bag = ViewBag.BreadCrumbs;
+															<a class="bread-crumbs" href="@Url.Action("Categories", "Home", new { parentId = crumbId })">@title</a>
+															@if (i != (crumbs.Count - 1))
+							{
+																<span class="light-15"> > </span>
+							}
+						}
+													</span>
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+												<span class="light-15">ex.ToString()</span>
+			}
+		}
+		
+	</div>
+	@if (@searchTitle != "")
+	{
+		<a class="light-15" href=@searchRequest>Вернуться к результатам поиска (@searchTitle)</a>
+	}
+</div>
+<section id="table">
+	<div class="container">
+		<div class="table">
+			<table>
+				<tr>
+					<th class="name">Наименование</th>
+					<th class="date">Дата изменения</th>
+					<th class="download">Скачать</th>
+				</tr>
+				@if (items != null)
+				{
+					@foreach (var item in items)
+					{
+						<tr>
+							<td class="name"><a href="@Url.Action("MaterialCard", "Material", new { materialId = @item.Id })">@item.Name</a></td>
+							@if (item.UpdateAt != null)
+							{
+								<td class="date">@item.UpdateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</td>
+							}
+							@if (item.UpdateAt == null)
+							{
+								<td class="date">@item.CreateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</td>
+							}
+							@if (item.UpdateAt == null && item.CreateAt == null)
+							{
+								<td class="date">—</td>
+							}
+							@if (item.FileId != null)
+							{
+								var apiUrl = "/api/download/materials/" + @item.FileId;
+								string apiUrlStr = String.Format("downloadFile(\"{0}\")",apiUrl);
+								<td class="download">
+									@* <button id="downloadFromList" value="Save" onclick=@apiUrlStr></button> *@
+									<form asp-action="Download" asp-route-Url=@apiUrl><button></button></form>
+									@* @Html.RouteLink("Скачать", new { controller = "Home", action = "Download", Url = apiUrl }, new { id = "downloadFromList" }) *@
+								</td>
+							}
+						</tr>
+					}
+				}
+				@if (Model == null)
+				{
+					<td class="name">Ошибка</td>
+				}
+
+			</table>
+		</div>
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+					<div class="switcher2">
+						<div class="switcher-item">
+							<input id="radio-1" type="radio" name="radio" value="20" onchange="pagination(20)" checked>
+							<label for="radio-1">20</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-2" type="radio" name="radio" value="50" onchange="pagination(50)">
+							<label for="radio-2">50</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+							<label for="radio-3">100</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		pagination(20);
+	</script>
+</section>

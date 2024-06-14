@@ -1,0 +1,39 @@
+﻿@{
+	ViewBag.Title = "Авторизация";
+	Layout = "/Views/Shared/_LayoutAuth.cshtml";
+	
+}
+@model MaterialsList.Frontend.Models.Views.LoginModel
+<section id="nav-bar">
+	<div class="container">
+		<div id="nav-bar-div" class="nav-bar">
+		</div>
+	</div>
+</section>
+<section id="">
+	<div class="container">
+		<div class="card-auth-flex">
+			<div class="card-auth">
+				<div style="display: flex; align-items: center; flex-wrap: wrap;"><h1 style="margin-bottom: 30px;">Авторизация</h1></div>
+				<form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="auth">
+					<div class="validation" asp-validation-summary="ModelOnly"></div>
+					<div>
+						<div class="input-div">
+							<label asp-for="Email" class=" medium-18">E-mail</label>
+							<input asp-for="Email" class="auth-input" type="email">
+							<span asp-validation-for="Email" />
+						</div>
+						<div class="input-div">
+							<label asp-for="Password" class="medium-18">Пароль</label>
+							<input asp-for="Password" class="auth-input" type="password">
+							<span asp-validation-for="Password" />
+						</div>
+						<div class="card-head auth">
+							<input type="submit" value="Войти" class="btn" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div></div>
+</section>

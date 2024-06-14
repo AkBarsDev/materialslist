@@ -16,8 +16,8 @@ services:
       - materialslist-backend
       - materialslist-us
     build:
-      context: ../materialslist-ui/
-      dockerfile: ../materialslist-ui/Dockerfile
+      # context: ..
+      dockerfile: ./B2H.MaterialsList.WebUI/Dockerfile
 
   materialslist-us:
     container_name: us

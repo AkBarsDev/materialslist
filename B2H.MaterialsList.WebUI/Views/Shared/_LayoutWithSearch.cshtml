@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<section id="nav-bar">
+			<div class="container">
+				<div id="nav-bar-div" class="nav-bar">
+					<div class="nav-bar-item">
+						<button id="logo" onclick="window.location.href='@Url.Action("Main", "Home")';"></button>
+					</div>
+					<div class="nav-bar-item menu-centering">
+						<div style="padding-left: 280px;">
+							<button class="menu-button"></button>
+						</div>
+						<div class="links">
+							<nav>
+								<ul class="menu">
+									<li class="links-item">
+										<a id="mybutton" asp-action="Download" asp-route-Url="/api/download/requirements" class="regular-20">Требования к BIM</a>
+									</li>
+									<li class="links-item">
+										<a href="" class="regular-20">Ссылка на базу семейств</a>
+									</li>
+									<li class="links-item">
+										<a id="mybutton" asp-action="Download" asp-route-Url="/api/download/tamplates" class="regular-20">Скачать шаблоны</a>
+									</li>
+									<li class="links-item" style="margin-right:0; margin-left:0; line-height: normal;">
+										<a href="@Url.Action("UserPage", "User")" class="userLk medium-20 hidden">Личный кабинет</a>
+									</li>
+									<li class="links-item" style="margin-right:0; margin-left: 0;">
+										<a class="regular-20" style="line-height: 0; "></a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="userLkLarge nav-bar-item">
+						<a href="@Url.Action("UserPage", "User")" class="medium-20">Личный кабинет</a>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="search">
+			<div class="container">
+				<div class="search-title">
+					<h1>Поиск по каталогу</h1>
+					<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
+					<button onclick="">Библиотека моделей</button>
+				</div>
+				<form asp-action="SearchMaterial">
+					<input name="request" type="text" placeholder="Введите название материала"/>
+					<button type="submit" class="search"></button>
+				</form>
+			</div>
+		</section>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+			<div>
+				<alert>
+				</alert>
+			</div>
+		</main>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+			integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+			crossorigin="anonymous">
+	</script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

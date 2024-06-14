@@ -1,0 +1,104 @@
+﻿@model List<MaterialsList.Frontend.Models.Dto.ShortCategoryDto>
+@{
+	ViewData["Title"] = "Результаты поиска";
+	Layout = "/Views/Shared/_Layout.cshtml";
+	string request = ViewBag.SearchRequest;
+	string title = ViewBag.SearchTitle;
+}
+<div class="container">
+	<section id="search">
+		<div class="container">
+			<div class="search-title">
+				<h1>Поиск по каталогу</h1>
+				<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
+				<button onclick="">Библиотека моделей</button>
+			</div>
+			<form asp-action="SearchCategory">
+				<input name="request" type="text" placeholder="Введите название категории" value=@title />
+				<button type="submit" class="search"></button>
+			</form>
+		</div>
+		<div class="breadcrumps" style="display: flex; flex-direction:row; justify-content:space-between; align-content: center;">
+			<span class="light-15">
+				<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
+				<span class="light-15"> > </span>
+				<a class="bread-crumbs" href="@request">Результаты поиска "@title"</a>
+			</span>
+			<form id="radio-form">
+				<div class="switcher3">
+					<div class="switcher-item">
+						<input id="radio-1" type="radio" name="radio" onchange="window.location.href ='@Url.Action("SearchMaterial", "Home", new { request = @title })';" >
+						<label for="radio-1">Материалы</label>
+					</div>
+					<div class="switcher-item">
+						<input id="radio-2" type="radio" name="radio" onchange="window.location.href ='@Url.Action("SearchCategory", "Home", new { request = @title })';" checked>
+						<label for="radio-2">Категории</label>
+					</div>
+				</div>
+			</form>
+		</div>
+	</section>
+</div>
+<section id="table">
+	<div class="container">
+		<div class="table">
+			<table>
+				<tr>
+					<th class="name">Наименование</th>
+					<th class="count">Кол-во элементов</th>
+				</tr>
+				@if (Model != null)
+				{
+					@foreach (var item in Model)
+					{
+						<tr>
+							@if (@item.CategoryCount == 0)
+							{
+								<td class="name"><a href="@Url.Action("Materials", "Home", new { categoryId = @item.Id, searchTitle = @title, searchRequest= @request  })">@item.Name</a></td>
+								<td class="count">@item.MaterialCount</td>
+							}
+							@if (@item.CategoryCount != 0)
+							{
+								<td class="name"><a href="@Url.Action("Categories", "Home", new { parentId = @item.Id, searchTitle = @title, searchRequest= @request  })">@item.Name</a></td>
+								<td class="count">@item.CategoryCount</td>
+							}
+						</tr>
+					}
+				}
+				@if (Model == null)
+				{
+					<td class="name">Ничего не найдено</td>
+				}
+			</table>
+		</div>
+		
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+					<div class="switcher2">
+						<div class="switcher-item">
+							<input id="radio-1" type="radio" name="radio" value="20" onchange="pagination(20)" checked>
+							<label for="radio-1">20</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-2" type="radio" name="radio" value="50" onchange="pagination(50)">
+							<label for="radio-2">50</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+							<label for="radio-3">100</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		pagination(20);
+	</script>
+</section>
+

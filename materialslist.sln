@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{07
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{47427F78-2C97-46A8-94EE-27A0604A5FAC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "materialslist-ui", "..\materialslist-ui\materialslist-ui.csproj", "{5AFF434C-1ED2-4194-8D8A-D775D43AA355}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F680973F-1E54-490D-AD00-9B36044C9436}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.DataTransfer", "B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj", "{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}"
@@ -25,16 +23,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API", "B2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.WebStorage", "B2H.MaterialsList.API.WebStorage\B2H.MaterialsList.API.WebStorage.csproj", "{09986181-0CB9-48C9-858B-4BCFE546C6C4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.WebUI", "B2H.MaterialsList.WebUI\B2H.MaterialsList.WebUI.csproj", "{49FEB365-798A-4210-8D3F-9C0F7995339F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5AFF434C-1ED2-4194-8D8A-D775D43AA355}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AFF434C-1ED2-4194-8D8A-D775D43AA355}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AFF434C-1ED2-4194-8D8A-D775D43AA355}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AFF434C-1ED2-4194-8D8A-D775D43AA355}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F680973F-1E54-490D-AD00-9B36044C9436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F680973F-1E54-490D-AD00-9B36044C9436}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F680973F-1E54-490D-AD00-9B36044C9436}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,12 +63,15 @@ Global
 		{09986181-0CB9-48C9-858B-4BCFE546C6C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09986181-0CB9-48C9-858B-4BCFE546C6C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09986181-0CB9-48C9-858B-4BCFE546C6C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5AFF434C-1ED2-4194-8D8A-D775D43AA355} = {0755C788-72E4-473E-B495-EDC692D6C396}
 		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 		{CD427EE4-21BC-4392-B28B-6705D698C0C2} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 		{A1AEA5D3-B854-497D-BDBB-E69E9D98F8C8} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
@@ -80,6 +79,7 @@ Global
 		{85031A8C-5B42-47B8-9D4C-2086BF932838} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 		{1E513889-499E-4995-9118-9F438E1183B0} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
 		{09986181-0CB9-48C9-858B-4BCFE546C6C4} = {47427F78-2C97-46A8-94EE-27A0604A5FAC}
+		{49FEB365-798A-4210-8D3F-9C0F7995339F} = {0755C788-72E4-473E-B495-EDC692D6C396}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D7ED8AA3-1DC8-40BE-AE81-20216921A11F}

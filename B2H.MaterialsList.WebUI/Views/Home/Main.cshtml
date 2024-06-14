@@ -1,0 +1,68 @@
+﻿@{
+	ViewData["Title"] = "Главная";
+	Layout = "/Views/Shared/_LayoutHomePage.cshtml";
+}
+
+
+<div class="container">
+	<div class="banner-container"></div>
+</div>
+<div class="container">
+	<br>
+	<h1 class="user-heading" style="margin: 20px;">Каталог</h1>
+	<section class="menu-board" id="menu-board">
+		<div class="menu-board-card">
+			<img class="menu-board-card" src="/images/icon_classificator.svg" alt="">
+			<p class="regular-20"><a href="@Url.Action("Index", "Home")">Классификаторы материалов</a></p>
+			<p class="light-15"><a href="@Url.Action("Create", "Material")">Создать материал</a></p>
+			<p class="light-15"><a href="@Url.Action("Agreement", "Material")">Согласование материала</a></p>
+			<span class="bottom-span"><a href="@Url.Action("Index", "Home")">Еще</a></span>
+		</div>
+		<div class="menu-board-card">
+			<img class="menu-board-card" src="/images/dashboard.svg" alt="">
+			<p class="regular-20">Аналитика<br>(Dashboard)</p>
+			<p class="light-15"><a href="https://pbi.abdev.ru/reports/powerbi/BIM%20%D0%90%D0%91%D0%94/%D0%94%D0%B0%D1%88%D0%B1%D0%BE%D1%80%D0%B4%20%D0%BF%D0%BE%20BIM%20%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D1%8F%D0%BC">Ссылка на ресурс</a></p>
+			<span class="bottom-span">Еще</span>
+		</div>
+		<div class="menu-board-card">
+			<img class="menu-board-card" src="/images/treb.svg" alt="">
+			<p class="regular-20"><a href="@Url.Action("Requirements", "Requirements")">Требования к BIM разработке</a></p>
+			<p class="light-15"><a href="#" class="document-link" data-controller="Requirements" data-action="Document1">Общие сведения</a></p>
+			<p class="light-15"><a href="#" class="document-link" data-controller="Requirements" data-action="Document2">План реализации проекта</a></p>
+			<p class="light-15"><a href="#" class="document-link" data-controller="Requirements" data-action="Document3">Требования к документам</a></p>
+			<span class="bottom-span"><a href="@Url.Action("Requirements", "Requirements")">Еще</a></span>
+		</div>
+		<div class="menu-board-card">
+			<img class="menu-board-card" src="/images/baza.svg" alt="">
+			<p class="regular-20">База Знаний</p>
+			<p class="light-15">Лента</p>
+			<p class="light-15">Категории</p>
+			<p class="light-15">Авторы</p>
+			<span class="bottom-span">Еще</span>
+		</div>
+		<div class="menu-board-card">
+			<img class="menu-board-card" src="/images/ssylki.svg" alt="">
+			<p class="regular-20">Документы и полезные ресурсы</p>
+			<p class="light-15">Документация</p>
+			<p class="light-15">Полезные ссылки и ресурсы</p>
+			<span class="bottom-span">Еще</span>
+		</div>
+	</section>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+		const documentLinks = document.querySelectorAll('.document-link');
+
+		documentLinks.forEach(link => {
+			link.addEventListener('click', (e) => {
+				e.preventDefault();
+				const controller = e.target.getAttribute('data-controller');
+				const action = e.target.getAttribute('data-action');
+				const url = new URL('@Url.Action("Requirements", "Requirements")', window.location.origin);
+				url.searchParams.set('controller', controller);
+				url.searchParams.set('action', action);
+				window.location.href = url.toString();
+			});
+		});
+	});
+</script>
