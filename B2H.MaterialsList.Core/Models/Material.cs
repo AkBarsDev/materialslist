@@ -20,9 +20,9 @@ public partial class Material
 
     public string? Specifications { get; set; }
 
-    public DateTime? UpdateAt { get; set; }
+    public DateTime UpdateAt { get; set; }
 
-    public DateTime? CreateAt { get; set; }
+    public DateTime CreateAt { get; set; }
 
     public int? FileId { get; set; }
     public IList<int>? MaterialImagesIds { get; set; }

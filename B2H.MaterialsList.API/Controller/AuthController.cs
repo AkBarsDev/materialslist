@@ -26,9 +26,9 @@ namespace B2H.MaterialsList.API.Controller
         };
         UserManager<B2HUser> _userManager;
         RoleManager<B2HRole> _roleManager;
-        IdentityContext _context;
+        B2HMaterialsIdentityContext _context;
 
-		public AuthController(UserManager<B2HUser> userManager, RoleManager<B2HRole> roleManager, IdentityContext context)
+		public AuthController(UserManager<B2HUser> userManager, RoleManager<B2HRole> roleManager, B2HMaterialsIdentityContext context)
 		{
 			_userManager = userManager;
 			_roleManager = roleManager;
