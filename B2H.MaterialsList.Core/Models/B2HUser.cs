@@ -4,40 +4,40 @@ namespace B2H.MaterialsList.Core.Models
 {
 	public class B2HUser : IdentityUser
 	{
-		public virtual ICollection<ApplicationUserClaim> Claims { get; set; }
-		public virtual ICollection<ApplicationUserLogin> Logins { get; set; }
-		public virtual ICollection<ApplicationUserToken> Tokens { get; set; }
-		public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+		public virtual ICollection<B2HUserClaim> Claims { get; set; }
+		public virtual ICollection<B2HUserLogin> Logins { get; set; }
+		public virtual ICollection<B2HUserToken> Tokens { get; set; }
+		public virtual ICollection<B2HUserRole> UserRoles { get; set; }
 	}
 
 	public class B2HRole : IdentityRole
 	{
-		public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
-		public virtual ICollection<ApplicationRoleClaim> RoleClaims { get; set; }
+		public virtual ICollection<B2HUserRole> UserRoles { get; set; }
+		public virtual ICollection<B2HRoleClaim> RoleClaims { get; set; }
 	}
 
-	public class ApplicationUserRole : IdentityUserRole<string>
+	public class B2HUserRole : IdentityUserRole<string>
 	{
 		public virtual B2HUser User { get; set; }
 		public virtual B2HRole Role { get; set; }
 	}
 
-	public class ApplicationUserClaim : IdentityUserClaim<string>
+	public class B2HUserClaim : IdentityUserClaim<string>
 	{
 		public virtual B2HUser User { get; set; }
 	}
 
-	public class ApplicationUserLogin : IdentityUserLogin<string>
+	public class B2HUserLogin : IdentityUserLogin<string>
 	{
 		public virtual B2HUser User { get; set; }
 	}
 
-	public class ApplicationRoleClaim : IdentityRoleClaim<string>
+	public class B2HRoleClaim : IdentityRoleClaim<string>
 	{
 		public virtual B2HRole Role { get; set; }
 	}
 
-	public class ApplicationUserToken : IdentityUserToken<string>
+	public class B2HUserToken : IdentityUserToken<string>
 	{
 		public virtual B2HUser User { get; set; }
 	}

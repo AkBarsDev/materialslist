@@ -11,6 +11,7 @@ using Serilog;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using B2H.MaterialsList.Core.Models;
+using Microsoft.Extensions.Options;
 
 namespace B2H.MaterialsList.API
 {
@@ -19,16 +20,15 @@ namespace B2H.MaterialsList.API
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddCors();
-            builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(
+            builder.Services.AddDbContextFactory<MaterialsListContext>(option => option.UseSqlServer(
                                                                         Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
 																	    builder.Configuration.GetConnectionString("MSServerConnection") ??
                                                                         string.Empty));
-			builder.Services.AddDbContext<IdentityContext>(option => option.UseSqlServer(
-															Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
-															builder.Configuration.GetConnectionString("MSServerConnection") ??
-															string.Empty));
+			builder.Services.AddDbContextFactory<B2HMaterialsIdentityContext>(option => option.UseNpgsql(
+                                                                        Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING")));
+
 			builder.Services.AddIdentity<B2HUser, B2HRole>(options => options.SignIn.RequireConfirmedAccount = true)
-		        .AddEntityFrameworkStores<IdentityContext>();
+		        .AddEntityFrameworkStores<B2HMaterialsIdentityContext>();
 			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(x =>
             {

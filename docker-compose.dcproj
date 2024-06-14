@@ -17,6 +17,7 @@
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
     <None Include="nginx\nginx.conf" />
+    <None Include="pgdata\postgresql.conf" />
     <None Include="Source\Materials\Files\Свая металлическая.rfa" />
     <None Include="Source\Materials\Images\ecdff7ff25b6a1c6091f430c8496a6f8.jpeg" />
     <None Include="Source\Requrements\Приложение №3 - Таблица LOD и LOI.xlsx" />
