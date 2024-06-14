@@ -6,7 +6,7 @@ services:
     depends_on:
       - database
     build:
-      # context: ..
+      context: .
       dockerfile: ./B2H.MaterialsList.API/Dockerfile
 
   materialslist-ui:
@@ -16,14 +16,14 @@ services:
       - materialslist-backend
       - materialslist-us
     build:
-      # context: ..
+      context: .
       dockerfile: ./B2H.MaterialsList.WebUI/Dockerfile
 
   materialslist-us:
     container_name: us
     image: b2h.cr.cloud.ru/materialslist/us:test
     build:
-      # context: ..
+      context: .
       dockerfile: ./B2H.MaterialsList.API.WebStorage/Dockerfile
 
   proxy:
