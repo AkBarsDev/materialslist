@@ -9,15 +9,15 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["materialslist-ui.csproj", "."]
-RUN dotnet restore "./././materialslist-ui.csproj"
+COPY ["B2H.MaterialsList.WebUI.csproj", "."]
+RUN dotnet restore "./././B2H.MaterialsList.WebUI.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "./materialslist-ui.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./B2H.MaterialsList.WebUI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./materialslist-ui.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./B2H.MaterialsList.WebUI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
