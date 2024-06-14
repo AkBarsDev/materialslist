@@ -16,6 +16,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
+      - POSTGRESS_CONNECTINGSTRING=${POSTGRESS_CONNECTINGSTRING}
       - CONNECTINGSTRING=${MATERIALS_CONNECTINGSTRING}
     ports:
       - "8090:8080"
@@ -102,7 +103,7 @@ services:
        - ./pgdata:/var/lib/postgresql/data
        - ./pgdata/postgresql.conf:/etc/postgresql.conf:ro
     ports:
-        - "5432:5432"
+        - "1434:5432"
     restart: unless-stopped
     networks:
       - front
