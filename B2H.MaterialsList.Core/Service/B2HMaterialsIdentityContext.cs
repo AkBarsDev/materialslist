@@ -19,7 +19,7 @@ namespace B2H.MaterialsList.Core.Service
 		{
 			try
 			{
-				Database.EnsureCreated();
+				//Database.EnsureCreated();
 				Database.Migrate();
 			}
 			catch (Exception ex)
