@@ -19,10 +19,19 @@
   <ItemGroup>
     <Content Remove="Views\Home\Index1.cshtml" />
     <Content Remove="wwwroot\css\styles.css" />
+    <Content Remove="wwwroot\js\req_content.js" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="search_results.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\req_content.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\req_content.js" />
   </ItemGroup>
 
   <ItemGroup>

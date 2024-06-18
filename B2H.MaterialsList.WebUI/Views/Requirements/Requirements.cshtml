@@ -1,10 +1,74 @@
 ﻿@{
 	ViewData["Title"] = "Требования к BIM моделям";
-	Layout = "/Views/Shared/_LayoutHomePage.cshtml";
+	Layout = "/Views/Shared/_LayoutReqPage.cshtml";
 }
 <div class="container">
 	<div style="display: flex; flex-direction: row; justify-content: space-around; margin-top: 40px;">
 		<section id="sidebar">
+			<h1 class="medium-20">Навигация</h1>
+			<ul class="req-nav">
+				<li id="first" class="first">
+					1 - Общие сведения
+					<ul id="second" class="second">
+						<li class="second"><a href="@Url.Action("Document1", "Requirements")">1.1 - Основные положения</a></li>
+						<li class="second"><a href="@Url.Action("Document1", "Requirements")#12">1.2 - Основные термины и определения</a></li>
+					</ul>
+				</li>
+				<li id="first" class="first">
+					2 - План реализации проекта
+					<ul id="second" class="second">
+						<li class="second"><a href="@Url.Action("Document2", "Requirements")">2.1 - Цели BIM проекта</a></li>
+						<li class="second"><a href="@Url.Action("Document2", "Requirements")#22">2.2 - Стадийность проектирования</a></li>
+						<li class="second"><a href="@Url.Action("Document2", "Requirements")#23">2.3 - Применение Среды общих данных</a></li>
+					</ul>
+				</li>
+				<li id="first" class="first">
+					<a href="@Url.Action("Document3", "Requirements")">
+						3 - Требования к применяемым документам по стандартизации информационного моделирования в строительстве
+					</a>
+				</li>
+				<li id="first" class="first">
+					4 -  Требования к BIM-модели
+					<ul id="second" class="second">
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")">4.1 - Общие требования к BIM модели</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#42">4.2 - Деление проекта на файлы моделей</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#43">4.3 - Структура ИМ</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#44">4.4 - Общие требования к моделям по разделам</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#45">4.5 - Общие правила обеспечения качества модели</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#46">4.6 - Правила определения степени проработки модели (LOD\LOI)</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#47">4.7 - Требования к построению ИМ</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#48">4.8 - Требования к BIM модели стадии П</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#49">4.9 - Требования к BIM модели стадии Р</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#410">4.10 - Требования к наименованию файлов</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#411">4.11 - Требования к наименованию уровней</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#412">4.12 - Требования к программному обеспечению</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#413">4.13 - Требования к составу и форматам выдачи результатов проекта</a></li>
+						<li class="second"><a href="@Url.Action("Document4", "Requirements")#414">4.14 - Требования к качеству BIM-моделей</a></li>
+					</ul>
+				</li>
+				<li id="first" class="first">
+					<a href="@Url.Action("Document5", "Requirements")">
+						5 - Передача модели
+					</a>
+				</li>
+				<li id="first" class="first">
+					<a href="@Url.Action("Document6", "Requirements")">
+						6 - Порядок проверки модели
+					</a>
+				</li>
+				<li id="first" class="first">
+					<a href="@Url.Action("Document7", "Requirements")">
+						7 - Обмен информацией
+					</a>
+				</li>
+				<li id="first" class="first">
+					<a href="@Url.Action("Document8", "Requirements")">
+						8 - Приложение
+					</a>
+				</li>
+			</ul>
+		</section>
+		<section id="mobile-sidebar" class="mobile-sidebar">
 			<h1 class="medium-20">Навигация</h1>
 			<ul class="req-nav">
 				<li id="first" class="first">
@@ -86,30 +150,28 @@
 				<div id="more" class="nav-cubes">
 					<p class="regular-20">Общие сведения</p>
 					<p class="light-12" style="line-height: 15px;">Основные положения, основные термины и определения</p>
-					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="1.html">Показать все статьи</a></p>
+					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="@Url.Action("Document1", "Requirements")">Показать все статьи</a></p>
 				</div>
 				<div id="more" class="nav-cubes">
 					<p class="regular-20">План реализации проекта</p>
 					<p class="light-12" style="line-height: 15px;">Цели BIM проекта, cтадийность проектирования и применение Среды общих данных</p>
-					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="2.html">Показать все статьи</a></p>
+					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="@Url.Action("Document2", "Requirements")">Показать все статьи</a></p>
 				</div>
 				<div id="more" class="nav-cubes">
 					<p class="regular-20">Требования к документам</p>
 					<p class="light-12" style="line-height: 15px;">Требования к применяемым документам по стандартизации информационного моделирования в строительстве</p>
-					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="3.html">Показать все статьи</a></p>
+					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="@Url.Action("Document3", "Requirements")">Показать все статьи</a></p>
 				</div>
 				<div id="more" class="nav-cubes">
 					<p class="regular-20">Требования к BIM-модели</p>
 					<p class="light-12" style="line-height: 15px;">Раздел содержит основные требования для всех участников, участвующих в информационном моделировании.</p>
-					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="4.html">Показать все статьи</a></p>
+					<p id="more" class="light-15" style="margin-top: auto; color: gray;"><a href="@Url.Action("Document4", "Requirements")">Показать все статьи</a></p>
 				</div>
 			</section>
 		</section>
 	</div>
 </div>
 	</div>
-	</div>
 <script>
-	
 </script>
 
