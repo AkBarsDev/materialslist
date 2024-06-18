@@ -16,9 +16,9 @@ namespace B2H.MaterialsList.API.Controller
 		{
 			try
 			{
-				//var _categories = _materialsListContext.CategoriesMaterials.AsNoTracking().ToList();
-				//_identityContext.CategoriesMaterials.AddRange(_categories);
-				//_identityContext.SaveChanges();
+				var _categories = _materialsListContext.CategoriesMaterials.AsNoTracking().ToList();
+				_identityContext.CategoriesMaterials.AddRange(_categories);
+				_identityContext.SaveChanges();
 
 				var _files = _materialsListContext.Filebases.AsNoTracking().ToList();
 				_identityContext.Filebase.AddRange(_files);
