@@ -1,0 +1,77 @@
+﻿@{
+	ViewData["Title"] = "База Знаний АБД";
+	Layout = "/Views/Shared/_LayoutKnowPage.cshtml";
+}
+<div class="container">
+	<div class="banner-knowl"></div>
+</div>
+<div class="container">
+	<div class="search-title">
+		<button><a href="@Url.Action("KnowledgeBase", "KnowledgeBase")" target="_blank">Лента</a></button>
+		<button id="category-button">Категории</button>
+		<button>Авторы</button>
+	</div>
+	<div class="category-list" id="category-list">
+		<p class="category-item" data-category="BIM-coordination">BIM Координация</p>
+		<p class="category-item" data-category="Open BIM">Open BIM</p>
+		<p class="category-item" data-category="События">События</p>
+		<p class="category-item" data-category="BIM Data">BIM Data</p>
+		<p class="category-item" data-category="BIM Basics">BIM Basics</p>
+		<p class="category-item" data-category="BIM проектирование">BIM проектирование</p>
+	</div>
+</div>
+<div class="container">
+	<section class="base-board" id="base-board">
+		<div class="base-board-card" id="BIM-coordination">
+			<div class="photo-card"></div>
+			<div style=" display: flex; flex-direction: column; padding: 20px; gap: 10px;">
+				<div class="tag">
+					<img src="/images/tag.svg" alt="">
+					<p class="regular-13" style="margin-bottom: 0px; color: var(--purple);">BIM Координация</p>
+				</div>
+				<h1 style="font-size: 24px;">5 ключевых областей деятельности BIM–координаторов</h1>
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<p class="light-15" style="color: var(--purple);">Зарина Галимова</p>
+					<p class="light-15" style="color: var(--purple);">15 апреля 2024</p>
+				</div>
+				<p class="light-15" style="line-height: 17px;">Пять основных аспектов работы BIM-координаторов, включая управление проектом, координацию моделей, обеспечение качества данных...</p>
+				<button class="read"><a href="@Url.Action("TopicPage", "KnowledgeBase")" target="_blank">Читать</a></button>
+			</div>
+		</div>
+		<div class="base-board-card">
+			<div class="photo-card"></div>
+			<div style=" display: flex; flex-direction: column; padding: 20px; gap: 10px;">
+				<div class="tag">
+					<img src="/images/tag.svg" alt="">
+					<p class="regular-13" style="margin-bottom: 0px; color: var(--purple);">BIM Координация</p>
+				</div>
+				<h1 style="font-size: 24px;">5 ключевых областей деятельности BIM–координаторов</h1>
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<p class="light-15" style="color: var(--purple);">Зарина Галимова</p>
+					<p class="light-15" style="color: var(--purple);">15 апреля 2024</p>
+				</div>
+				<p class="light-15" style="line-height: 17px;">Пять основных аспектов работы BIM-координаторов, включая управление проектом, координацию моделей, обеспечение качества данных...</p>
+				<button class="read">Читать</button>
+			</div>
+		</div>
+		<div class="base-board-card">
+			<div class="photo-card"></div>
+			<div style=" display: flex; flex-direction: column; padding: 20px; gap: 10px;">
+				<div class="tag">
+					<img src="/images/tag.svg" alt="">
+					<p class="regular-13" style="margin-bottom: 0px; color: var(--purple);">BIM Координация</p>
+				</div>
+				<h1 style="font-size: 24px;">5 ключевых областей деятельности BIM–координаторов</h1>
+				<div style="display: flex; flex-direction: row; justify-content: space-between;">
+					<p class="light-15" style="color: var(--purple);">Зарина Галимова</p>
+					<p class="light-15" style="color: var(--purple);">15 апреля 2024</p>
+				</div>
+				<p class="light-15" style="line-height: 17px;">Пять основных аспектов работы BIM-координаторов, включая управление проектом, координацию моделей, обеспечение качества данных...</p>
+				<button class="read"><a href="@Url.Action("TopicPage", "KnowledgeBase")" target="_blank">Читать</a></button>
+			</div>
+		</div>
+	</section>
+</div>
+<script>
+	
+</script>

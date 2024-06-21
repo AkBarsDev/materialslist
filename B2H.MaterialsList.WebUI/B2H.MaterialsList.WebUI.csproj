@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\RequirementsController - Копировать.cs" />
     <Compile Remove="Models\ErrorModelcs.cs" />
     <Compile Remove="Views\Home\Index1.cshtml.cs" />
   </ItemGroup>

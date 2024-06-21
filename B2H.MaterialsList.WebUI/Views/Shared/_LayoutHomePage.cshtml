@@ -14,6 +14,11 @@
 					<div class="nav-bar-item">
 						<button id="logo" onclick="window.location.href='@Url.Action("Main", "Home")';"></button>
 					</div>
+					<div class="nav-bar-item">
+						<div style="padding-left: auto;">
+							<button class="lk-button" onclick="window.location.href='@Url.Action("UserPage", "User")';"></button>
+						</div>
+					</div>
 					<div class="userLkLarge nav-bar-item">
 						<a href="@Url.Action("UserPage", "User")" class="medium-20">Личный кабинет</a>
 					</div>
@@ -30,7 +35,7 @@
 			integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
 			crossorigin="anonymous">
 	</script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="~/js/siteOnePage.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

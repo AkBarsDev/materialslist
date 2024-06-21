@@ -1684,6 +1684,10 @@ button.read {
     display: none;
 }
 
+.lk-button {
+    display: none;
+}
+
 /* Responsive styles */
 @media (max-width: 720px) {
     /* Hide the original sidebar */
@@ -1741,4 +1745,31 @@ button.read {
     .preview-topic {
         height: 191px;
     }
-}
+
+    .banner-knowl {
+        height: 140px;
+    }
+
+    .search-title {
+        min-height: 8px;
+    }
+
+    .lk-button {
+        background-image: url(/images/lk-button.png);
+        border: 1px solid var(--white);
+        background-color: white;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        padding: 0 0px;
+        height: 30px;
+        width: 31px;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+        color: #000;
+        text-align: center;
+        font-family: "Rubik-Regular";
+    }
+ }
+
