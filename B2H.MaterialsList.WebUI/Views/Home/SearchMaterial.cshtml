@@ -24,6 +24,8 @@
 			<span class="light-15"> > </span>
 			<a class="bread-crumbs" href="@request">Результаты поиска "@title"</a>
 		</span>
+		<div style="display: flex; flex-direction: row; justify-content: right; align-items: center;">
+				<button class="filter-button" onclick="showFilter()"></button>
 			<form id="radio-form">
 				<div class="switcher3">
 					<div class="switcher-item">
@@ -36,12 +38,28 @@
 					</div>
 				</div>
 			</form>
+			</div>
 	</div>
 	</section>
 </div>
 <section id="table">
 	<div class="container">
-		<div class="table">
+		<div class="table" style="display:flex; flex-direction: row;">
+			<div id="filter-container" class="hidden" >
+				<p style="margin-left: 23px; margin-top: 19px;" class="medium-20">Фильтр</p>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label class="regular-18" style="line-height: 18px;">Библиотека</label>
+					<div id="biblioteka" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
+					<div id="shablon" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
+					<div id="nonmodeling" class="inactive-circle"></div>
+				</div>
+			</div>
 			<table>
 				@if (Model == null)
 				{
