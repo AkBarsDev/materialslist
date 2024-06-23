@@ -12,9 +12,8 @@
 <script src="~/js/jquery-1.10.2.min.js" asp-append-version="true"></script>
 
 
-<div class="container" >
-	<div class="breadcrumps">
-		@{
+<div class="container" style="display: flex; flex-direction:row; justify-content:space-between; align-content: center;">
+	<div class="breadcrumps" style="max-width: 70%;">	@{
 											@try
 			{
 												@if (crumbs != null)
@@ -48,10 +47,26 @@
 	{
 		<a class="light-15" href=@searchRequest>Вернуться к результатам поиска (@searchTitle)</a>
 	}
+	<button class="filter-button" onclick="showFilter()" style="margin-top: 16.5px;"></button>
 </div>
 <section id="table">
 	<div class="container">
-		<div class="table">
+		<div class="table" style="display:flex; flex-direction: row;">
+			<div id="filter-container" class="hidden">
+				<p style="margin-left: 23px; margin-top: 19px;" class="medium-20">Фильтр</p>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label class="regular-18" style="line-height: 18px;">Библиотека</label>
+					<div id="biblioteka" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
+					<div id="shablon" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
+					<div id="nonmodeling" class="inactive-circle"></div>
+				</div>
+			</div>
 			<table>
 				<tr>
 					<th class="name">Наименование</th>

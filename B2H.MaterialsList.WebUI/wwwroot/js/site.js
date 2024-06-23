@@ -19,7 +19,40 @@
 		}
 	});
 
+	if (document.getElementById("filter-container") != null) {
+
+		//1
+		var biblioteka = document.getElementById("biblioteka");
+		filterOnClick(biblioteka);
+		//2
+		var shablon = document.getElementById("shablon");
+		filterOnClick(shablon);
+		//3
+		var nonmodeling = document.getElementById("nonmodeling");
+		filterOnClick(nonmodeling);
+	}
+
 });
+
+function filterOnClick(element) {
+	element.addEventListener('click', () => {
+		if (element.classList != "active-circle") {
+			element.classList = "active-circle";
+		} else {
+			element.classList = "inactive-circle";
+		}
+
+	});
+}
+
+function showFilter() {
+	const filter = document.getElementById("filter-container");
+	
+	if (filter.classList != "hidden") {
+		filter.classList = "hidden";
+		//сброс значений фильтра
+	} else { filter.classList = "filter-container"; }
+}
 
 
 $(document).ready(function () {
@@ -28,44 +61,6 @@ $(document).ready(function () {
 	},
 		3000);
 });
-
-
-
-
-//$("#downloadFromList").click(function (e) {
-
-//	e.preventDefault();
-//	//$.ajax({
-
-//	//	url: $(this).attr("href"),
-//	//	success: function (response) {
-//	//		if (response.success === true) {
-//	//			alert("success");
-//	//		} else { alert("info") }
-//	//	},
-//	//	error: function () {
-//	//		alert("что-то идет не так");
-//	//	}
-
-//	//});
-//	$.ajax({
-//		async: true,
-//		type: 'POST',
-//		dataType: 'text',
-//		contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-//		url: $(this).attr("href"),
-//		success: function (response) {
-//			if (response.success === true) {
-//				alert("success");
-//			} else { alert("info") }
-//		},
-//		error: function () {
-//			alert("что-то идет не так");
-//		}
-
-//	});
-
-//});
 
 $(window).on('load resize', function () {
 	//filename input
@@ -98,26 +93,7 @@ $(window).on('load resize', function () {
 
 });
 
-//function downloadFile(apiUrl) {
-//	var obj = {};
-//	obj.FileUrl = apiUrl;
-//	$.ajax({
-//		type: 'POST',
-//		data: JSON.stringify(obj),
-//		contentType: "application/json; charset=utf-8",
-//		dataType: "json",
-//		url: '/Home/Download',
-//		success: function (response) {
-//			if (response.success === true) {
-//				alert("success");
-//			} else { alert("info") }
-//		},
-//		error: function () {
-//			alert("что-то идет не так");
-//		}
 
-//	});
-//}
 function pagination(itemsPerPage) {
 
 	const content = document.querySelector('.table');

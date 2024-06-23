@@ -799,3 +799,60 @@ td > form {
     .alert-danger .alert-link {
         color: #843534;
     }
+
+
+
+.filter-button {
+    background-image: url(/images/filter-button.svg);
+    margin-right: 20px;
+    border: none;
+    min-height: 27px;
+    min-width: 87px;
+    max-height: 27px;
+    max-width: 87px;
+    background-color: var(--white);
+}
+
+    .filter-button:hover {
+        background-image: url(/images/filter-button-hover.svg);
+        cursor: pointer;
+    }
+
+
+.filter-container {
+    min-width: 313px;
+    max-height: 333px;
+    background-color: white;
+    border-radius: 22px;
+    border: 3px solid var(--blue);
+    margin-right: 27px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.inactive-circle {
+    min-height: 18px;
+    min-width: 18px;
+    max-height: 18px;
+    max-width: 18px;
+    border-radius: 1000px;
+    border: 2px solid var(--blue);
+    margin-left: 16px;
+}
+
+    .inactive-circle:hover {
+        border: 2px solid var(--purple);
+    }
+
+.active-circle {
+    min-height: 14px;
+    min-width: 14px;
+    max-height: 14px;
+    max-width: 14px;
+    border-radius: 1000px;
+    background-color: #5100C1;
+    margin-left: 16px;
+    border: 2px solid var(--white);
+    outline: 2px solid var(--purple);
+}
