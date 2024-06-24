@@ -27,7 +27,7 @@
 					<p class="regular-20"><span class="medium-20">Категория</span><input name="CategoryCurrent" type="text" class="user-edit-input" value="Текущая категория - @item.CategoryName" placeholder="" disabled></p>
 					<select name="CategoryIdOption2" id="category">
 						<option name="CategoryIdOption2" value="">Поиск по категориям</option>
-						@foreach (CategoryDto cat in item.Categories)
+						@foreach(CategoryDto cat in item.Categories)
 						{
 							@if (@cat.Children.Count == 0)
 							{

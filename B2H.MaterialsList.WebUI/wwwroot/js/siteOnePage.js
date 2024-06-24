@@ -270,7 +270,6 @@ const form = document.getElementById("card-edit-form");
 
 form.addEventListener('submit', (evt) => {
 	evt.preventDefault();
-
 	const inputElement = document.getElementById('input-name');
 
 	if (isFirstWordRussianNoun(inputElement.value) != null) {
@@ -282,7 +281,6 @@ form.addEventListener('submit', (evt) => {
 });
 
 function isFirstWordRussianNoun(inputValue) {
-
 	const firstWord = inputValue.trim().split(' ')[0];
 	const regex = /^свая$/iu;
 	if (regex.test(firstWord) == true) {

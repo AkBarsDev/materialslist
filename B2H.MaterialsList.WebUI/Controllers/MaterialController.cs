@@ -165,7 +165,6 @@ namespace materialslist_ui.Controllers
 			if (responseListCat != null && responseListCat.IsSuccess)
 				categories = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(responseListCat.Result));
 			int CatCount = categories.Count();
-
 			return View(categories);
 		}
 

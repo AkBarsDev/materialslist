@@ -97,8 +97,7 @@ services:
         POSTGRES_PASSWORD: "temppgpwd4"
         PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-       - ./pgdata:/docker-entrypoint-initdb.d
-       - ./pgdata:/var/lib/postgresql/data
+       - ./pginitdata:/docker-entrypoint-initdb.d
        - ./pgdata/postgresql.conf:/etc/postgresql.conf:ro
     ports:
         - "1434:5432"
