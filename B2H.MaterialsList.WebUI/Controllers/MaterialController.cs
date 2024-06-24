@@ -17,7 +17,7 @@ namespace materialslist_ui.Controllers
 		}
 		public List<IDictionary<string, string>> matLinks = new List<IDictionary<string, string>>();
 
-		public async Task<IActionResult> MaterialCard(Guid materialId, string? searchTitle, string? searchRequest )
+		public async Task<IActionResult> MaterialCard(Guid materialId, string? searchTitle, string? searchRequest)
 		{
 			if (materialId != Guid.Empty)
 			{
@@ -26,7 +26,7 @@ namespace materialslist_ui.Controllers
 				if (searchTitle != null) this.ViewBag.SearchTitle = searchTitle;
 				if (searchRequest != null) this.ViewBag.SearchRequest = searchRequest;
 				List<ShortCategoryDto> materialBC = new();
-				ViewModel<MaterialDto,ShortCategoryDto> viewModel = new ViewModel<MaterialDto,ShortCategoryDto>();
+				ViewModel<MaterialDto, ShortCategoryDto> viewModel = new ViewModel<MaterialDto, ShortCategoryDto>();
 				this.ViewBag.MatLinks = matLinks;
 				IDictionary<string, string> requestsCookie = new Dictionary<string, string>();
 				string request = HttpContext.Request.Path + HttpContext.Request.QueryString;
@@ -64,7 +64,6 @@ namespace materialslist_ui.Controllers
 			ErrorModel error = new("404");
 			return View("Error", error);
 		}
-		[Authorize]
 		public async Task<IActionResult> CardEdit(Guid materialId, string? cardTitle, Guid? cardRequest)
 		{
 			if (materialId != Guid.Empty)
@@ -106,15 +105,13 @@ namespace materialslist_ui.Controllers
 				{
 					Console.WriteLine(ex.ToString());
 				}
-				
+
 			}
 
 			ErrorModel error = new("404");
 			return View("Error", error);
 		}
 
-
-		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> CardEditSubmit(MaterialForm mtf, Guid materialId, int fileId, IEnumerable<int> images, Guid categoryId)
 		{
@@ -160,7 +157,7 @@ namespace materialslist_ui.Controllers
 
 			return RedirectToAction("MaterialCard", new { materialId = materialId });
 		}
-		[Authorize]
+
 		public async Task<IActionResult> Create()
 		{
 			List<CategoryDto> categories = new();
@@ -168,30 +165,10 @@ namespace materialslist_ui.Controllers
 			if (responseListCat != null && responseListCat.IsSuccess)
 				categories = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(responseListCat.Result));
 			int CatCount = categories.Count();
-			List<ViewModel<CategoryDto, ShortCategoryDto>> data = new List<ViewModel<CategoryDto, ShortCategoryDto>>(CatCount);
-			List<ShortCategoryDto> categoryBC = new();
-			foreach (CategoryDto cat in categories)
-			{
-				try
-				{
-					var responseBC = await _materialService.BreadcrumbCategoryAsync<ResponseDto>(cat.CategoryId);
-					if (responseBC != null && responseBC.IsSuccess)
-						categoryBC = JsonConvert.DeserializeObject<List<ShortCategoryDto>>(Convert.ToString(responseBC.Result));
-					categoryBC.RemoveAt(categoryBC.Count - 1);
-					categoryBC.RemoveAt(0);
-					ViewModel<CategoryDto, ShortCategoryDto> dataItem = new ViewModel<CategoryDto, ShortCategoryDto>();
-					dataItem.ViewObject = cat;
-					dataItem.ViewBreadCrumbs = categoryBC;
-					data.Add(dataItem);
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex.ToString());
-				}
-			}
-			return View(data);
+
+			return View(categories);
 		}
-		[Authorize]
+
 		[HttpPost]
 		public async Task<IActionResult> CreateSubmit(MaterialForm mtf)
 		{

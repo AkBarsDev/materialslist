@@ -1695,3 +1695,69 @@ button.edit-card:hover {
     .ts-dropdown-content::-webkit-scrollbar-thumb:hover {
         cursor: pointer;
     }
+
+.dynamic-select {
+    margin-top: 10px;
+    border-radius: 22px;
+    box-shadow: none;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    padding: 8px;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    padding: 8px 25px;
+    border: 0;
+    color: #000;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 18px;
+    font-family: "Rubik-Regular", sans-serif;
+}
+
+    .dynamic-select option {
+        border-radius: 22px;
+        box-shadow: none;
+        padding: 8px 25px;
+        border: 0;
+    }
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+    select::-ms-expand {
+        display: none;
+    }
+
+    select:focus {
+        outline: 0;
+    }
+
+.dynamic-select > option {
+    border: none;
+}
+
+.dynamic-select::-webkit-scrollbar {
+    width: 10px;
+    margin-top: 5px;
+}
+
+.dynamic-select::-webkit-scrollbar-track {
+    background: var(--white);
+    margin-top: 5px;
+}
+
+.dynamic-select::-webkit-scrollbar-thumb {
+    border-radius: 22px;
+    background: var(--blue);
+    border-top: 0px solid #fff;
+    margin-top: 5px;
+}
+
+    .dynamic-select::-webkit-scrollbar-thumb:hover {
+        cursor: pointer;
+    }

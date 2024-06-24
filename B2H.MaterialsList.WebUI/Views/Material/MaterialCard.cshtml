@@ -27,7 +27,7 @@
 						<span class="light-15">
 							<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
 							<span class="light-15"> > </span>
-							@for (int i = 1; i < (crumbs.Count-1); i++)
+							@for (int i = 1; i < (crumbs.Count - 1); i++)
 							{
 								Guid crumbId = crumbs[i].Id;
 								string title = crumbs[i].Name;
@@ -75,14 +75,14 @@
 					</div>
 					@if (item.FileId != null)
 					{
-						<button style="min-width: 143px; max-width: 143px; padding: 0 36px;"><a id="mybutton" asp-controller="Home" asp-action="Download"  asp-route-Url=@apiUrl>Скачать</a></button>
+						<button style="min-width: 143px; max-width: 143px; padding: 0 36px;"><a id="mybutton" asp-controller="Home" asp-action="Download" asp-route-Url=@apiUrl>Скачать</a></button>
 					}
 				</div>
 				<div class="card-media">
 					@{
 						@if (item.Images.Count() != 0)
 						{
-							apiImageUrl = "https://localhost:8085/api/image/" + @item.Images.ElementAt(0);
+							apiImageUrl = "http://localhost:8085/api/image/" + @item.Images.ElementAt(0);
 							<img class="material-img" src=@apiImageUrl alt="">
 						}
 						@if (item.Images.Count() == 0)
@@ -105,7 +105,7 @@
 						{
 							<p class="regular-20"><span class="medium-20">Характеристики </span> </p>
 							@foreach (string spec in @item.Specifications.Split("\r\n"))
-									{
+							{
 								<p class="light-18 properties" style="color: black;">@spec</p>
 							}
 						}
