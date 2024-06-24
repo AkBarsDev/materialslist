@@ -1,14 +1,14 @@
 ﻿namespace MaterialsList.Frontend.Models
 {
-	public class ViewModel<P,T>
+	public class ViewModel<P, T>
 	{
-        public ViewModel()
-        {
-            
-        }
+		public ViewModel()
+		{
 
-        public P ViewObject {  get; set; }
-        public List<T> ViewBreadCrumbs {  get; set; }
+		}
+
+		public P ViewObject { get; set; }
+		public List<T> ViewBreadCrumbs { get; set; }
 
 	}
 }

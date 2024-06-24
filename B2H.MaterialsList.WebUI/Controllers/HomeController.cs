@@ -30,7 +30,8 @@ namespace materialslist_ui.Controllers
 		public async Task<IActionResult> Index()
 		{
 			CategoryDto categories = new();
-			try {
+			try
+			{
 				var response = await _materialService.GetCategoryByIdAsync<ResponseDto>(mainParentId);
 				if (response != null && response.IsSuccess)
 					categories = JsonConvert.DeserializeObject<CategoryDto>(Convert.ToString(response.Result));
@@ -47,21 +48,21 @@ namespace materialslist_ui.Controllers
 			return View();
 		}
 
-
 		public async Task<IActionResult> Categories(Guid parentId, string? searchTitle, string? searchRequest)
 		{
 
 			this.ViewBag.SearchTitle = "";
 			this.ViewBag.SearchRequest = "";
-			if (searchTitle != null && searchRequest != null) 
-			{ 
+			if (searchTitle != null && searchRequest != null)
+			{
 				this.ViewBag.SearchTitle = searchTitle;
-				this.ViewBag.SearchRequest = searchRequest; 
+				this.ViewBag.SearchRequest = searchRequest;
 			}
 			CategoryDto categories = new();
 			List<ShortCategoryDto> categoryBC = new();
-			ViewModel<List<ShortCategoryDto>, ShortCategoryDto>  viewModel = new ViewModel<List<ShortCategoryDto>,ShortCategoryDto>();
-			try {
+			ViewModel<List<ShortCategoryDto>, ShortCategoryDto> viewModel = new ViewModel<List<ShortCategoryDto>, ShortCategoryDto>();
+			try
+			{
 				var response = await _materialService.GetCategoryByIdAsync<ResponseDto>(parentId);
 				if (response != null && response.IsSuccess)
 					categories = JsonConvert.DeserializeObject<CategoryDto>(Convert.ToString(response.Result));
@@ -69,7 +70,7 @@ namespace materialslist_ui.Controllers
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex.ToString());//выводить ошибку нормально
+				Console.WriteLine(ex.ToString());//???????? ?????? ?????????
 			}
 			try
 			{
@@ -83,13 +84,14 @@ namespace materialslist_ui.Controllers
 			{
 				Console.WriteLine(ex2.ToString());
 			}
-			return View(viewModel); 
+			return View(viewModel);
 		}
 
 		public async Task<ActionResult> SearchMaterial(string request)
 		{
 			List<ShortMaterialDto> list = new();
-			try {
+			try
+			{
 				var response = await _materialService.SearchMaterialAsync<ResponseDto>(request);
 				if (response != null && response.IsSuccess)
 					list = JsonConvert.DeserializeObject<List<ShortMaterialDto>>(Convert.ToString(response.Result));
@@ -127,6 +129,7 @@ namespace materialslist_ui.Controllers
 
 		public async Task<ActionResult> Materials(Guid categoryId, string? searchTitle, string? searchRequest)
 		{
+
 			this.ViewBag.SearchTitle = "";
 			this.ViewBag.SearchRequest = "";
 			if (searchTitle != null && searchRequest != null)
@@ -135,7 +138,7 @@ namespace materialslist_ui.Controllers
 				this.ViewBag.SearchRequest = searchRequest;
 			}
 			List<ShortCategoryDto> categoryBC = new();
-			ViewModel<List<ShortMaterialDto>,ShortCategoryDto> viewModel = new ViewModel<List<ShortMaterialDto>,ShortCategoryDto>();
+			ViewModel<List<ShortMaterialDto>, ShortCategoryDto> viewModel = new ViewModel<List<ShortMaterialDto>, ShortCategoryDto>();
 			CategoryDto categories = new();
 			try
 			{
@@ -165,7 +168,7 @@ namespace materialslist_ui.Controllers
 			return View(viewModel);
 		}
 
-		public async Task<IActionResult> Download(string Url) 
+		public async Task<IActionResult> Download(string Url)
 		{
 			try
 			{

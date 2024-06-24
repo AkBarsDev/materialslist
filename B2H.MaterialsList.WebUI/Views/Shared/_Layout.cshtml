@@ -1,67 +1,50 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>@ViewData["Title"]</title>
-	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-</head>
-<body>
-	<header>
-		<section id="nav-bar">
-			<div class="container">
-				<div id="nav-bar-div" class="nav-bar">
-					<div class="nav-bar-item">
-						<button id="logo" onclick="window.location.href='@Url.Action("Main", "Home")';"></button>
-					</div>
-					<div class="nav-bar-item menu-centering">
-						<div style="padding-left: 280px;">
-							<button class="menu-button"></button>
-						</div>
-						<div class="links">
-							<nav>
-								<ul class="menu">
-									<li class="links-item">
-										<a id="mybutton" asp-action="Download" asp-route-Url="/api/download/requirements" class="regular-20">Требования к BIM</a>
-									</li>
-									<li class="links-item">
-										<a href="" class="regular-20">Ссылка на базу семейств</a>
-									</li>
-									<li class="links-item">
-										<a id="mybutton" asp-action="Download" asp-route-Url="/api/download/tamplates" class="regular-20">Скачать шаблоны</a>
-									</li>
-									<li class="links-item" style="margin-right:0; margin-left:0; line-height: normal;">
-										<a href="@Url.Action("UserPage", "User")" class="userLk medium-20 hidden">Личный кабинет</a>
-									</li>
-									<li class="links-item" style="margin-right:0; margin-left: 0;">
-										<a class="regular-20" style="line-height: 0; "></a>
-									</li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-					<div class="userLkLarge nav-bar-item">
-						 <a href="@Url.Action("UserPage", "User")" class="medium-20">Личный кабинет</a> 
-					</div>
-				</div>
-			</div>
-		</section>
-	</header>
+﻿@using MaterialsList.Frontend.Models.Dto;
+@model List<MaterialsList.Frontend.Models.Dto.CategoryDto>;
+@{
+	var item = Model;
+	ViewBag.Title = "Личный кабинет";
+	Layout = "/Views/Shared/_LayoutTomSelect.cshtml";
+}
+<section id="">
 	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-			<div>
-				<alert>
-					<p></p>
-				</alert>
+		<div class="breadcrumps">
+			<span class="light-15"><a href="@Url.Action("UserPage", "User")">Личный кабинет</a> > <a href="">Создание материала</a></span>
+		</div>
+		<div class="card">
+			<div class="card-media card-edit">
+				<form id="card-edit-form" class="card-edit" asp-action="CreateSubmit"
+					  asp-controller="Material"
+					  method="post" enctype="multipart/form-data">
+					<p class="regular-20"><span class="medium-20">Наименование </span><input name="Name" type="text" id="input-name" class="user-edit-input" placeholder="Введите название" required></p>
+					<p class="regular-20"><span class="medium-20">ГОСТ </span><input name="Gost" type="text" class="user-edit-input" placeholder="Введите ГОСТ"></p>
+					<select name="CategoryIdOption2" id="category">
+						<option name="CategoryIdOption2" value="">Поиск по категориям</option>
+						@foreach (CategoryDto cat in item)
+						{
+							@if (@cat.Children.Count == 0)
+							{
+								<option name="CategoryIdOption2" value="@cat.CategoryId">@cat.Name</option>
+							}
+						}
+					</select>
+					<br>
+					<div id="select-container"></div>
+					<p class="regular-20"><span class="medium-20">Характеристики </span></p>
+					<textarea class="user-edit-input" name="Specifications" placeholder="Введите характеристики списком"></textarea>
+					<label class="input-file">
+						<input type="file" name="Images" multiple accept="image/*" /><br>
+						<span class="input-file-btn">Добавить изображение</span>
+						<span class="input-file-text"></span>
+					</label>
+					<label class="input-file">
+						<input type="file" name="File" multiple accept=".rfa, .rvt, .rft, .fbx, rte, .nwd, .nwf, .dwt " /><br>
+						<span class="input-file-btn">Добавить файл</span>
+						<span class="input-file-text"></span>
+					</label>
+					<br>
+					<button class="save" type="submit">Сохранить</button>
+				</form>
 			</div>
-		</main>
+		</div>
 	</div>
-	<script src="https://code.jquery.com/jquery-3.6.3.js"
-			integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
-			crossorigin="anonymous">
-	</script>
-	<script src="~/js/site.js" asp-append-version="true"></script>
-	@await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
+</section>
