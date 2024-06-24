@@ -1,0 +1,125 @@
+﻿@model List<MaterialsList.Frontend.Models.Dto.ShortMaterialDto>
+@{
+	ViewData["Title"] = "Результаты поиска";
+	Layout = "/Views/Shared/_Layout.cshtml";
+	string request = ViewBag.SearchRequest;
+	string title = ViewBag.SearchTitle;
+}
+<div class="container">
+	<section id="search">
+		<div class="container">
+			<div class="search-title">
+				<h1>Поиск по каталогу</h1>
+				<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
+				<button onclick="">Библиотека моделей</button>
+			</div>
+			<form asp-action="SearchMaterial">
+				<input name="request" type="text" placeholder="Введите название материала" value=@title />
+				<button type="submit" class="search"></button>
+			</form>
+		</div>
+		<div class="breadcrumps" style="display: flex; flex-direction:row; justify-content:space-between; align-content: center;">
+		<span class="light-15">
+			<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
+			<span class="light-15"> > </span>
+			<a class="bread-crumbs" href="@request">Результаты поиска "@title"</a>
+		</span>
+		<div style="display: flex; flex-direction: row; justify-content: right; align-items: center;">
+				<button class="filter-button" onclick="showFilter()"></button>
+			<form id="radio-form">
+				<div class="switcher3">
+					<div class="switcher-item">
+						<input id="radio-1" type="radio" name="radio" value="5" onchange="window.location.href ='@Url.Action("SearchMaterial", "Home", new { request = @title })';" checked>
+						<label for="radio-1">Материалы</label>
+					</div>
+					<div class="switcher-item">
+						<input id="radio-2" type="radio" name="radio" value="10" onchange="window.location.href ='@Url.Action("SearchCategory", "Home", new { request = @title })';">
+						<label for="radio-2">Категории</label>
+					</div>
+				</div>
+			</form>
+			</div>
+	</div>
+	</section>
+</div>
+<section id="table">
+	<div class="container">
+		<div class="table" style="display:flex; flex-direction: row;">
+			<div id="filter-container" class="hidden" >
+				<p style="margin-left: 23px; margin-top: 19px;" class="medium-20">Фильтр</p>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label class="regular-18" style="line-height: 18px;">Библиотека</label>
+					<div id="biblioteka" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
+					<div id="shablon" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
+					<div id="nonmodeling" class="inactive-circle"></div>
+				</div>
+			</div>
+			<table>
+				@if (Model == null)
+				{
+					<tr><td class="name">Ничего не найдено</td></tr>
+				}
+				@if(Model != null)
+				{
+					<tr>
+						<th class="name">Наименование</th>
+						<th class="date">Дата изменения</th>
+						<th class="download">Скачать</th>
+					</tr>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td class="name"><a href="@Url.Action("MaterialCard", "Material", new { materialId = @item.Id, searchTitle = @title, searchRequest= @request })">@item.Name</a></td>
+							@if(item.CreateAt != null)
+							{
+								<td class="date">@item.CreateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</td>
+							}
+							@if(item.CreateAt == null){
+								<td class="date">—</td>
+							}
+							@if (item.FileId != null)
+							{
+								var apiUrl = "/api/download/materials/" + @item.FileId;
+								<td class="download"><form asp-action="Download" asp-route-Url=@apiUrl><button><a id="mybutton"></a></button></form></td>
+							}
+						</tr>
+					}
+				}
+			</table>
+		</div>
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+					<div class="switcher2">
+						<div class="switcher-item">
+							<input id="radio-1" type="radio" name="radio" value="20" onchange="pagination(20)" checked>
+							<label for="radio-1">20</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-2" type="radio" name="radio" value="50" onchange="pagination(50)">
+							<label for="radio-2">50</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+							<label for="radio-3">100</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		pagination(20);
+	</script>
+</section>
+

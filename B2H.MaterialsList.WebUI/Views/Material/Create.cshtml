@@ -1,0 +1,50 @@
+﻿@using MaterialsList.Frontend.Models.Dto;
+@model List<MaterialsList.Frontend.Models.Dto.CategoryDto>;
+@{
+	var item = Model;
+	ViewBag.Title = "Личный кабинет";
+	Layout = "/Views/Shared/_LayoutTomSelect.cshtml";
+}
+<section id="">
+	<div class="container">
+		<div class="breadcrumps">
+			<span class="light-15"><a href="@Url.Action("UserPage", "User")">Личный кабинет</a> > <a href="">Создание материала</a></span>
+		</div>
+		<div class="card">
+			<div class="card-media card-edit">
+				<form id="card-edit-form" class="card-edit" asp-action="CreateSubmit"
+					  asp-controller="Material"
+					  method="post" enctype="multipart/form-data">
+					<p class="regular-20"><span class="medium-20">Наименование </span><input name="Name" type="text" id="input-name" class="user-edit-input" placeholder="Введите название" required></p>
+					<p class="regular-20"><span class="medium-20">ГОСТ </span><input name="Gost" type="text" class="user-edit-input" placeholder="Введите ГОСТ" ></p>
+					<select name="CategoryIdOption2" id="category">
+						<option name="CategoryIdOption2" value="">Поиск по категориям</option>
+						@foreach (CategoryDto cat in item)
+						{
+							@if (@cat.Children.Count == 0)
+							{
+								<option name="CategoryIdOption2" value="@cat.CategoryId">@cat.Name</option>
+							}
+						}
+					</select>
+						<br>
+						<div id="select-container"></div>
+					<p class="regular-20"><span class="medium-20">Характеристики </span></p>
+					<textarea class="user-edit-input" name="Specifications" placeholder="Введите характеристики списком"></textarea>
+					<label class="input-file">
+						<input type="file" name="Images" multiple accept="image/*" /><br>
+						<span class="input-file-btn">Добавить изображение</span>
+						<span class="input-file-text"></span>
+					</label>
+					<label class="input-file">
+						<input type="file" name="File" multiple accept=".rfa, .rvt, .rft, .fbx, rte, .nwd, .nwf, .dwt " /><br>
+						<span class="input-file-btn">Добавить файл</span>
+						<span class="input-file-text"></span>
+					</label>
+					<br>
+					<button class="save" type="submit">Сохранить</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

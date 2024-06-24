@@ -1,0 +1,197 @@
+﻿@using MaterialsList.Frontend.Models.Dto
+@model ViewModel<MaterialDto,ShortCategoryDto>
+@{
+	var item = (MaterialDto)Model.ViewObject;
+	ViewData["Title"] = item.Name;
+	@if (item.Name == null)
+	{
+		item = null;
+		ViewData["Title"] = "";
+	}
+	var apiUrl = "/api/download/materials/" + item.FileId;
+	string apiImageUrl = "";
+	var crumbs = Model.ViewBreadCrumbs;
+	string searchTitle = ViewBag.SearchTitle;
+	string searchRequest = ViewBag.SearchRequest;
+}
+<section id="">
+	<div class="container">
+		<div class="breadcrumps">
+			@{
+				@try
+				{
+					@if (crumbs != null)
+					{
+						Guid materialsCrumbId = crumbs[(crumbs.Count - 1)].Id;
+						string MaterialsTitle = crumbs[(crumbs.Count - 1)].Name;
+						<span class="light-15">
+							<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
+							<span class="light-15"> > </span>
+							@for (int i = 1; i < (crumbs.Count-1); i++)
+							{
+								Guid crumbId = crumbs[i].Id;
+								string title = crumbs[i].Name;
+								List<string> bag = ViewBag.BreadCrumbs;
+								<a class="bread-crumbs" href="@Url.Action("Categories", "Home", new { parentId = crumbId })">@title</a>
+								<span class="light-15"> > </span>
+							}
+							<a class="bread-crumbs" href="@Url.Action("Materials", "Home", new { categoryId = materialsCrumbId })">@MaterialsTitle</a>
+							<span class="light-15"> > </span>
+							<a class="bread-crumbs">@item.Name</a>
+						</span>
+					}
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.ToString());
+					<span class="light-15">ex.ToString()</span>
+				}
+			}
+
+		</div>
+		@if (@searchTitle != "")
+		{
+			<a class="light-15" href=@searchRequest>Вернуться к результатам поиска (@searchTitle)</a>
+		}
+		@if (item != null)
+		{
+			<div class="card">
+				<div class="card-head">
+					<div style="display: flex; align-items: center; flex-wrap: wrap;">
+
+						<h1 style="margin-right: 40px;">@item.Name</h1>
+						@if (@item.UpdateAt != null)
+						{
+							<span class="light-18">Материал, дата изменения @item.UpdateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
+						}
+						@if (@item.UpdateAt == null)
+						{
+							<span class="light-18">Материал, дата создания @item.CreateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
+						}
+						@if (item.UpdateAt == null && item.CreateAt == null)
+						{
+							<span class="light-18">Материал</span>
+						}
+					</div>
+					@if (item.FileId != null)
+					{
+						<button style="min-width: 143px; max-width: 143px; padding: 0 36px;"><a id="mybutton" asp-controller="Home" asp-action="Download"  asp-route-Url=@apiUrl>Скачать</a></button>
+					}
+				</div>
+				<div class="card-media">
+					@{
+						@if (item.Images.Count() != 0)
+						{
+							apiImageUrl = "http://localhost:8085/api/image/" + @item.Images.ElementAt(0);
+							<img class="material-img" src=@apiImageUrl alt="">
+						}
+						@if (item.Images.Count() == 0)
+						{
+							apiImageUrl = "https://localhost:8086/api/MaterialImages/image/";
+							<img class="material-img" src=@apiImageUrl alt="">
+						}
+					}
+					<div class="card-media-text">
+						@if (@item.ModeratorId != null)
+						{
+							<p class="regular-20"><span class="medium-20">Модератор </span>Иванов Иван Иванович</p>
+						}
+						@if ((@item.Gost != null) && (@item.Gost != ""))
+						{
+							<p class="regular-20"><span class="medium-20">Стандарт </span>@item.Gost</p>
+						}
+						<br>
+						@if (@item.Specifications != null && ((@item.Specifications != "")))
+						{
+							<p class="regular-20"><span class="medium-20">Характеристики </span> </p>
+							@foreach (string spec in @item.Specifications.Split("\r\n"))
+									{
+								<p class="light-18 properties" style="color: black;">@spec</p>
+							}
+						}
+					</div>
+				</div>
+				<div style="display: flex; flex-direction: row-reverse;"><button style="min-width: 143px;" onclick="window.location.href='@Url.Action("CardEdit", "Material",  new { materialId = @item.MaterialId, cardTitle = @item.Name, cardRequest = item.MaterialId })';" class="save edit-card">Изменить</button></div>
+			</div>
+
+			@if (ViewBag.MatLinks != null)
+			{
+				@if (ViewBag.MatLinks.Count >= 1)
+				{
+					@if ((ViewBag.MatLinks[0]["link"] != null))
+						@if ((ViewBag.MatLinks[0]["link"] != null))
+						{
+							<div class="views">
+								<div style="margin: 0 0 17px 25px;"><p class="semibold-23">Ранее просмотренные</p></div>
+								@foreach (var link in ViewBag.MatLinks)
+								{
+									<div class="views_row">
+										<a class="regular-18" href="@link["link"]">@link["titles"]</a>
+									</div>
+								}
+								<br />
+							</div>
+						}
+				}
+			}
+		}
+		@if (item == null)
+		{
+			<div class="card">
+				<div class="card-head">
+					<div style="display: flex; align-items: center; flex-wrap: wrap;">
+						<h1 style="margin-right: 40px;">Ошибка</h1>
+						<span class="light-18">Материал не найден</span>
+					</div>
+					<button onclick="window.location.href='@Url.Action("Index", "Home")';">На главную</button>
+				</div>
+			</div>
+		}
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const userLi = document.querySelector('.userLk');
+			const menu = document.querySelector('.menu');
+			const button = document.querySelector('.menu-button');
+			button.addEventListener('click', () => {
+				// alert('event click');
+				if (menu.classList.contains('activated')) {
+					// alert('remove activated');
+					menu.classList.remove('activated');
+					userLi.classList.add('hidden');
+				}
+				else {
+					// alert('add activated');
+					userLi.classList.remove('hidden');
+					menu.classList.add('activated');
+				}
+			});
+
+		});
+		$(window).on('load resize', function () {
+			const userLi = document.querySelector('.userLk');
+			const userLiLarge = document.querySelector('.userLkLarge');
+
+			//var navWidth = $('nav').width();
+			var totalWidth = 0;
+			$('nav li').each(function () {
+				totalWidth += $(this).outerWidth(true);
+			});
+			if (document.documentElement.clientWidth < 1200) {
+				// navigation();
+				$('li').addClass('drop');
+				$('nav ul').addClass('dropdown');
+				userLiLarge.classList.add('hidden');
+				userLi.classList.remove('hidden');
+
+
+			} else {
+				$('nav ul').removeClass('dropdown');
+				$('li').removeClass('drop');
+				userLi.classList.add('hidden');
+				userLiLarge.classList.remove('hidden');
+			}
+
+		});
+	</script>
+</section>

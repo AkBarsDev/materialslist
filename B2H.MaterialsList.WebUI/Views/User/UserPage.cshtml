@@ -1,0 +1,72 @@
+﻿@page
+@{
+	ViewBag.Title = "Личный кабинет";
+	Layout = "/Views/Shared/_LayoutUserPage.cshtml";
+}
+
+<section id="">
+	<div class="container">
+		<div class="breadcrumps">
+			<span class="light-15"><a href="">Пользователи</a> > <a href="">Арешина Маргарита Александровна</a></span>
+		</div>
+		<div style="display: flex; flex-direction: row; justify-content: space-around; gap: 10px;">
+			<div class="card" style="width: 75%;">
+				<div class="card-head">
+					<h1 class="user-heading" style="margin-right: 40px; margin-bottom: 0px;">Арешина Маргарита Александровна</h1>
+				</div>
+				<div class="card-media" style="width:100%;">
+					<div class="card-media-text" style="margin-left: 0px;">
+						<table class="user">
+							<tr><td class="user row-head" style="text-align: left;"><p class="regular-18"><span class="medium-18">Роль</span></p></td><td class="user"><p class="regular-18" style="color: gray;">  Администратор</p></td></tr>
+							<tr><td class="user row-head" style="text-align: left;"><p class="regular-18"><span class="medium-18">E-mail</span></p></td><td class="user"><p class="regular-18"> example@abdev.ru</p></td></tr>
+							<tr style="height: 30px;"></tr>
+							<tr>
+								<td class="user row-head" style="text-align: left;"><p class="regular-20"><span class="medium-20">Активность: </span> </p></td>
+								<td class="user">
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Создание материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p><br>
+									<p class="light-15 properties user-activities">Изменение материала <a>Сваи с90-35.8</a> от 12.12.2012</p>
+								</td>
+							</tr>
+						</table>
+						<br>
+					</div>
+				</div>
+
+			</div>
+			<br>
+			<div class="lk-panel">
+				<div class="card-head">
+					<h1 class="user-heading" style="margin-right: 40px; margin-bottom: 0px;">Действия</h1>
+				</div>
+				<div class="card-media" style="width:100%; flex-direction: column; gap: 20px;">
+					<div class="card-media-text" style="margin-left: 0px">
+						<p class="regular-18"><span class="medium-18">Личный кабинет</span></p>
+						<div style="display: flex; justify-content: right; flex-direction: column; gap: 10px;">
+							<button onclick="window.location.href='@Url.Action("UserPageEdit", "User")';" class="save green" style="width: max-content;">Редактировать</button>
+							<button class="save green" style="width: max-content;" onclick="window.location.href='@Url.Action("Logout", "Account")';">Выйти</button>
+						</div>
+					</div>
+					<div class="card-media-text" style="margin-left: 0px">
+						<p class="regular-18"><span class="medium-18">Материалы</span></p>
+						<div style="display: flex; justify-content: right; flex-direction: column; gap: 10px;">
+							<button onclick="window.location.href='@Url.Action("Create", "Material")';" class="save pink">Создать материал</button>
+							<button class="save pink" onclick="window.location.href='@Url.Action("Agreement", "Material")';">Согласование материалов</button>
+						</div>
+					</div>
+					<div class="card-media-text" style="margin-left: 0px">
+						<p class="regular-18"><span class="medium-18">Информация</span></p>
+						<div style="display: flex; justify-content: right; flex-direction: column; gap: 10px;"><button onclick="window.location.href='@Url.Action("UserPageEdit", "Home")';" class="save gray">Создать статью</button></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="views">
+		</div>
+	</div>
+</section>

@@ -1,0 +1,77 @@
+﻿@page
+@{
+	ViewBag.Title = "Согласование";
+	Layout = "/Views/Shared/_LayoutUserPage.cshtml";
+}
+<section id="">
+		<div class="container">
+				<div class="breadcrumps">
+					<span class="light-15"><a href="">Каталог</a> > <a href="">Материалы</a>  >  <a href="">Материалы для строительных и дорожных работ</a>  >  <a href="">Сваи</a>  >  <a href="">Сваи буровые</a>  >  <a href="">Сваи с90-35.8</a></span>
+				</div>
+					<div class="lk-panel" style="padding: 10px 20px 10px ">
+						<div class="card-head">
+							<h1 class="user-heading" style="margin-bottom: 15px;">Согласование</h1>
+						</div>
+						@for (int i = 0; i < 3; i++)
+						{
+							<div style="display: flex; flex-direction: row;">
+								<div class="card-media-agreement" style="width: 90%;">
+									<img class="material-img" src="/images/4f2802ac-ff2f-4e91-87a6-a285cd86d394.jpg" alt="">
+									<div class="card-media-text">
+										<div class="card-head" style="margin-bottom: 20px;">
+											<div style="display: flex; align-items: center; flex-wrap: wrap;"><h1>Сваи с90-35.8s</h1>
+												<span class="light-15" style="color: var(--pink);">Ожидает проверки</span>
+												<span class="light-15" style="color: var(--gray); margin-left: 125px;">03.05.2024</span></div>
+										</div>
+										<p class="regular-15"><span class="medium-15">ГОСТ</span> Сваи 5763920</p>
+										<p class="regular-15"><span class="medium-15">Ссылка на семейство </span> <a>Сваи</a></p>
+									</div>
+								</div>
+								<div class="card-media-text" style="justify-content: space-around; flex-direction: row; gap: 10px; align-items: center;"> 
+									<button style="all: unset;"><img src="/images/y-circle.svg" ></button>
+									<button style="all: unset;" onclick="window.dialog.showModal();"><img src="/images/x-circle.svg" ></button>
+								</div>
+								
+							</div>
+						}
+						<dialog id="dialog">
+							<div class="container">
+								<div class="card-agreement">
+									<div style="display: flex; align-items: center; flex-wrap: wrap;">
+										<h1 style="margin-bottom: 30px;">Укажите причину отказа в согласовании</h1>
+									</div>
+									<form class="auth">
+										<textarea class="user-edit-input" name="Specifications" placeholder="Введите критерии, не прошедшие проверку, а также комментарии к исправлению, они будут направлены модератору материала"></textarea>
+									</form>
+								</div>
+								<br>
+								<div style="display: flex; justify-content: end;"><button class="save" style="align-items: end;" type="submit">Сохранить</button></div>
+							</div>
+						</dialog>
+					</div>
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+				<div class="switcher2">
+					<div class="switcher-item">
+						<input id="radio-1" type="radio" name="radio" value="5" onchange="pagination(5)" checked>
+					<label for="radio-1">5</label>
+					</div>
+					<div class="switcher-item">
+						<input id="radio-2" type="radio" name="radio" value="10" onchange="pagination(10)" >
+					<label for="radio-2">10</label>
+					</div>
+					<div class="switcher-item">
+						<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+						<label for="radio-3">100</label>
+					</div>
+				</div>
+				</form>
+			</div>
+		</div>
+		</div>
+	</section>

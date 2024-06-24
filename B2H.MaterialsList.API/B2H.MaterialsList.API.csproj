@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <RootNamespace>B2H.MaterialsList.API</RootNamespace>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\materialslist</DockerfileContext>
+    <DockerComposeProjectPath>..\materialslist\docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>49ce903b-d7d8-4b49-a192-328e1c2780a8</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="database\**" />
+    <Compile Remove="Data\**" />
+    <Content Remove="database\**" />
+    <Content Remove="Data\**" />
+    <EmbeddedResource Remove="database\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="database\**" />
+    <None Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--<PackageReference Include="Azure.Identity" Version="1.11.2" />-->
+    <!--<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />-->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageReference Include="Serilog.Sinks.Seq" Version="8.0.0" />
+    <!--<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.0" />-->
+    <!--<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj" />
+    <ProjectReference Include="..\B2H.MaterialsList.Infrastructure.ApprovalManagement\B2H.MaterialsList.Infrastructure.ApprovalManagement.csproj" />
+    <ProjectReference Include="..\B2H.MaterialsList.Infrastructure.Repository\B2H.MaterialsList.Infrastructure.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,83 @@
+﻿@model ICollection<MaterialsList.Frontend.Models.Dto.ShortCategoryDto>
+@{
+	//ViewData["MainId"] = Guid.Parse("4a001fe7-a7c0-4975-7cdd-08dc272eed90");
+	ViewData["Title"] = "Каталог материалов";
+	Layout = "/Views/Shared/_LayoutWithSearch.cshtml";
+}
+
+
+<div class="container">
+		<div class="breadcrumps">
+			<span class="light-15">
+				<a class="bread-crumbs">Каталог</a>
+			</span>
+		</div>
+</div>
+<section id="table">
+	<div class="container">
+		<div class="table">
+			<table>
+				<tr>
+					<th class="name">Наименование</th>
+					<th class="count">Кол-во элементов</th>
+				</tr>
+
+				@if (Model != null)
+				{
+					@foreach (var item in Model)
+					{
+
+						<tr>
+							@if (@item.CategoryCount == 0)
+							{
+								<td class="name"><a href="@Url.Action("Materials", "Home", new { categoryId = @item.Id })">@item.Name</a></td>
+								<td class="count">@item.MaterialCount</td>
+							}
+							@if (@item.CategoryCount != 0)
+							{
+								<td class="name"><a href="@Url.Action("Categories", "Home", new { parentId = @item.Id })">@item.Name</a></td>
+								<td class="count">@item.CategoryCount</td>
+							}
+						</tr>
+					}
+				}
+				@if (Model == null)
+				{
+					<tr>
+						<td class="name">Ошибка</td>
+					</tr>
+				}
+
+			</table>
+		</div>
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+					<div class="switcher2">
+						<div class="switcher-item">
+							<input id="radio-1" type="radio" name="radio" value="20" onchange="pagination(20)" checked>
+							<label for="radio-1">20</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-2" type="radio" name="radio" value="50" onchange="pagination(50)">
+							<label for="radio-2">50</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+							<label for="radio-3">100</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		pagination(20);
+	</script>
+</section>
+

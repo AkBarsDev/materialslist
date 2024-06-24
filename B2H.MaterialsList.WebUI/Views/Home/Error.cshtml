@@ -1,0 +1,14 @@
+﻿@model MaterialsList.Frontend.Models.ErrorModel
+@{
+	ViewBag.Title = "Ошибка";
+	Layout = "/Views/Shared/_LayoutAuth.cshtml";
+}
+<section id="">
+	<div class="container">
+		
+		<p>@Model.Message</p>
+        <button class="error-main" onclick="window.location.href='@Url.Action("Index", "Home")';">
+            На главную
+        </button>
+		
+</div></section>

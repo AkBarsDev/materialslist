@@ -396,3 +396,10 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Source/Materials/Files
+/Source/Materials/Images
+/pgadmin-data/sessions
+/pgdata/pgdata
+/pgadmin-data
+/pgadmin-data
+/pgadmin-data

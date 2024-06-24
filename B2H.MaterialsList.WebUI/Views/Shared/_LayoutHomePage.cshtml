@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+	<link rel="stylesheet" href="~/css/styles_user_page.css" asp-append-version="true" />
+</head>
+<body>
+	<header>
+		<section id="nav-bar">
+			<div class="container">
+				<div id="nav-bar-div" class="nav-bar">
+					<div class="nav-bar-item">
+						<button id="logo" onclick="window.location.href='@Url.Action("Main", "Home")';"></button>
+					</div>
+					<div class="userLkLarge nav-bar-item">
+						<a href="@Url.Action("UserPage", "User")" class="medium-20">Личный кабинет</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.3.js"
+			integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+			crossorigin="anonymous">
+	</script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
