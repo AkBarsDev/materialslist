@@ -82,7 +82,7 @@
 					@{
 						@if (item.Images.Count() != 0)
 						{
-							apiImageUrl = "https://localhost:8085/api/image/" + @item.Images.ElementAt(0);
+							apiImageUrl = "http://localhost:8085/api/image/" + @item.Images.ElementAt(0);
 							<img class="material-img" src=@apiImageUrl alt="">
 						}
 						@if (item.Images.Count() == 0)

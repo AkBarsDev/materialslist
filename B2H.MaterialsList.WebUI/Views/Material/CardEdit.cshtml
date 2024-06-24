@@ -15,27 +15,28 @@
 		</div>
 		<div class="card">
 			<div class="card-media card-edit">
-				<form class="card-edit" asp-action="CardEditSubmit"
+				<form id="card-edit-form" class="card-edit" asp-action="CardEditSubmit"
 					  asp-controller="Material"
 					  asp-route-materialId="@item.MaterialId"
 					  asp-route-fileId="@item.FileId"
 					  asp-route-images="@item.ImagesId"
 					  asp-route-categoryId="@item.CategoryId"
 					  method="post" enctype="multipart/form-data">
-					<p class="regular-20"><span class="medium-20">Наименование </span><input name="Name" type="text" class="user-edit-input" value="@item.Name" placeholder="Введите название"></p>
+					<p class="regular-20"><span class="medium-20">Наименование </span><input id="input-name" name="Name" type="text" class="user-edit-input" value="@item.Name" placeholder="Введите название"></p>
 					<p class="regular-20"><span class="medium-20">ГОСТ </span><input name="Gost" type="text" class="user-edit-input" value="@item.Gost" placeholder="Введите ГОСТ"></p>
 					<p class="regular-20"><span class="medium-20">Категория</span><input name="CategoryCurrent" type="text" class="user-edit-input" value="Текущая категория - @item.CategoryName" placeholder="" disabled></p>
-					<select name="CategoryIdOption" id="category">
-						<option name="CategoryIdOption" value="">Выберите категорию</option>
+					<select name="CategoryIdOption2" id="category">
+						<option name="CategoryIdOption2" value="">Поиск по категориям</option>
 						@foreach(CategoryDto cat in item.Categories)
 						{
 							@if (@cat.Children.Count == 0)
 							{
-								<option name="CategoryIdOption" value="@cat.CategoryId">@cat.Name</option>
+								<option name="CategoryIdOption2" value="@cat.CategoryId">@cat.Name</option>
 							}
 						}
 					</select>
 					<br>
+					<div id="select-container"></div>
 					<p class="regular-20"><span class="medium-20">Характеристики </span> </p>
 					<textarea class="user-edit-input" name="Specifications" placeholder="Введите характеристики списком" value="@specs">@specs</textarea>
 					<label class="input-file">
