@@ -2,6 +2,7 @@ version: '3.4'
 
 services:
   b2h.materialslist.api:
+    hostname: materialslist-backend
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
@@ -16,6 +17,7 @@ services:
     restart: unless-stopped
 
   b2h.materialslist.api.webstorage:
+    hostname: materialslist-us
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
@@ -30,6 +32,7 @@ services:
     restart: unless-stopped
 
   b2h.materialslist.webui:
+    hostname: materialslist-ui
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080

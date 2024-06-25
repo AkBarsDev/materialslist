@@ -9,6 +9,7 @@ services:
       dockerfile: B2H.MaterialsList.API/Dockerfile
 
   b2h.materialslist.api.webstorage:
+    container_name: webstorage
     image: b2h.cr.cloud.ru/materialslist/us:develop
     build:
       context: .
@@ -38,7 +39,8 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-latest
 
   db-postgres:
-    image: postgres:16.1-alpine3.18
+    container_name: "db-postgres"
+    image: postgres:15.7-alpine3.20
     deploy:
       resources:
         limits:
