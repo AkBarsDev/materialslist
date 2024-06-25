@@ -8,8 +8,8 @@
     <RootNamespace>B2H.MaterialsList.API.WebStorage</RootNamespace>
     <UserSecretsId>b41a8d29-efa8-4fa5-a0cc-0f68073e728f</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\materialslist</DockerfileContext>
-    <DockerComposeProjectPath>..\materialslist\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerfileContext>..</DockerfileContext>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

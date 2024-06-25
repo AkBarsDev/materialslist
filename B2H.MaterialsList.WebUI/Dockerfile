@@ -9,10 +9,11 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["B2H.MaterialsList.WebUI.csproj", "."]
-RUN dotnet restore "./././B2H.MaterialsList.WebUI.csproj"
+COPY ["B2H.MaterialsList.WebUI/B2H.MaterialsList.WebUI.csproj", "B2H.MaterialsList.WebUI/"]
+COPY ["B2H.MaterialsList.API.DataTransfer/B2H.MaterialsList.API.DataTransfer.csproj", "B2H.MaterialsList.API.DataTransfer/"]
+RUN dotnet restore "./B2H.MaterialsList.WebUI/B2H.MaterialsList.WebUI.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/B2H.MaterialsList.WebUI"
 RUN dotnet build "./B2H.MaterialsList.WebUI.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
@@ -22,4 +23,4 @@ RUN dotnet publish "./B2H.MaterialsList.WebUI.csproj" -c $BUILD_CONFIGURATION -o
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "materialslist-ui.dll"]
+ENTRYPOINT ["dotnet", "B2H.MaterialsList.WebUI.dll"]

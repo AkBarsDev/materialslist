@@ -7,7 +7,10 @@
         "materialslist-ui": "StartDebugging",
         "materialslist-backend": "StartDebugging",
         "materialslist-us": "StartDebugging",
-        "b2h.identityserver": "StartDebugging"
+        "b2h.identityserver": "StartDebugging",
+        "b2h.materialslist.api": "StartDebugging",
+        "b2h.materialslist.api.webstorage": "StartDebugging",
+        "b2h.materialslist.webui": "StartDebugging"
       }
     }
   }
