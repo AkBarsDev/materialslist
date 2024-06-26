@@ -23,12 +23,12 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - SOURCE_STORAGE=/home/
       - CONNECTINGSTRING=${FILEBASE_CONNECTINGSTRING}
-      - URL_IDETITYSERVER=${URL_IDENTITYSERVER}
     ports:
       - "8085:8080"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${FILEBASE_SOURCE_DIR}:/home/Source
     restart: unless-stopped
 
   b2h.materialslist.webui:
