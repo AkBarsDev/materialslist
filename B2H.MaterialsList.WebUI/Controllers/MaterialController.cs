@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MaterialsList.Frontend.Models.Dto;
 using MaterialsList.Frontend.Services.IServices;
 using Newtonsoft.Json;
 using MaterialsList.Frontend.Models;
 using MaterialsList.Frontend;
 using materialslist_ui.Attributes;
 using Microsoft.AspNetCore.Authorization;
+using B2H.MaterialsList.API.DataTransfer.Dto;
 namespace materialslist_ui.Controllers
 {
 	public class MaterialController : Controller

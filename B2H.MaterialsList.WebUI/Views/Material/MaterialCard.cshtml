@@ -1,4 +1,5 @@
-﻿@using MaterialsList.Frontend.Models.Dto
+﻿@using B2H.MaterialsList.API.DataTransfer.Dto
+
 @model ViewModel<MaterialDto,ShortCategoryDto>
 @{
 	var item = (MaterialDto)Model.ViewObject;
@@ -62,11 +63,11 @@
 						<h1 style="margin-right: 40px;">@item.Name</h1>
 						@if (@item.UpdateAt != null)
 						{
-							<span class="light-18">Материал, дата изменения @item.UpdateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
+							<span class="light-18">Материал, дата изменения @item.UpdateAt.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
 						}
 						@if (@item.UpdateAt == null)
 						{
-							<span class="light-18">Материал, дата создания @item.CreateAt.Value.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
+							<span class="light-18">Материал, дата создания @item.CreateAt.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</span>
 						}
 						@if (item.UpdateAt == null && item.CreateAt == null)
 						{
