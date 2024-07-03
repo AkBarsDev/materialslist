@@ -35,12 +35,12 @@ namespace MaterialsList.Frontend.Services
 			});
 		}
 
-		public async Task<T> GetAllProductsAsync<T>()
+		public async Task<T> GetAllMaterialsAsync<T>()
 		{
 			return await this.SendAsync<T>(new ApiRequest
 			{
 				ApiType = SD.ApiType.GET,
-				Url = SD.MaterialsAPIBase + "/api/Materials"
+				Url = SD.MaterialsAPIBase + "/api/materials"
 			});
 		}
 

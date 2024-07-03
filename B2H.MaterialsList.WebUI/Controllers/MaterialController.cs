@@ -207,6 +207,18 @@ namespace materialslist_ui.Controllers
 			return RedirectToAction("UserPage", "User");
 		}
 
+		public async Task<ActionResult> GetAllMaterials()
+		{
+			List<MaterialDto> materials = new List<MaterialDto>();
+				var response = await _materialService.GetAllMaterialsAsync<ResponseDto>();
+				if (response != null && response.IsSuccess)
+				{
+					materials = JsonConvert.DeserializeObject<List<MaterialDto>>(Convert.ToString(response.Result));
+				}
+			return View(materials);
+		}
+
+
 		public async Task<IActionResult> Agreement()
 		{
 			return View();

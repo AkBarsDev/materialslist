@@ -54,6 +54,11 @@ function showFilter() {
 	} else { filter.classList = "filter-container"; }
 }
 
+function sortFromAToZ() {
+let list = ['яблоко', 'груша', 'апельсин', 'банан', 'афродита'];
+list.sort((a, b) => a.localeCompare(b, 'ru'));
+	alert(list);
+}
 
 $(document).ready(function () {
 	window.setTimeout(function () {
