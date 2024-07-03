@@ -64,6 +64,7 @@ namespace materialslist_ui.Controllers
 			ErrorModel error = new("404");
 			return View("Error", error);
 		}
+		[Authorize]
 		public async Task<IActionResult> CardEdit(Guid materialId, string? cardTitle, Guid? cardRequest)
 		{
 			if (materialId != Guid.Empty)
@@ -157,7 +158,7 @@ namespace materialslist_ui.Controllers
 
 			return RedirectToAction("MaterialCard", new { materialId = materialId });
 		}
-
+		[Authorize]
 		public async Task<IActionResult> Create()
 		{
 			List<CategoryDto> categories = new();

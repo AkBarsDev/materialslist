@@ -1,5 +1,5 @@
-﻿@using MaterialsList.Frontend.Models.Dto;
-@model List<MaterialsList.Frontend.Models.Dto.CategoryDto>;
+﻿@using B2H.MaterialsList.API.DataTransfer.Dto;
+@model List<B2H.MaterialsList.API.DataTransfer.Dto.CategoryDto>;
 @{
 	var item = Model;
 	ViewBag.Title = "Личный кабинет";
@@ -33,7 +33,7 @@
 					<textarea class="user-edit-input" name="Specifications" placeholder="Введите характеристики списком"></textarea>
 					<label class="input-file">
 						<input type="file" name="Images" multiple accept="image/*" /><br>
-						<span class="input-file-btn">Добавить изображение</span>
+						<span class="input-file-btn">Изображение</span>
 						<span class="input-file-text"></span>
 					</label>
 					<label class="input-file">
