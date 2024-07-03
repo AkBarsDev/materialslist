@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{07
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{47427F78-2C97-46A8-94EE-27A0604A5FAC}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F680973F-1E54-490D-AD00-9B36044C9436}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.DataTransfer", "B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj", "{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Core", "B2H.MaterialsList.Core\B2H.MaterialsList.Core.csproj", "{CD427EE4-21BC-4392-B28B-6705D698C0C2}"
@@ -25,16 +23,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.WebSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.WebUI", "B2H.MaterialsList.WebUI\B2H.MaterialsList.WebUI.csproj", "{49FEB365-798A-4210-8D3F-9C0F7995339F}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FCE4BF3E-4F9F-4A60-92DD-969766D1BB95}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F680973F-1E54-490D-AD00-9B36044C9436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F680973F-1E54-490D-AD00-9B36044C9436}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F680973F-1E54-490D-AD00-9B36044C9436}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F680973F-1E54-490D-AD00-9B36044C9436}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -67,6 +63,10 @@ Global
 		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49FEB365-798A-4210-8D3F-9C0F7995339F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCE4BF3E-4F9F-4A60-92DD-969766D1BB95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCE4BF3E-4F9F-4A60-92DD-969766D1BB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCE4BF3E-4F9F-4A60-92DD-969766D1BB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCE4BF3E-4F9F-4A60-92DD-969766D1BB95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

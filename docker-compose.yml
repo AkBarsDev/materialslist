@@ -1,36 +1,37 @@
+version: '3.4'
 
 services:
-  materialslist-backend:
+  b2h.materialslist.api:
     container_name: backend
-    image: b2h.cr.cloud.ru/materialslist/backend:test
-    depends_on:
-      - database
+    image: ${DOCKER_REGISTRY-}b2h.cr.cloud.ru/materialslist/backend:develop
     build:
-      # context: ..
-      dockerfile: ./B2H.MaterialsList.API/Dockerfile
+      context: .
+      dockerfile: B2H.MaterialsList.API/Dockerfile
 
-  materialslist-ui:
+  b2h.materialslist.api.webstorage:
+    container_name: webstorage
+    image: b2h.cr.cloud.ru/materialslist/us:develop
+    build:
+      context: .
+      dockerfile: B2H.MaterialsList.API.WebStorage/Dockerfile
+
+
+  b2h.materialslist.webui:
     container_name: ui
-    image: b2h.cr.cloud.ru/materialslist/ui:test
+    image: b2h.cr.cloud.ru/materialslist/ui:develop
+    build:
+      context: .
+      dockerfile: B2H.MaterialsList.WebUI/Dockerfile
     depends_on:
-      - materialslist-backend
-      - materialslist-us
-    build:
-      # context: ..
-      dockerfile: ./B2H.MaterialsList.WebUI/Dockerfile
-
-  materialslist-us:
-    container_name: us
-    image: b2h.cr.cloud.ru/materialslist/us:test
-    build:
-      # context: ..
-      dockerfile: ./B2H.MaterialsList.API.WebStorage/Dockerfile
-
+    - database
+    - db-postgres
+    - b2h.materialslist.api
+  
   proxy:
     container_name: nginx
     image: nginx:latest
     depends_on:
-      - materialslist-ui
+      - b2h.materialslist.webui
   
   database:
     container_name: "app-database"
@@ -38,8 +39,8 @@ services:
     image: mcr.microsoft.com/mssql/server:2019-latest
 
   db-postgres:
-    image: postgres:16.1-alpine3.18
-
+    container_name: "db-postgres"
+    image: postgres:15.7-alpine3.20
     deploy:
       resources:
         limits:
@@ -50,19 +51,3 @@ services:
     container_name: serilog
     image: datalust/seq
   
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4:8.2
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 1G
-
-
-  # identityserver:
-  #   container_name: "identityserver"
-  #   image: b2h.cr.cloud.ru/identityserver:test
-  #   build:
-  #     context: .
-  #     dockerfile: B2H.IdentityServer/Dockerfile

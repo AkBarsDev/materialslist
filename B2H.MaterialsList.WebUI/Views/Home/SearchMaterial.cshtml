@@ -10,8 +10,8 @@
 		<div class="container">
 			<div class="search-title">
 				<h1>Поиск по каталогу</h1>
-				<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
-				<button onclick="">Библиотека моделей</button>
+@* 				<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
+				<button onclick="">Библиотека моделей</button> *@
 			</div>
 			<form asp-action="SearchMaterial">
 				<input name="request" type="text" placeholder="Введите название материала" value=@title />
@@ -52,12 +52,16 @@
 					<div id="biblioteka" class="inactive-circle"></div>
 				</div>
 				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
-					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
+					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
 					<div id="shablon" class="inactive-circle"></div>
 				</div>
 				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
-					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
+					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
 					<div id="nonmodeling" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Есть файл</label>
+					<div id="hasfile" class="inactive-circle"></div>
 				</div>
 			</div>
 			<table>

@@ -1,4 +1,4 @@
-﻿@using MaterialsList.Frontend.Models.Dto;
+﻿@using B2H.MaterialsList.API.DataTransfer.Dto
 @model MaterialsList.Frontend.Models.CardEditModel
 @{
 	var item = Model;
@@ -41,7 +41,7 @@
 					<textarea class="user-edit-input" name="Specifications" placeholder="Введите характеристики списком" value="@specs">@specs</textarea>
 					<label class="input-file">
 						<input type="file" name="Images" multiple accept="image/*" /><br>
-						<span class="input-file-btn">Добавить изображение</span>
+						<span class="input-file-btn">Изображение</span>
 						<span class="input-file-text"></span>
 					</label>
 					<label class="input-file">

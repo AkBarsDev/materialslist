@@ -1,4 +1,4 @@
-﻿using MaterialsList.Frontend.Models.Dto;
+﻿using B2H.MaterialsList.API.DataTransfer.Dto;
 
 namespace materialslist_ui.Attributes
 {

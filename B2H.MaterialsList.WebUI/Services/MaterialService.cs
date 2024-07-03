@@ -1,8 +1,8 @@
 ﻿using MaterialsList.Frontend.Services.IServices;
 using MaterialsList.Frontend.Models;
-using MaterialsList.Frontend.Models.Dto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using B2H.MaterialsList.API.DataTransfer.Dto;
 
 namespace MaterialsList.Frontend.Services
 {

@@ -4,10 +4,10 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>f680973f-1e54-490d-ad00-9b36044c9436</ProjectGuid>
+    <ProjectGuid>fce4bf3e-4f9f-4a60-92dd-969766d1bb95</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>materialslist-backend</DockerServiceName>
+    <DockerServiceName>b2h.materialslist</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include=".env" />
@@ -31,6 +31,7 @@
     <None Include="Source\Tamplates\ADSK_RU_ШаблонПроекта_ЭОМ_r2019_v1.2.rte" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="nginx\" />
     <Folder Include="database\" />
   </ItemGroup>
 </Project>

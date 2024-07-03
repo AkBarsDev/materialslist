@@ -30,6 +30,9 @@
 		//3
 		var nonmodeling = document.getElementById("nonmodeling");
 		filterOnClick(nonmodeling);
+		//4 
+		var hasFile = document.getElementById("hasfile");
+		hasFileCheck(hasFile);
 	}
 
 });
@@ -41,8 +44,33 @@ function filterOnClick(element) {
 		} else {
 			element.classList = "inactive-circle";
 		}
-
 	});
+}
+
+function hasFileCheck(element) {
+	const content = document.querySelector('.table');
+	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
+
+	element.addEventListener('click', () => {
+		if (element.classList != "active-circle") {
+			element.classList = "active-circle";
+			for (var i = 0; i < items.length; i++) {
+				var cells = items[i].getElementsByTagName("td");
+				if (cells.length == 2) {
+					items[i].classList = "hidden-filter";
+				}
+			}
+
+		} else {
+			element.classList = "inactive-circle";
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].classList == "hidden-filter") {
+					items[i].classList = "";
+				}
+			}
+		}
+	});
+	pagination(20);
 }
 
 function showFilter() {
@@ -50,6 +78,7 @@ function showFilter() {
 	
 	if (filter.classList != "hidden") {
 		filter.classList = "hidden";
+
 		//сброс значений фильтра
 	} else { filter.classList = "filter-container"; }
 }

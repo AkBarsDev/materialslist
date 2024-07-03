@@ -7,7 +7,7 @@
     <RootNamespace>B2H.MaterialsList.WebUI</RootNamespace>
     <UserSecretsId>a3a3a8da-ffae-4bda-879f-b4c84994178d</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\materialslist</DockerfileContext>
+    <DockerfileContext>..</DockerfileContext>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 

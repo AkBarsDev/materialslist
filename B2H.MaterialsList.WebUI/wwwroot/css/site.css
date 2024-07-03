@@ -637,6 +637,17 @@ td > form {
     width: 1px;
 }
 
+
+.hidden-filter {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
 .switcher2 {
     min-height: 39px;
     border-radius: 22px;

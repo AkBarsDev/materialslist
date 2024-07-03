@@ -1,4 +1,5 @@
-﻿using MaterialsList.Frontend.Models.Dto;
+﻿
+using B2H.MaterialsList.API.DataTransfer.Dto;
 using Microsoft.AspNetCore.Http;
 namespace MaterialsList.Frontend.Models
 {
