@@ -6,7 +6,7 @@ namespace MaterialsList.Frontend.Services.IServices
 	public interface IMaterialService
 	{
 
-		Task<T> GetAllProductsAsync<T>();
+		Task<T> GetAllMaterialsAsync<T>();
 		Task<T> GetAllCategoriesAsync<T>();
 		Task<T> GetCategoryByIdAsync<T>(Guid id);
 		Task<T> GetProductByIdAsync<T>(Guid id);

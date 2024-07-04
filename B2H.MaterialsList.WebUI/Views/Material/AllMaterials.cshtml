@@ -1,0 +1,124 @@
+﻿@using B2H.MaterialsList.API.DataTransfer.Dto
+@model List<MaterialDto>
+@{
+	ViewData["Title"] = "Каталог материалов";
+	Layout = "/Views/Shared/_LayoutWithSearch.cshtml";
+	string searchTitle = ViewBag.SearchTitle;
+	string searchRequest = ViewBag.SearchRequest;
+
+}
+<script src="~/js/jquery-1.10.2.min.js" asp-append-version="true"></script>
+
+
+<div class="container" style="display: flex; flex-direction:row; justify-content:space-between; align-content: center;">
+	<div class="breadcrumps" style="max-width: 70%;">
+		<span class="light-15">
+			<a class="bread-crumbs" href="@Url.Action("Index", "Home")">Каталог</a>
+			<span class="light-15"> > </span>
+			<a class="bread-crumbs" href="">Все материалы</a>
+		</span>
+	</div>
+	<button class="filter-button" onclick="showFilter()" style="margin-top: 16.5px;"></button>
+</div>
+<section id="table">
+	<div class="container">
+		<div class="table" style="display:flex; flex-direction: row;">
+			<div id="filter-container" class="hidden">
+				<p style="margin-left: 23px; margin-top: 19px;" class="medium-20">Фильтр</p>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label class="regular-18" style="line-height: 18px;">Библиотека</label>
+					<div id="biblioteka" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Не моделируется</label>
+					<div id="shablon" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Шаблоны</label>
+					<div id="nonmodeling" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Есть файл</label>
+					<div id="hasfile" class="inactive-circle"></div>
+				</div>
+				<div style="margin-left: 39px; margin-bottom: 9px; display:flex; flex-direction: row; justify-content: flex-start;">
+					<label style="line-height: 18px;" class="regular-18">Есть габариты</label>
+					<div id="sizeFilter" class="inactive-circle"></div>
+				</div>
+				<input type="text" id="sizeCheck1" />
+				<input type="text" id="sizeCheck2" />
+			</div>
+			<table>
+				<tr>
+					<th class="name">Наименование</th>
+					<th class="date">Дата изменения</th>
+					<th class="download">Скачать</th>
+				</tr>
+				@if (Model != null)
+				{
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td class="name"><a href="@Url.Action("MaterialCard", "Material", new { materialId = @item.MaterialId })">@item.Name</a></td>
+							@if (item.UpdateAt != null)
+							{
+								<td class="date">@item.UpdateAt.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</td>
+							}
+							@if (item.UpdateAt == null)
+							{
+								<td class="date">@item.CreateAt.ToString("d", new System.Globalization.CultureInfo("ru-Ru"))</td>
+							}
+							@if (item.UpdateAt == null && item.CreateAt == null)
+							{
+								<td class="date">—</td>
+							}
+							@if (item.FileId != null)
+							{
+								var apiUrl = "/api/download/materials/" + @item.FileId;
+								string apiUrlStr = String.Format("downloadFile(\"{0}\")", apiUrl);
+								<td class="download">
+									@* <button id="downloadFromList" value="Save" onclick=@apiUrlStr></button> *@
+									<form asp-action="Download" asp-route-Url=@apiUrl><button></button></form>
+									@* @Html.RouteLink("Скачать", new { controller = "Home", action = "Download", Url = apiUrl }, new { id = "downloadFromList" }) *@
+								</td>
+							}
+						</tr>
+					}
+				}
+				@if (Model == null)
+				{
+					<td class="name">Ошибка</td>
+				}
+
+			</table>
+		</div>
+		<div class="pagination">
+			<div class="page">
+				<span class="light-15">Страница:</span>
+
+			</div>
+			<div class="page-elems">
+				<span class="light-15">Показать по:</span>
+				<form id="radio-form">
+					<div class="switcher2">
+						<div class="switcher-item">
+							<input id="radio-1" type="radio" name="radio" value="20" onchange="pagination(20)" checked>
+							<label for="radio-1">20</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-2" type="radio" name="radio" value="50" onchange="pagination(50)">
+							<label for="radio-2">50</label>
+						</div>
+						<div class="switcher-item">
+							<input id="radio-3" type="radio" name="radio" value="100" onchange="pagination(100)">
+							<label for="radio-3">100</label>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script>
+		pagination(20);
+	</script>
+</section>

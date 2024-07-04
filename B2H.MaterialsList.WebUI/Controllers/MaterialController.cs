@@ -16,6 +16,22 @@ namespace materialslist_ui.Controllers
 			_materialService = materialService;
 		}
 		public List<IDictionary<string, string>> matLinks = new List<IDictionary<string, string>>();
+		public async Task<IActionResult> AllMaterials()
+		{
+			List<MaterialDto> list = new();
+			try
+			{
+				var response = await _materialService.GetAllMaterialsAsync<ResponseDto>();
+				if (response != null && response.IsSuccess)
+					list = JsonConvert.DeserializeObject<List<MaterialDto>>(Convert.ToString(response.Result));
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+			}
+			return View(list);
+		}
+
 
 		public async Task<IActionResult> MaterialCard(Guid materialId, string? searchTitle, string? searchRequest )
 		{

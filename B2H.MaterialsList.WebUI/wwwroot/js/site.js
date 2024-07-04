@@ -33,6 +33,9 @@
 		//4 
 		var hasFile = document.getElementById("hasfile");
 		hasFileCheck(hasFile);
+		//5
+		var sizeFilter = document.getElementById("sizeFilter");
+		sizeCheck(sizeFilter);
 	}
 
 });
@@ -46,7 +49,73 @@ function filterOnClick(element) {
 		}
 	});
 }
+function sizeCheck(element) {
+	const content = document.querySelector('.table');
+	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
+	const sizeCheck1 = document.getElementById("sizeCheck1");
+	const sizeCheck2 = document.getElementById("sizeCheck2");
 
+	element.addEventListener('click', () => {
+		if (element.classList != "active-circle") {
+			element.classList = "active-circle";
+			for (var i = 0; i < items.length; i++) {
+				var cells = items[i].getElementsByTagName("td");
+				if (hasSizeCheck(cells[0].innerHTML) == null) {
+					items[i].classList = "hidden-filter";
+				}
+				pagination(20);
+			}
+			sizeCheck1.classList = "";
+			sizeCheck2.classList = "";
+			sizeCheck1.addEventListener('input', () => {
+				if (sizeCheck1.value != "") {
+					for (var i = 0; i < items.length; i++) {
+						var cells = items[i].getElementsByTagName("td");
+						if (inputSizeCheck(cells[0].innerHTML, sizeCheck1.value) == false) {
+							alert("false");
+							items[i].classList = "hidden-filter";
+						} else {
+							alert("go");
+						}
+						pagination(20);
+					}
+				} else {
+					for (var i = 0; i < items.length; i++) {
+						var cells = items[i].getElementsByTagName("td");
+						if (hasSizeCheck(cells[0].innerHTML) == null) {
+							items[i].classList = "hidden-filter";
+						} else {
+							items[i].classList = "";
+						}
+						pagination(20);
+					}
+				}
+			});
+			
+		} else {
+			element.classList = "inactive-circle";
+			sizeCheck1.text = "";
+			sizeCheck2.text = "";
+			sizeCheck1.classList = "hidden";
+			sizeCheck2.classList = "hidden";
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].classList == "hidden-filter") {
+					items[i].classList = "";
+				}
+			}
+		}
+		pagination(20);
+	});
+}
+
+function inputSizeCheck(text, number1) {
+	var input = number1;
+	//nst regex = new RegExp(.+\s${input}х\d+.+");
+	return regex.test(text);
+}
+function hasSizeCheck(text) {
+	return text.match(/.+\s\d+х\d+.+/iu);
+}
 function hasFileCheck(element) {
 	const content = document.querySelector('.table');
 	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
@@ -69,8 +138,8 @@ function hasFileCheck(element) {
 				}
 			}
 		}
+		pagination(20);
 	});
-	pagination(20);
 }
 
 function showFilter() {
@@ -78,8 +147,6 @@ function showFilter() {
 	
 	if (filter.classList != "hidden") {
 		filter.classList = "hidden";
-
-		//сброс значений фильтра
 	} else { filter.classList = "filter-container"; }
 }
 
@@ -92,7 +159,6 @@ $(document).ready(function () {
 });
 
 $(window).on('load resize', function () {
-	//filename input
 	$('.input-file input[type=file]').on('change', function () {
 		let file = this.files[0];
 		$(this).closest('.input-file').find('.input-file-text').html(file.name);
@@ -128,7 +194,8 @@ function pagination(itemsPerPage) {
 	const content = document.querySelector('.table');
 	const page = document.querySelector('.page');
 	let currentPage = 0;
-	const items = Array.from(content.getElementsByTagName('tr')).slice(1);
+	const items1 = Array.from(content.getElementsByTagName('tr')).slice(1);
+	const items = items1.filter((item) => item.classList.contains("hidden-filter") === false);
 
 	function showPage(page) {
 		const startIndex = page * itemsPerPage;
