@@ -1,9 +1,6 @@
 ﻿using B2H.MaterialsList.Core.Models;
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 
 namespace B2H.MaterialsList.Core.Service
@@ -28,20 +25,17 @@ namespace B2H.MaterialsList.Core.Service
 			}
 		}
 		public virtual DbSet<Category> CategoriesMaterials { get; set; }
-
-		public virtual DbSet<Filebase> Filebase { get; set; }
-
 		public virtual DbSet<HistoryUpdate> HistoryUpdates { get; set; }
-
+		public virtual DbSet<Filebase> Filebase { get; set; }
 		public virtual DbSet<Image> Images { get; set; }
-
 		public virtual DbSet<Material> Materials { get; set; }
-
 		public virtual DbSet<MaterialImage> MaterialImages { get; set; }
-
-		//protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-			//=> optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING")
-									//?? "Host=localhost;Port=1434;Database=B2HMaterials;Username=b2h;Password=temppgpwd4");
+		public virtual DbSet<Approval> Approvals { get; set; }
+		public virtual DbSet<ApprovalStage> ApprovalStages { get; set; }
+		public virtual DbSet<ApprovalHistory> ApprovalsHistory { get; set; }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+		=> optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING")
+		?? "Host=localhost;Port=1434;Database=B2HMaterials;Username=b2h;Password=temppgpwd4");
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -162,7 +156,6 @@ namespace B2H.MaterialsList.Core.Service
 
 				entity.HasIndex(e => e.MaterialId, "IX_HistoryUpdate_MaterialId");
 
-				entity.HasOne(d => d.Material).WithMany(p => p.HistoryUpdates).HasForeignKey(d => d.MaterialId);
 				entity.Property(e => e.DataUpdate).HasConversion(
 					src => src.Kind == DateTimeKind.Utc ? src : DateTime.SpecifyKind(src, DateTimeKind.Utc),
 					dst => dst.Kind == DateTimeKind.Utc ? dst : DateTime.SpecifyKind(dst, DateTimeKind.Utc)
