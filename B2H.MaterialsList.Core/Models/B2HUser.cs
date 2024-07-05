@@ -3,7 +3,7 @@
 namespace B2H.MaterialsList.Core.Models
 {
 	public class B2HUser : IdentityUser
-	{ 
+	{
 		public virtual ICollection<B2HUserClaim> Claims { get; set; }
 		public virtual ICollection<B2HUserLogin> Logins { get; set; }
 		public virtual ICollection<B2HUserToken> Tokens { get; set; }
