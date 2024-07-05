@@ -70,22 +70,55 @@ function sizeCheck(element) {
 			sizeCheck1.addEventListener('input', () => {
 				if (sizeCheck1.value != "") {
 					for (var i = 0; i < items.length; i++) {
+						if (sizeCheck2.value == "") { items[i].classList = ""; }
 						var cells = items[i].getElementsByTagName("td");
-						if (inputSizeCheck(cells[0].innerHTML, sizeCheck1.value) == false) {
-							alert("false");
+						var name = cells[0].getElementsByTagName("a");
+						if (!(name[0].innerHTML.includes(" " + sizeCheck1.value + "х"))) {
 							items[i].classList = "hidden-filter";
 						} else {
-							alert("go");
+							if (name[0].innerHTML.includes("х" + sizeCheck2.value)) {
+								items[i].classList = "";
+							}
 						}
 						pagination(20);
 					}
 				} else {
 					for (var i = 0; i < items.length; i++) {
 						var cells = items[i].getElementsByTagName("td");
+						var name = cells[0].getElementsByTagName("a");
 						if (hasSizeCheck(cells[0].innerHTML) == null) {
 							items[i].classList = "hidden-filter";
 						} else {
-							items[i].classList = "";
+							if (name[0].innerHTML.includes("х" + sizeCheck2.value)) {
+								items[i].classList = "";
+							} 
+						}
+						pagination(20);
+					}
+				}
+			});
+			sizeCheck2.addEventListener('input', () => {
+				if (sizeCheck2.value != "") {
+					for (var i = 0; i < items.length; i++) {
+						if (sizeCheck1.value == "") { items[i].classList = ""; }
+						var cells = items[i].getElementsByTagName("td");
+						var name = cells[0].getElementsByTagName("a");
+						if (!(name[0].innerHTML.includes("х" + sizeCheck2.value))) {
+							items[i].classList = "hidden-filter";
+						} else {
+						}
+						pagination(20);
+					}
+				} else {
+					for (var i = 0; i < items.length; i++) {
+						var cells = items[i].getElementsByTagName("td");
+						var name = cells[0].getElementsByTagName("a");
+						if (hasSizeCheck(cells[0].innerHTML) == null) {
+							items[i].classList = "hidden-filter";
+						} else {
+							if (name[0].innerHTML.includes(" " + sizeCheck1.value + "х")) {
+								items[i].classList = "";
+							} 
 						}
 						pagination(20);
 					}
@@ -110,8 +143,9 @@ function sizeCheck(element) {
 
 function inputSizeCheck(text, number1) {
 	var input = number1;
-	//nst regex = new RegExp(.+\s${input}х\d+.+");
-	return regex.test(text);
+	var check = text.contains(input + "х");
+	alert("check" + check);
+	return check;
 }
 function hasSizeCheck(text) {
 	return text.match(/.+\s\d+х\d+.+/iu);
