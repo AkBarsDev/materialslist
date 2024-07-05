@@ -67,6 +67,7 @@ function sizeCheck(element) {
 			}
 			sizeCheck1.classList = "";
 			sizeCheck2.classList = "";
+			sizeCheckX.classList = "regular-18";
 			sizeCheck1.addEventListener('input', () => {
 				if (sizeCheck1.value != "") {
 					for (var i = 0; i < items.length; i++) {
@@ -101,11 +102,15 @@ function sizeCheck(element) {
 				if (sizeCheck2.value != "") {
 					for (var i = 0; i < items.length; i++) {
 						if (sizeCheck1.value == "") { items[i].classList = ""; }
+
 						var cells = items[i].getElementsByTagName("td");
 						var name = cells[0].getElementsByTagName("a");
 						if (!(name[0].innerHTML.includes("х" + sizeCheck2.value))) {
 							items[i].classList = "hidden-filter";
 						} else {
+							if (name[0].innerHTML.includes(" " + sizeCheck1.value + "х")) {
+								items[i].classList = "";
+							}
 						}
 						pagination(20);
 					}
@@ -131,6 +136,7 @@ function sizeCheck(element) {
 			sizeCheck2.text = "";
 			sizeCheck1.classList = "hidden";
 			sizeCheck2.classList = "hidden";
+			sizeCheckX.classList = "hidden";
 			for (var i = 0; i < items.length; i++) {
 				if (items[i].classList == "hidden-filter") {
 					items[i].classList = "";
