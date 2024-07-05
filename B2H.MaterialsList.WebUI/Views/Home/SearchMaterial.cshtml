@@ -9,9 +9,8 @@
 	<section id="search">
 		<div class="container">
 			<div class="search-title">
-				<h1>Поиск по каталогу</h1>
-@* 				<button onclick="window.location.href='@Url.Action("Index", "Home")';">Материалы</button></a>
-				<button onclick="">Библиотека моделей</button> *@
+				<h1><a href="@Url.Action("Index", "Home")">Поиск по каталогу</a></h1>
+				<button onclick="window.location.href='@Url.Action("AllMaterials", "Material")';">Все материалы</button></a>
 			</div>
 			<form asp-action="SearchMaterial">
 				<input name="request" type="text" placeholder="Введите название материала" value=@title />
@@ -67,7 +66,7 @@
 					<label style="line-height: 18px;" class="regular-18">Габариты</label>
 					<div id="sizeFilter" class="inactive-circle"></div>
 				</div>
-				<div style="display: flex; flex-direction: row; gap: 10px; justify-content: flex-start;">
+				<div style="display: flex; flex-direction: row; gap: 10px; justify-content: flex-start;  margin-bottom: 25px;">
 				<input type="number" id="sizeCheck1" class="hidden" style="margin-left: 49px; background-color: #E4E9F4; border-radius: 5px; font-weight: 100; font-size: 16px; max-width: 45px; min-height: 25px;"/>
 					<span class="hidden" id="sizeCheckX">х</span>
 					<input type="number" id="sizeCheck2" class="hidden" style="background-color: #E4E9F4; border-radius: 5px; font-weight: 100; font-size: 16px; max-width: 45px; min-height: 25px;" />

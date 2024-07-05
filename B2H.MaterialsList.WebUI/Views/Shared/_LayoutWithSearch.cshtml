@@ -49,7 +49,7 @@
 		<section id="search">
 			<div class="container">
 				<div class="search-title">
-					<h1>Поиск по каталогу</h1>
+					<h1><a href="@Url.Action("Index", "Home")">Поиск по каталогу</a></h1>
 					<button onclick="window.location.href='@Url.Action("AllMaterials", "Material")';">Все материалы</button></a>
 				</div>
 				<form asp-action="SearchMaterial">
