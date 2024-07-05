@@ -45,15 +45,15 @@ namespace B2H.MaterialsList.Infrastructure.Repository
             }
         }
 
-        public async Task<bool> DeleteMaterialAsync(Guid id)
+        public bool DeleteMaterial(Guid id)
         {
             try
             {
-                Material? material = await _context.Materials.Where(x => x.MaterialId == id).FirstOrDefaultAsync();
+                Material? material =  _context.Materials.AsNoTracking().Where(x => x.MaterialId == id).FirstOrDefault();
                 if (material == null)
                     return false;
                 _context.Materials.Remove(material);
-                await _context.SaveChangesAsync();
+                _context.SaveChangesAsync();
             }
             catch (Exception ex)
             {

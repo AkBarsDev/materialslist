@@ -11,12 +11,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace B2H.MaterialsList.Infrastructure.Repository
 {
-    public class MSEntityIntRepository<T> : IEntityIntRepository<T> where T : class
+    public class MSEntityRepository<T> : IEntityRepository<T> where T : class
     {
         private readonly MaterialsListContext _dbContext;
         private DbSet<T> _set;
 
-        public MSEntityIntRepository(MaterialsListContext context)
+        public MSEntityRepository(MaterialsListContext context)
         {
             _dbContext = context;
             _set = _dbContext.Set<T>();

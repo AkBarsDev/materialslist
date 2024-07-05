@@ -4,6 +4,7 @@ using B2H.MaterialsList.Core.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2H.MaterialsList.Core.Migrations
 {
     [DbContext(typeof(MaterialsListContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705020526_AddApprovel")]
+    partial class AddApprovel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,9 +84,6 @@ namespace B2H.MaterialsList.Core.Migrations
 
                     b.Property<Guid>("ApprovalId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("NextStageId")
                         .HasColumnType("uniqueidentifier");

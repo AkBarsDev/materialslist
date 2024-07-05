@@ -24,8 +24,9 @@ namespace B2H.MaterialsList.API
                                                                         Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
 																	    builder.Configuration.GetConnectionString("MSServerConnection") ??
                                                                         string.Empty));
-			builder.Services.AddDbContextFactory<B2HMaterialsIdentityContext>(option => option.UseNpgsql(
-                                                                        Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING")));
+            builder.Services.AddDbContextFactory<B2HMaterialsIdentityContext>(option => option.UseNpgsql(
+                                                                        Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING") ??
+																		builder.Configuration.GetConnectionString("PostgresConnection")));
 
 			builder.Services.AddIdentity<B2HUser, B2HRole>(options => options.SignIn.RequireConfirmedAccount = true)
 		        .AddEntityFrameworkStores<B2HMaterialsIdentityContext>();

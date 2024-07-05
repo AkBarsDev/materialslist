@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace B2H.MaterialsList.Infrastructure.Repository.Interfaces
 {
-	public interface IEntityIntRepository<T> 
+	public interface IEntityRepository<T> 
 	{
 		public Task<IEnumerable<T>> GetAllAsync();
 		public Task<T> GetByIdAsync(int id);

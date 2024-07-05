@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{47427F78-2C97-46A8-94EE-27A0604A5FAC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.API.DataTransfer", "B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj", "{C8C5A3E0-AEF2-45AA-B8C6-C5587C172029}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD427EE4-21BC-4392-B28B-6705D698C0C2} = {CD427EE4-21BC-4392-B28B-6705D698C0C2}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "B2H.MaterialsList.Core", "B2H.MaterialsList.Core\B2H.MaterialsList.Core.csproj", "{CD427EE4-21BC-4392-B28B-6705D698C0C2}"
 EndProject

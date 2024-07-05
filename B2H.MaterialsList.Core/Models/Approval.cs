@@ -25,6 +25,7 @@ namespace B2H.MaterialsList.Core.Models
 		public Guid Id { get; set; }
 		public Guid ApprovalId { get; set; }
 		public int StageNumber { get; set; }
+		public string? Description { get; set; }
 		public ApprovalStageStatus Status { get; set; }
 		public Guid? UserId { get; set; }
 		public Guid? PreviousStageId { get; set; }

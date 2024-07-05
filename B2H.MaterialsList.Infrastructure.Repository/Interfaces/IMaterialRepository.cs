@@ -10,7 +10,7 @@ namespace B2H.MaterialsList.Infrastructure.Repository.Interfaces
         public Task<Material> GetMaterialByIdAsync(Guid id);
         public Task<Material> UpdateMaterialAsync(Guid id, Material material);
         public Task<Material> CreateMaterialAsync(Material material);
-        public Task<bool> DeleteMaterialAsync(Guid id);
+        public bool DeleteMaterial(Guid id);
         public Task<bool> DeleteAllAsync();
         public Task<IList<Material>?> GetAllByFunc(Expression<Func<Material, bool>> func);
         public Task<Material?> GetByFunc(Expression<Func<Material, bool>> func);

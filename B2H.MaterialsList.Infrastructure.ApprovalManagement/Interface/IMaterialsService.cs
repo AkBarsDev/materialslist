@@ -6,20 +6,23 @@ namespace B2H.MaterialsList.Core.ApprovalManagement.Interface
     public interface IMaterialsService
     {
         MaterialDto GetMaterial(Guid guid);
-        Task<MaterialDto> GetMaterialAsync(Guid guid);
         ICollection<MaterialDto> GetAllMaterials();
-        Task<ICollection<MaterialDto>> GetAllMaterialsAsync();
         ICollection<MaterialDto> FindMaterialsForName(string name);
-        Task<ICollection<MaterialDto>> FindMaterialsForNameAsync(string name);
         ICollection<MaterialDto> FindMaterialsForCategory(Guid guid);
-        Task<ICollection<MaterialDto>> FindMaterialsForCategoryAsync(Guid guid);
-        ICollection<MaterialDto> FindMaterialsForCategoryName(string categoryName);
-        Task<ICollection<MaterialDto>> FindMaterialsForCategoryNameAsync(string categoryName);
-        MaterialDto UpdateMaterials(MaterialDto materialDto);
-        Task<MaterialDto> UpdateMaterialsAsync(MaterialDto materialDto);
-        MaterialDto CreateMaterials(MaterialDto materialDto);
-        Task<MaterialDto> CreateMaterialsAsync(MaterialDto materialDto);
+        MaterialDto UpdateMaterials(Guid userId, MaterialDto materialDto);
+        MaterialDto CreateMaterials(Guid userI, MaterialDto materialDto);
         bool DeletedMaterials(Guid MaterialIdo);
-        Task<bool> DeletedMaterialsAsync(Guid MaterialId);
-    }
+        Task<MaterialDto> GetMaterialAsync(Guid guid);
+        Task<IEnumerable<MaterialDto>> GetPublishedMaterial(Guid guid);
+		Task<IEnumerable<MaterialDto>> GetPublishedMaterials();
+		Task<IEnumerable<MaterialDto>> GetDraftMaterialsByUser(Guid? userId = null);
+		Task<IEnumerable<MaterialDto>> GetPendingApprovalMaterials();
+		Task<ICollection<MaterialDto>> GetAllMaterialsAsync();
+        Task<ICollection<MaterialDto>> FindPublishedMaterialsForNameAsync(string name);
+		Task<ICollection<MaterialDto>> FindPublishedMaterialsForCategoryAsync(Guid guid);
+        Task<ICollection<MaterialDto>> FindPublishedMaterialsForCategoryNameAsync(string categoryName);
+		Task<MaterialDto> UpdateMaterialsAsync(Guid userId, MaterialDto materialDto);
+        Task<MaterialDto> CreateMaterialsAsync(Guid userId, MaterialDto materialDto);
+	}
 }
+

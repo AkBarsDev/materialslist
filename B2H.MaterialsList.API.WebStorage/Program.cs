@@ -25,8 +25,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IFileManagerService<Filebase>, FileManagerSevice>();
 builder.Services.AddScoped<IFileManagerService<Image>, ImageManagerService>();
-builder.Services.AddScoped<IEntityIntRepository<Filebase>, MSEntityIntRepository<Filebase>>();
-builder.Services.AddScoped<IEntityIntRepository<Image>, MSEntityIntRepository<Image>>();
+builder.Services.AddScoped<IEntityRepository<Filebase>, MSEntityRepository<Filebase>>();
+builder.Services.AddScoped<IEntityRepository<Image>, MSEntityRepository<Image>>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

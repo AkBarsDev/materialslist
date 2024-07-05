@@ -14,8 +14,52 @@ namespace B2H.MaterialsList.API.Controller
 		private readonly IMaterialsService _materialsService = materialsService;
 
 
-        // GET: api/<ValuesController>
-        [HttpGet]
+		[HttpGet("published")]
+		public async Task<IActionResult> GetPublishedMaterials()
+		{
+			var materials = await _materialsService.GetPublishedMaterials();
+			return Ok(materials);
+		}
+
+		[HttpGet("draft/{id}")]
+		public async Task<IActionResult> GetDraftMaterials(Guid id)
+		{
+			var materials = await _materialsService.GetDraftMaterialsByUser(id == Guid.Empty ? null : id);
+			return Ok(materials);
+		}
+
+		[HttpGet("pending-approval")]
+		public async Task<IActionResult> GetPendingApprovalMaterials()
+		{
+			var materials = await _materialsService.GetPendingApprovalMaterials();
+			return Ok(materials);
+		}
+		[HttpGet("published/category/{id}")]
+		public async Task<IActionResult> GetPublishedMaterials(Guid id)
+		{
+			var materials = await _materialsService.FindPublishedMaterialsForCategoryAsync(id);
+			return Ok(materials);
+		}
+		[HttpGet("published/category/{name}")]
+		public async Task<IActionResult> GetPublishedMaterialsForCategory(string name)
+		{
+			var materials = await _materialsService.FindPublishedMaterialsForCategoryNameAsync(name);
+			return Ok(materials);
+		}
+		[HttpGet("published/{name}")]
+		public async Task<IActionResult> GetPublishedMaterialsForName(string name)
+		{
+			var materials = await _materialsService.FindPublishedMaterialsForNameAsync(name);
+			return Ok(materials);
+		}
+        [HttpGet("published/{id}")]
+		public async Task<IActionResult> GetPublishedMaterial(Guid id)
+		{
+			var materials = await _materialsService.GetPublishedMaterial(id);
+			return Ok(materials);
+		}
+		// GET: api/<ValuesController>
+		[HttpGet]
         public async Task<object> Get()
         {
             try
@@ -54,7 +98,7 @@ namespace B2H.MaterialsList.API.Controller
         {
             try
             {
-                MaterialDto material = await _materialsService.CreateMaterialsAsync(value);
+                MaterialDto material = await _materialsService.CreateMaterialsAsync(Guid.Empty, value);
                 _response.Result = material;
             }
             catch (Exception ex)
@@ -71,7 +115,7 @@ namespace B2H.MaterialsList.API.Controller
         {
             try
             {
-                MaterialDto material = await _materialsService.UpdateMaterialsAsync(value);
+                MaterialDto material = await _materialsService.UpdateMaterialsAsync(Guid.Empty,value);
                 _response.Result = material;
             }
             catch (Exception ex)
@@ -88,7 +132,7 @@ namespace B2H.MaterialsList.API.Controller
         {
             try
             {
-                _response.Result = await _materialsService.DeletedMaterialsAsync(Guid);
+                _response.Result = _materialsService.DeletedMaterials(Guid);
             }
             catch (Exception ex)
             {

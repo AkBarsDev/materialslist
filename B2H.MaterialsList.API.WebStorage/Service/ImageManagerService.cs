@@ -5,9 +5,9 @@ using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 namespace B2H.MaterialsList.API.WebStorage.Service
 {
-	public class ImageManagerService(IEntityIntRepository<Image> repository) : IFileManagerService<Image>
+	public class ImageManagerService(IEntityRepository<Image> repository) : IFileManagerService<Image>
 	{
-		private readonly IEntityIntRepository<Image> _repository = repository;
+		private readonly IEntityRepository<Image> _repository = repository;
 		private string _basePath = "Source/Materials/Images/";
 		public async Task<Image> AddFileAsync(IFormFile file)
 		{

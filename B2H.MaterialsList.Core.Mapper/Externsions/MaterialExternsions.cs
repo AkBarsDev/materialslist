@@ -16,7 +16,7 @@ namespace B2H.MaterialsList.Mapper.Externsions
             UpdateAt = material.UpdateAt,
             Images = material.MaterialImages?.AsParallel().Select(x => x.ImageId).AsEnumerable(),
             FileId = material.FileId,
-            ModeratorId = material.ModeratorId,
+            ModeratorId = material.UserId,
             Specifications = material.Specifications
         };
         public static Material ToMaterial(this MaterialDto material) => new()
@@ -28,7 +28,7 @@ namespace B2H.MaterialsList.Mapper.Externsions
             CreateAt = material.CreateAt,
             UpdateAt = material.UpdateAt,
             FileId = material.FileId,
-            ModeratorId = material.ModeratorId,
+			UserId = material.ModeratorId,
             Specifications = material.Specifications,
             MaterialImages = null
         };

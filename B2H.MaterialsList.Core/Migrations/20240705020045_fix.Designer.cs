@@ -4,6 +4,7 @@ using B2H.MaterialsList.Core.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace B2H.MaterialsList.Core.Migrations
 {
     [DbContext(typeof(MaterialsListContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705020045_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,91 +24,6 @@ namespace B2H.MaterialsList.Core.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.Approval", b =>
-                {
-                    b.Property<Guid>("ApprovalId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CurrentStageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MaterialId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("ApprovalId");
-
-                    b.HasIndex("MaterialId");
-
-                    b.ToTable("Approvals");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.ApprovalHistory", b =>
-                {
-                    b.Property<Guid>("ApprovalHistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ActionType")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("ApprovalId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ApprovalHistoryId");
-
-                    b.HasIndex("ApprovalId");
-
-                    b.ToTable("ApprovalsHistory");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.ApprovalStage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApprovalId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("NextStageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("PreviousStageId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("StageNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApprovalId");
-
-                    b.ToTable("ApprovalStages");
-                });
 
             modelBuilder.Entity("B2H.MaterialsList.Core.Models.Category", b =>
                 {
@@ -232,6 +150,12 @@ namespace B2H.MaterialsList.Core.Migrations
                     b.Property<string>("Gost")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MaterialImagesIds")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ModeratorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -239,14 +163,8 @@ namespace B2H.MaterialsList.Core.Migrations
                     b.Property<string>("Specifications")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("UpdateAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("MaterialId");
 
@@ -278,39 +196,6 @@ namespace B2H.MaterialsList.Core.Migrations
                     b.HasIndex("MaterialId");
 
                     b.ToTable("MaterialImages");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.Approval", b =>
-                {
-                    b.HasOne("B2H.MaterialsList.Core.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.ApprovalHistory", b =>
-                {
-                    b.HasOne("B2H.MaterialsList.Core.Models.Approval", "Approval")
-                        .WithMany("ApprovalHistory")
-                        .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Approval");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.ApprovalStage", b =>
-                {
-                    b.HasOne("B2H.MaterialsList.Core.Models.Approval", "Approval")
-                        .WithMany("ApprovalStages")
-                        .HasForeignKey("ApprovalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Approval");
                 });
 
             modelBuilder.Entity("B2H.MaterialsList.Core.Models.Category", b =>
@@ -364,13 +249,6 @@ namespace B2H.MaterialsList.Core.Migrations
                     b.Navigation("Image");
 
                     b.Navigation("Material");
-                });
-
-            modelBuilder.Entity("B2H.MaterialsList.Core.Models.Approval", b =>
-                {
-                    b.Navigation("ApprovalHistory");
-
-                    b.Navigation("ApprovalStages");
                 });
 
             modelBuilder.Entity("B2H.MaterialsList.Core.Models.Category", b =>
