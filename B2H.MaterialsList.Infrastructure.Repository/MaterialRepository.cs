@@ -8,9 +8,9 @@ namespace B2H.MaterialsList.Infrastructure.Repository
 {
     public class MaterialRepository : IMaterialRepository
     {
-        private readonly MaterialsListContext _context;
+        private readonly B2HMaterialsIdentityContext _context;
 
-        public MaterialRepository(MaterialsListContext context)
+        public MaterialRepository(B2HMaterialsIdentityContext context)
         {
             _context = context;
         }

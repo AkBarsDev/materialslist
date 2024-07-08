@@ -12,8 +12,8 @@ Log.Logger = new LoggerConfiguration()
 	.CreateLogger();
 
 Log.Information("Starting up");
-//try
-//{
+try
+{
     var builder = WebApplication.CreateBuilder(args);
 
     builder.Host.UseSerilog((ctx, lc) => lc
@@ -26,34 +26,34 @@ Log.Information("Starting up");
         .ConfigurePipeline();
 
     app.Run();
-//}
-//catch (ReflectionTypeLoadException ex)
-//{
-//	StringBuilder sb = new StringBuilder();
-//	foreach (Exception exSub in ex.LoaderExceptions)
-//	{
-//		sb.AppendLine(exSub.Message);
-//		FileNotFoundException exFileNotFound = exSub as FileNotFoundException;
-//		if (exFileNotFound != null)
-//		{
-//			if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
-//			{
-//				sb.AppendLine("Fusion Log:");
-//				sb.AppendLine(exFileNotFound.FusionLog);
-//			}
-//		}
-//		sb.AppendLine();
-//	}
-//	string errorMessage = sb.ToString();
-//	//Display or log the error based on your application.
-//	Log.Fatal(errorMessage, "ReflectionTypeLoadException");
-//}
-//catch (Exception ex)
-//{
-//    Log.Fatal(ex, "Unhandled exception");
-//}
-//finally
-//{
-//    Log.Information("Shut down complete");
-//    Log.CloseAndFlush();
-//}
+}
+catch (ReflectionTypeLoadException ex)
+{
+	StringBuilder sb = new StringBuilder();
+	foreach (Exception exSub in ex.LoaderExceptions)
+	{
+		sb.AppendLine(exSub.Message);
+		FileNotFoundException exFileNotFound = exSub as FileNotFoundException;
+		if (exFileNotFound != null)
+		{
+			if (!string.IsNullOrEmpty(exFileNotFound.FusionLog))
+			{
+				sb.AppendLine("Fusion Log:");
+				sb.AppendLine(exFileNotFound.FusionLog);
+			}
+		}
+		sb.AppendLine();
+	}
+	string errorMessage = sb.ToString();
+	//Display or log the error based on your application.
+	Log.Fatal(errorMessage, "ReflectionTypeLoadException");
+}
+catch (Exception ex)
+{
+	Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+	Log.Information("Shut down complete");
+	Log.CloseAndFlush();
+}

@@ -14,11 +14,10 @@ using B2H.MaterialsList.Core.Mapper.Externsions;
 
 namespace B2H.MaterialsList.Core.ApprovalManagement
 {
-    public class MaterialsService(MaterialsListContext context, IMaterialRepository repository, IMaterialImageRepository imageRepository) : IMaterialsService
+    public class MaterialsService(IMaterialRepository repository, IMaterialImageRepository imageRepository) : IMaterialsService
 	{
 		readonly IMaterialRepository _materialRepository = repository;
 		readonly IMaterialImageRepository _imageRepository = imageRepository;
-		readonly MaterialsListContext _context = context;
 
 		#region Create
 		public MaterialDto CreateMaterials(Guid userId, MaterialDto materialDto)

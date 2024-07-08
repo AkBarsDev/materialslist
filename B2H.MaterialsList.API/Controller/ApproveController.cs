@@ -14,7 +14,7 @@ namespace B2H.MaterialsList.API.Controller
 	{
 		protected ResponseDto _response { get; set; } = new ResponseDto();
 		private readonly IApprovalService _approvalService = approvalService;
-		[HttpGet]
+		[HttpGet("all")]
 		public async Task<object> GetAllApproval()
 		{
 			try
@@ -29,7 +29,7 @@ namespace B2H.MaterialsList.API.Controller
 			}
 			return _response;
 		}
-		[HttpGet]
+		[HttpGet("payload")]
 		public async Task<object> GetApprovals([FromBody] ApprovalPayloadRequest payload)
 		{
 			try

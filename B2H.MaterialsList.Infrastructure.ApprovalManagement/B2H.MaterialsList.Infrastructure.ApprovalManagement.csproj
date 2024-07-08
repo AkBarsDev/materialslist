@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\B2H.MaterialsList.API.DataTransfer\B2H.MaterialsList.API.DataTransfer.csproj" />
     <ProjectReference Include="..\B2H.MaterialsList.Infrastructure.Repository\B2H.MaterialsList.Infrastructure.Repository.csproj" />
   </ItemGroup>

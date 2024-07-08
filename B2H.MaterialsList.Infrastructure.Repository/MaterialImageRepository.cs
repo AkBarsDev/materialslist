@@ -7,9 +7,9 @@ using System.Linq.Expressions;
 
 namespace B2H.MaterialsList.Infrastructure.Repository
 {
-    public class MaterialImageRepository(MaterialsListContext context) : IMaterialImageRepository
+    public class MaterialImageRepository(B2HMaterialsIdentityContext context) : IMaterialImageRepository
     {
-        private readonly MaterialsListContext _context = context;
+        private readonly B2HMaterialsIdentityContext _context = context;
         public async Task<MaterialImage?> AddAsync(MaterialImage materialImage)
         {
             await _context.AddAsync(materialImage);

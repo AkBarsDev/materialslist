@@ -21,10 +21,10 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 {
 	public class ApprovalService : IApprovalService
 	{
-		private readonly MaterialsListContext _context;
+		private readonly B2HMaterialsIdentityContext _context;
 		private readonly ILogger<ApprovalService> _logger;
 
-		public ApprovalService(MaterialsListContext context, ILogger<ApprovalService> logger)
+		public ApprovalService(B2HMaterialsIdentityContext context, ILogger<ApprovalService> logger)
 		{
 			this._context = context;
 			_logger = logger;

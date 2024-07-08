@@ -6,9 +6,9 @@ using System.Collections.ObjectModel;
 
 namespace B2H.MaterialsList.Infrastructure.Repository
 {
-    public class BreadcrumbAwareRepository(MaterialsListContext context) : IBreadcrumbAwareRepository
+    public class BreadcrumbAwareRepository(B2HMaterialsIdentityContext context) : IBreadcrumbAwareRepository
     {
-        private readonly MaterialsListContext _context = context;
+        private readonly B2HMaterialsIdentityContext _context = context;
         public async Task<IEnumerable<ShortCategoryDto>> GetBreadcrumbCategory(Guid categoryId)
         {
             var category = _context.CategoriesMaterials.Find(categoryId);

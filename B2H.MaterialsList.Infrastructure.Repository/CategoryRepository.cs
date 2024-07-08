@@ -7,9 +7,9 @@ using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 
 namespace B2H.MaterialsList.Infrastructure.Repository
 {
-    public class CategoryRepository(MaterialsListContext context) : ICategoryRepository
+    public class CategoryRepository(B2HMaterialsIdentityContext context) : ICategoryRepository
     {
-        private readonly MaterialsListContext _context = context;
+        private readonly B2HMaterialsIdentityContext _context = context;
 
         public async Task<CategoryDto> CreateUpdateCategoryAsync(CategoryDto value)
         {

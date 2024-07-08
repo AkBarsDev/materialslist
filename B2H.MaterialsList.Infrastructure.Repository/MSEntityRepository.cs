@@ -13,10 +13,10 @@ namespace B2H.MaterialsList.Infrastructure.Repository
 {
     public class MSEntityRepository<T> : IEntityRepository<T> where T : class
     {
-        private readonly MaterialsListContext _dbContext;
+        private readonly B2HMaterialsIdentityContext _dbContext;
         private DbSet<T> _set;
 
-        public MSEntityRepository(MaterialsListContext context)
+        public MSEntityRepository(B2HMaterialsIdentityContext context)
         {
             _dbContext = context;
             _set = _dbContext.Set<T>();

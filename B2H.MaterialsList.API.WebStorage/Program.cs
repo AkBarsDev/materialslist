@@ -5,46 +5,38 @@ using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using B2H.MaterialsList.Infrastructure.Repository;
 using B2H.MaterialsList.API.WebStorage;
 using B2H.MaterialsList.Core.Models;
-using System.Runtime;
-using System.Diagnostics.Eventing.Reader;
-var builder = WebApplication.CreateBuilder(args);
-if(Environment.GetEnvironmentVariable("SOURCE_STORAGE") != null)
-	SD.PathStorageBase ="/home/";
-else
-	SD.PathStorageBase = builder.Configuration.GetSection("Resourse")["PathStorageBase"];
-if (!Directory.Exists(SD.PathStorageBase))
-    throw new Exception("PathStorageBase - Пуст, укажите другой путь в SOURCE_STORAGE=\"PATH\"");
-builder.Services.AddCors();
-// Add services to the container.
-if (Environment.GetEnvironmentVariable("CONNECTINGSTRING") != null)
-	builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(Environment.GetEnvironmentVariable("CONNECTINGSTRING")));
-else
-	builder.Services.AddDbContext<MaterialsListContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("MSServerConnection")));
-
-builder.Services.AddControllers();
-
-builder.Services.AddScoped<IFileManagerService<Filebase>, FileManagerSevice>();
-builder.Services.AddScoped<IFileManagerService<Image>, ImageManagerService>();
-builder.Services.AddScoped<IEntityRepository<Filebase>, MSEntityRepository<Filebase>>();
-builder.Services.AddScoped<IEntityRepository<Image>, MSEntityRepository<Image>>();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+using Serilog;
+using B2H.MaterialsList.API;
 
 
-var app = builder.Build();
-app.UseCors(builder => builder.AllowAnyOrigin());
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+Log.Logger = new LoggerConfiguration()
+	.MinimumLevel.Information()
+	.Enrich.WithProperty("Application", "Web-Storage")
+	.WriteTo.Console()
+	.WriteTo.Seq("http://seq:5341")
+	.CreateLogger();
+
+Log.Information("Starting up");
+
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+	var builder = WebApplication.CreateBuilder(args);
+
+	builder.Host.UseSerilog((ctx, lc) => lc
+		.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
+		.Enrich.FromLogContext()
+		.ReadFrom.Configuration(ctx.Configuration));
+	var app = builder
+		.ConfigureServices()
+		.ConfigurePipeline();
+	app.Run();
 }
-
-//app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+	Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+	Log.Information("Shut down complete");
+	Log.CloseAndFlush();
+}

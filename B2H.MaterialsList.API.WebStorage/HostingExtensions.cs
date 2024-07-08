@@ -1,6 +1,4 @@
-﻿using B2H.MaterialsList.Core.ApprovalManagement.Interface;
-using B2H.MaterialsList.Core.ApprovalManagement;
-using B2H.MaterialsList.Core.Service;
+﻿using B2H.MaterialsList.Core.Service;
 using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using B2H.MaterialsList.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +10,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using B2H.MaterialsList.Core.Models;
 using Microsoft.Extensions.Options;
-using B2H.MaterialsList.Infrastructure.ApprovalManagement;
+using B2H.MaterialsList.API.WebStorage.Service;
+using B2H.MaterialsList.API.WebStorage;
 
 namespace B2H.MaterialsList.API
 {
@@ -20,7 +19,13 @@ namespace B2H.MaterialsList.API
     {
         public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddCors();
+			if (Environment.GetEnvironmentVariable("SOURCE_STORAGE") != null)
+				SD.PathStorageBase = "/home/";
+			else
+				SD.PathStorageBase = builder.Configuration.GetSection("Resourse")["PathStorageBase"];
+			if (!Directory.Exists(SD.PathStorageBase))
+				throw new Exception("PathStorageBase - Пуст, укажите другой путь в SOURCE_STORAGE=\"PATH\"");
+			builder.Services.AddCors();
             builder.Services.AddDbContextFactory<MaterialsListContext>(option => option.UseSqlServer(
                                                                         Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
 																	    builder.Configuration.GetConnectionString("MSServerConnection") ??
@@ -51,22 +56,14 @@ namespace B2H.MaterialsList.API
             });
 
             builder.Services.AddAuthorization();
-            builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<IBreadcrumbAwareRepository, BreadcrumbAwareRepository>();
-            builder.Services.AddScoped<IMaterialImageRepository, MaterialImageRepository>();
-            builder.Services.AddScoped<IMaterialsService, MaterialsService>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-			//builder.Services.AddScoped<ILoginService, LoginService>();
-			//builder.Services.AddScoped<UserManager<B2HUser>>();
-			builder.Services.AddControllers();
-            //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-            //builder.Services.AddSingleton(mapper);
-            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            // Add services to the container.
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+
+			builder.Services.AddScoped<IFileManagerService<Filebase>, FileManagerSevice>();
+			builder.Services.AddScoped<IFileManagerService<Image>, ImageManagerService>();
+			builder.Services.AddScoped<IEntityRepository<Filebase>, MSEntityRepository<Filebase>>();
+			builder.Services.AddScoped<IEntityRepository<Image>, MSEntityRepository<Image>>();
+			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen();
             // Serilog
 			builder.Services.AddSerilog(Log.Logger);
 

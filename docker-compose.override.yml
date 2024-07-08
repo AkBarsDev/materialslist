@@ -23,6 +23,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - SOURCE_STORAGE=/home/
       - CONNECTINGSTRING=${FILEBASE_CONNECTINGSTRING}
+      - POSTGRESS_CONNECTINGSTRING=${POSTGRESS_CONNECTINGSTRING}
     ports:
       - "8085:8080"
     volumes:
@@ -77,9 +78,9 @@ services:
         - "-c"
         - "config_file=/etc/postgresql.conf"
     environment:
-        POSTGRES_DB: "B2HMaterials"
-        POSTGRES_USER: "b2h"
-        POSTGRES_PASSWORD: "temppgpwd4"
+        POSTGRES_DB: ${POSTGRES_DB}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
         PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
        - ./pginitdata:/docker-entrypoint-initdb.d
