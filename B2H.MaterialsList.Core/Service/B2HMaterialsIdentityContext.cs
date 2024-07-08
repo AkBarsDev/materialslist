@@ -187,7 +187,20 @@ namespace B2H.MaterialsList.Core.Service
 					dst => dst.Kind == DateTimeKind.Utc ? dst : DateTime.SpecifyKind(dst, DateTimeKind.Utc)
 				);
 			});
-
+			modelBuilder.Entity<Approval>(entity =>
+			{
+				entity.Property(e => e.CreatedAt).HasConversion(
+					src => src.Kind == DateTimeKind.Utc ? src : DateTime.SpecifyKind(src, DateTimeKind.Utc),
+					dst => dst.Kind == DateTimeKind.Utc ? dst : DateTime.SpecifyKind(dst, DateTimeKind.Utc)
+				);
+			}); 
+			modelBuilder.Entity<ApprovalHistory>(entity =>
+			{
+				entity.Property(e => e.Timestamp).HasConversion(
+					src => src.Kind == DateTimeKind.Utc ? src : DateTime.SpecifyKind(src, DateTimeKind.Utc),
+					dst => dst.Kind == DateTimeKind.Utc ? dst : DateTime.SpecifyKind(dst, DateTimeKind.Utc)
+				);
+			});
 			modelBuilder.Entity((Action<Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Material>>)(entity =>
 			{
 				entity.HasIndex(e => e.CategoryId, "IX_Materials_CategoryId");

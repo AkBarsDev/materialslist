@@ -1,4 +1,6 @@
-﻿using B2H.MaterialsList.API.DataTransfer.Dto;
+﻿using Azure.Core;
+using B2H.MaterialsList.API.DataTransfer.Dto;
+using B2H.MaterialsList.API.DataTransfer.Request;
 using B2H.MaterialsList.Core.Mapper.Externsions;
 using B2H.MaterialsList.Core.Models;
 using B2H.MaterialsList.Core.Service;
@@ -8,8 +10,10 @@ using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,6 +30,47 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			_logger = logger;
 		}
 
+		public async Task<IEnumerable<ApprovalDto>> GetApprovalsProcess(ApprovalPayloadRequest request)
+		{
+			var query = _context.Approvals
+				.Include(a => a.ApprovalStages)
+				.Include(a => a.ApprovalHistory)
+				.Include(a => a.Material)
+				.AsQueryable();
+
+			// Фильтрация
+			if (request.filters.dataFrom.HasValue)
+				query = query.Where(a => a.CreatedAt >= request.filters.dataFrom.Value);
+			if (request.filters.dataTo.HasValue)
+				query = query.Where(a => a.CreatedAt <= request.filters.dataTo.Value);
+			if (!string.IsNullOrEmpty(request.filters.search))
+				query = query.Where(a => a.Material.Name.Contains(request.filters.search));
+			if (request.filters.categoryId != Guid.Empty)
+				query = query.Where(a => a.Material.CategoryId == request.filters.categoryId);
+			if (request.filters.userId != Guid.Empty)
+				query = query.Where(a => a.Material.UserId == request.filters.userId);
+			if (request.filters.approvalStatusDto != null)
+				query = query.Where(a => a.Status == (ApprovalStatus)Enum.Parse(typeof(ApprovalStatus), request.filters.approvalStatusDto.ToString()));
+
+			// Сортировка
+			if (!string.IsNullOrEmpty(request.sort.order))
+			{
+				query = request.sort.order.ToLower() switch
+				{
+					"asc" => query.OrderBy(a => a.CreatedAt),
+					"desc" => query.OrderByDescending(a => a.CreatedAt),
+					_ => query
+				};
+			}
+
+			// Пагинация
+			var total = await query.CountAsync();
+			var approvals = await query
+				.Skip(request.pagination.offset)
+				.Take(request.pagination.limit)
+				.ToListAsync();
+			return approvals.Select(x => x.ToDto());
+		}
 		public async Task<ApprovalDto> GetApprovalProcess(Guid materialId)
 		{
 			var approval = await _context.Approvals
@@ -43,17 +88,17 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			return approvals.Select(x => x.ToDto());
 		}
 
-		public async Task<ApprovalDto> Approve(Guid approvalId, Guid userId)
+		public async Task<ApprovalDto> Approve(ProcessApprovalRequest request)
 		{
 			var approval = await _context.Approvals
 			.Include(a => a.ApprovalStages)
-			.FirstOrDefaultAsync(a => a.ApprovalId == approvalId);
+			.FirstOrDefaultAsync(a => a.ApprovalId == request.approvalId);
 
 			var currentStage = approval.ApprovalStages.FirstOrDefault(s => s.Id == approval.CurrentStageId);
 
 			// Обработка текущего этапа
 			currentStage.Status = ApprovalStageStatus.Approved;
-			currentStage.UserId = userId;
+			currentStage.UserId = request.userId;
 
 			// Переход к следующему этапу
 			if (currentStage.NextStageId.HasValue)
@@ -69,25 +114,25 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			}
 
 			await _context.SaveChangesAsync();
-			AddApprovalHistory(approvalId, userId, ApprovalActionType.Approved, null);
+			AddApprovalHistory(request.approvalId, request.userId, ApprovalActionType.Approved, null);
 			return approval.ToDto();
 		}
 
-		public async Task<ApprovalDto> Reject(Guid approvalId, Guid userId, string reason)
+		public async Task<ApprovalDto> Reject(ProcessApprovalRequest request, string reason)
 		{
 			var approval = await _context.Approvals
 			.Include(a => a.ApprovalStages)
-			.FirstOrDefaultAsync(a => a.ApprovalId == approvalId);
+			.FirstOrDefaultAsync(a => a.ApprovalId == request.approvalId);
 
 			var currentStage = approval.ApprovalStages.FirstOrDefault(s => s.Id == approval.CurrentStageId);
 
 			// Отклонение текущего этапа
 			currentStage.Status = ApprovalStageStatus.Rejected;
-			currentStage.UserId = userId;
+			currentStage.UserId = request.userId;
 			// Изменение статуса одобрения
-			approval.Status = ApprovalStatus.Rejected; 
+			approval.Status = ApprovalStatus.Rejected;
 			await _context.SaveChangesAsync();
-			await AddApprovalHistory(approval.ApprovalId, userId, ApprovalActionType.Rejected, reason);
+			await AddApprovalHistory(approval.ApprovalId, request.userId, ApprovalActionType.Rejected, reason);
 			return approval.ToDto();
 		}
 
@@ -104,17 +149,17 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			return approval.ToDto();
 		}
 
-		public async Task<ApprovalDto> PendingApproval(Guid approvalId, Guid userId)
+		public async Task<ApprovalDto> PendingApproval(ProcessApprovalRequest request)
 		{
 			var approval = await _context.Approvals
 				.Include(a => a.ApprovalStages)
-				.FirstOrDefaultAsync(a => a.ApprovalId == approvalId);
+				.FirstOrDefaultAsync(a => a.ApprovalId == request.approvalId);
 
 			var currentStage = approval.ApprovalStages.FirstOrDefault(s => s.Id == approval.CurrentStageId);
 
 			// Возврат текущего этапа в статус "Ожидание"
 			currentStage.Status = ApprovalStageStatus.Pending;
-			currentStage.UserId = userId;
+			currentStage.UserId = request.userId;
 
 			// Добавление записи в историю
 			var history = new ApprovalHistory
@@ -122,7 +167,7 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 				ApprovalHistoryId = Guid.NewGuid(),
 				ApprovalId = approval.ApprovalId,
 				ActionType = ApprovalActionType.Pending,
-				UserId = userId,
+				UserId = request.userId,
 				Reason = "Возврат на доработку",
 				Timestamp = DateTime.UtcNow
 			};
@@ -150,13 +195,13 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task<ApprovalDto> SendForApproval(Guid materialId)
+		public async Task<ApprovalDto> SendForApproval(SubmitApprovalRequest request)
 		{
-			var material = _context.Materials.Find(materialId);
+			var material = _context.Materials.Find(request.materialId);
 
-			var approval = _context.Approvals.FirstOrDefault(x => x.MaterialId == materialId, null); 
-				// Create the initial approval process
-			if(approval == null)
+			var approval = _context.Approvals.FirstOrDefault(x => x.MaterialId == request.materialId, null);
+			// Create the initial approval process
+			if (approval == null)
 			{
 				approval = new Approval
 				{
@@ -185,7 +230,7 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			// Create the second approval stage (TIM Department)
 			var timStage = new ApprovalStage
 			{
-				Id = Guid.NewGuid(), // Создаем новый GUID для nextStageId
+				Id = resourceStage.NextStageId.Value, // Создаем новый GUID для nextStageId
 				ApprovalId = approval.ApprovalId,
 				StageNumber = 2,
 				Description = "Согласование отделом ТИМ",
@@ -214,7 +259,9 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			material.Status = MaterialStatus.PendingApproval;
 			material.UpdateAt = DateTime.UtcNow;
 			await _context.SaveChangesAsync();
+			await AddApprovalHistory(approval.ApprovalId, request.userId, ApprovalActionType.Rejected, "Начато согласование.");
 			return approval.ToDto();
 		}
+
 	}
 }

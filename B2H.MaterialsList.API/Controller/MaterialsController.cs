@@ -15,48 +15,111 @@ namespace B2H.MaterialsList.API.Controller
 
 
 		[HttpGet("published")]
-		public async Task<IActionResult> GetPublishedMaterials()
+		public async Task<object> GetPublishedMaterials()
 		{
-			var materials = await _materialsService.GetPublishedMaterials();
-			return Ok(materials);
+			try
+			{
+				var materials = await _materialsService.GetPublishedMaterials();
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 
 		[HttpGet("draft/{id}")]
-		public async Task<IActionResult> GetDraftMaterials(Guid id)
+		public async Task<object> GetDraftMaterials(Guid id)
 		{
-			var materials = await _materialsService.GetDraftMaterialsByUser(id == Guid.Empty ? null : id);
-			return Ok(materials);
+			try
+			{
+			    var materials = await _materialsService.GetDraftMaterialsByUser(id == Guid.Empty ? null : id);
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 
 		[HttpGet("pending-approval")]
-		public async Task<IActionResult> GetPendingApprovalMaterials()
+		public async Task<object> GetPendingApprovalMaterials()
 		{
-			var materials = await _materialsService.GetPendingApprovalMaterials();
-			return Ok(materials);
+            try
+			{
+			    var materials = await _materialsService.GetPendingApprovalMaterials();
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 		[HttpGet("published/category/{id}")]
-		public async Task<IActionResult> GetPublishedMaterials(Guid id)
+		public async Task<object> GetPublishedMaterials(Guid id)
 		{
-			var materials = await _materialsService.FindPublishedMaterialsForCategoryAsync(id);
-			return Ok(materials);
+            try
+			{
+				var materials = await _materialsService.FindPublishedMaterialsForCategoryAsync(id);
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 		[HttpGet("published/category/{name}")]
-		public async Task<IActionResult> GetPublishedMaterialsForCategory(string name)
+		public async Task<object> GetPublishedMaterialsForCategory(string name)
 		{
-			var materials = await _materialsService.FindPublishedMaterialsForCategoryNameAsync(name);
-			return Ok(materials);
+			try
+			{
+				var materials = await _materialsService.FindPublishedMaterialsForCategoryNameAsync(name);
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 		[HttpGet("published/{name}")]
-		public async Task<IActionResult> GetPublishedMaterialsForName(string name)
+		public async Task<object> GetPublishedMaterialsForName(string name)
 		{
-			var materials = await _materialsService.FindPublishedMaterialsForNameAsync(name);
-			return Ok(materials);
+			try
+			{
+				var materials = await _materialsService.FindPublishedMaterialsForNameAsync(name);
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
         [HttpGet("published/{id}")]
-		public async Task<IActionResult> GetPublishedMaterial(Guid id)
+		public async Task<object> GetPublishedMaterial(Guid id)
 		{
-			var materials = await _materialsService.GetPublishedMaterial(id);
-			return Ok(materials);
+			try
+			{
+				var materials = await _materialsService.GetPublishedMaterial(id);
+				_response.Result = materials;
+			}
+			catch (Exception ex)
+			{
+				_response.IsSuccess = false;
+				_response.DisplayMessage = ex.Message.ToString();
+			}
+			return _response;
 		}
 		// GET: api/<ValuesController>
 		[HttpGet]
