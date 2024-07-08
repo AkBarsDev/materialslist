@@ -1,0 +1,127 @@
+﻿@{
+	ViewData["Title"] = "Главная";
+	Layout = "/Views/Shared/_LayoutHomePage.cshtml";
+}
+<div class="container">
+		<div class="banner-doc"></div>
+		<section id="search">
+		<div class="container">
+				<form>
+					<input type="text" placeholder="Поиск">
+					<button></button>
+				</form>		
+				<div id="search-results"></div>
+		</div>
+		</section>
+	</div>
+	<div class="container">
+		<div class="search-title">
+			<button id="category-button">Документация BIM</button>
+			<button>Полезные ресурсы</button>
+		</div>
+		<div class="category-list" id="category-list" style="width: 100%;">
+            <p class="category-item" data-category="NPD">Нормативно-правовые документы</p>
+            <p class="category-item" data-category="GOST">Нормативно – технические документы. ГОСТ-ы</p>
+			<p class="category-item" data-category="SP">Нормативно – технические документы. Своды правил</p>
+        </div>
+	</div>
+	<div class="container">
+		<div class="doc-card-board" id="NPD">
+			<h1 style="font-size: 24px; color: var(--purple); font-family: 'Rubik-Regular'; margin: 20px auto;">Нормативно-правовая документация по BIM</h1>
+			<section class="doc-card">
+				<h1 class="regular-20">Федеральный закон от 29.11.2004 № 190-ФЗ</h1>
+				<p class="light-18" style="color: var(--purple);">«Градостроительный кодекс Российской Федерации»</p>
+				<p class="light-18" style="color: var(--black);">В статье 1 ГрК установлено определение термина
+					«Информационная модель объекта капитального строительства»
+					<br>Статья 57.5; 57.6 посвящены информационной модели ОКС и
+					классификатору строительной информации соответственно</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+			<section class="doc-card">
+				<h1 class="regular-20">Постановление Правительства РФ от 12.09.2020 № 1416</h1>
+				<p class="light-18" style="color: var(--purple);">«Об
+					утверждении Правил формирования и ведения классификатора
+					строительной информации»</p>
+				<p class="light-18" style="color: var(--black);">Постановлением утверждены правила формирования и ведения
+					классификатора строительной информации</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+			<section class="doc-card">
+				<h1 class="regular-20">Постановление Правительства РФ от 17.05.2024 № 614</h1>
+				<p class="light-18" style="color: var(--purple);">«Об
+					утверждении Правил формирования и ведения информационной
+					модели…»</p>
+				<p class="light-18" style="color: var(--black);">Постановлением установлены требования к составу ИМ ОКС,
+					программному обеспечению и форматам передачи данных.
+					Подробнее в статье. Документ вступит в силу с 01.09.2024.</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+			<section class="doc-card">
+				<h1 class="regular-20">Постановление Правительства РФ от 20.12.2022 № 2357</h1>
+				<p class="light-18" style="color: var(--purple);">«О
+					внесении изменений в постановление Правительства Российской
+					Федерации от 5 марта 2021 г. № 331»</p>
+				<p class="light-18" style="color: var(--black);">Цель акта – поэтапно распространить ТИМ на весь жизненный
+					цикл ОКС в области жилищного строительства. Утверждены сроки
+					обязательства формирования и ведения ИМ ОКС для объектов,
+					строительство которых регулируется 214-ФЗ и проектная
+					документация и/или результаты инженерных изысканий на него
+					подлежат экспертизе. Постановление вступает в силу с 1 сентября
+					2023 года.</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+			<section class="doc-card">
+				<h1 class="regular-20">Постановление Правительства РФ от 05.03.2021 № 331</h1>
+				<p class="light-18" style="color: var(--purple);">«Об
+					установлении случая, при котором застройщиком, техническим
+					заказчиком … обеспечиваются формирование и ведение
+					информационной модели объекта капитального строительства»</p>
+				<p class="light-18" style="color: var(--black);">Постановлением установлен случай обязательства формирования
+					и ведения ИМ ОКС ответственными лицами
+					</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+			<section class="doc-card">
+				<h1 class="regular-20">Постановление правительства РФ от 28.09.2020 № 1558</h1>
+				<p class="light-18" style="color: var(--purple);">«Правила предоставления доступа органов … к сведениям,
+					документам, материалам, содержащимся в ГИСОГД РФ»</p>
+				<p class="light-18" style="color: var(--black);">Постановлением утвержден КСИ как подсистема ГИСОГД. ИМ
+					должны загружаться в ГИСОГД субъектов РФ. При разработке
+					ЦИМ, к элементам должны быть присвоены классы в соответствии
+					с КСИ. Постановление вступает в силу с 01.12.2022 г.
+					</p>
+				<div style="display: flex; flex-direction: row; gap: 20px; margin-top: auto;">
+					<p class="regular-18" style="color: var(--purple);"><a href="">Скачать</a></p>
+				</div>
+			</section>
+		</div>
+	</div>
+	<script>
+        document.getElementById('category-button').addEventListener('click', function() {
+            var categoryList = document.getElementById('category-list');
+            categoryList.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.category-item').forEach(function(item) {
+            item.addEventListener('click', function() {
+                var category = this.getAttribute('data-category');
+                document.querySelectorAll('.doc-card-board').forEach(function(card) {
+                    if (card.id === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
