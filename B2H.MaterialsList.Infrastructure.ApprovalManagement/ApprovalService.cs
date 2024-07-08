@@ -114,11 +114,11 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			}
 
 			await _context.SaveChangesAsync();
-			AddApprovalHistory(request.approvalId, request.userId, ApprovalActionType.Approved, null);
+			AddApprovalHistory(request.approvalId, request.userId, ApprovalActionType.Approved, request.reason);
 			return approval.ToDto();
 		}
 
-		public async Task<ApprovalDto> Reject(ProcessApprovalRequest request, string reason)
+		public async Task<ApprovalDto> Reject(ProcessApprovalRequest request)
 		{
 			var approval = await _context.Approvals
 			.Include(a => a.ApprovalStages)
@@ -132,7 +132,7 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			// Изменение статуса одобрения
 			approval.Status = ApprovalStatus.Rejected;
 			await _context.SaveChangesAsync();
-			await AddApprovalHistory(approval.ApprovalId, request.userId, ApprovalActionType.Rejected, reason);
+			await AddApprovalHistory(approval.ApprovalId, request.userId, ApprovalActionType.Rejected, request.reason);
 			return approval.ToDto();
 		}
 

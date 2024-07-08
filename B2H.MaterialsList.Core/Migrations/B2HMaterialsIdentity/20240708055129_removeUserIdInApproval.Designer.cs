@@ -3,6 +3,7 @@ using System;
 using B2H.MaterialsList.Core.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace B2H.MaterialsList.Core.Migrations.B2HMaterialsIdentity
 {
     [DbContext(typeof(B2HMaterialsIdentityContext))]
-    partial class B2HMaterialsIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20240708055129_removeUserIdInApproval")]
+    partial class removeUserIdInApproval
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

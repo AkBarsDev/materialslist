@@ -12,14 +12,12 @@ namespace B2H.MaterialsList.Core.Models
 		[Key]
 		public Guid ApprovalId { get; set; }
 		public Guid MaterialId { get; set; }
-		public Guid? UserId { get; set; }
 		public Guid? CurrentStageId { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public ApprovalStatus Status { get; set; }
 		public virtual ICollection<ApprovalStage> ApprovalStages { get; set; }
 		public virtual ICollection<ApprovalHistory> ApprovalHistory { get; set; }
 		public virtual Material Material { get; set; }
-		//public virtual B2HUser? User { get; set; }
 	}
 
 	public partial class ApprovalStage
