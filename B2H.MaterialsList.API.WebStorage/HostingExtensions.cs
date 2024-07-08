@@ -56,7 +56,7 @@ namespace B2H.MaterialsList.API
             });
 
             builder.Services.AddAuthorization();
-
+			builder.Services.AddControllers();
 			builder.Services.AddScoped<IFileManagerService<Filebase>, FileManagerSevice>();
 			builder.Services.AddScoped<IFileManagerService<Image>, ImageManagerService>();
 			builder.Services.AddScoped<IEntityRepository<Filebase>, MSEntityRepository<Filebase>>();
