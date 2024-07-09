@@ -57,20 +57,20 @@ services:
     ports:
       - "80:80"
 
-  database:
-    container_name: "app-database"
-    hostname: database
-    image: mcr.microsoft.com/mssql/server:2019-latest
-    environment:
-      - ACCEPT_EULA=Y
-      - SA_PASSWORD=Password12!
-    expose:
-     - "1433"
-    ports:
-      - "1433:1433"
-    restart: unless-stopped
-    volumes:
-       - ./database:/var/opt/mssql/data
+  # database:
+  #   container_name: "app-database"
+  #   hostname: database
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=Password12!
+  #   expose:
+  #    - "1433"
+  #   ports:
+  #     - "1433:1433"
+  #   restart: unless-stopped
+  #   volumes:
+  #      - ./database:/var/opt/mssql/data
   
   db-postgres:
     command:

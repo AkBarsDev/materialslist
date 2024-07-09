@@ -33,10 +33,10 @@ services:
     depends_on:
       - b2h.materialslist.webui
   
-  database:
-    container_name: "app-database"
-    hostname: database
-    image: mcr.microsoft.com/mssql/server:2019-latest
+  # database:
+  #   container_name: "app-database"
+  #   hostname: database
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
 
   db-postgres:
     container_name: "db-postgres"

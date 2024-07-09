@@ -62,7 +62,7 @@ namespace B2H.MaterialsList.API.Controller
 		}
 		[HttpPut("{id}/role/{roleName}")]
 		[Authorize(Policy = "AdminPolicy")]
-		public async Task<ActionResult> ChangeUserRole(Guid id, string roleName)
+		public async Task<ActionResult> ChangeUserRole(string id, string roleName)
 		{
 			var user = await _userManager.FindByIdAsync(id.ToString());
 			if (user == null)
@@ -80,7 +80,7 @@ namespace B2H.MaterialsList.API.Controller
 		}
 		[HttpPut("{id}/deactivate")]
 		[Authorize(Policy = "AdminPolicy")]
-		public async Task<ActionResult> DeactivateUser(Guid id)
+		public async Task<ActionResult> DeactivateUser(string id)
 		{
 			var user = await _userManager.FindByIdAsync(id.ToString());
 			if (user == null)
@@ -95,7 +95,7 @@ namespace B2H.MaterialsList.API.Controller
 		}
 		[HttpPut("{id}/activate")]
 		[Authorize(Policy = "AdminPolicy")]
-		public async Task<ActionResult> ActivateUser(Guid id)
+		public async Task<ActionResult> ActivateUser(string id)
 		{
 			var user = await _userManager.FindByIdAsync(id.ToString());
 			if (user == null)
