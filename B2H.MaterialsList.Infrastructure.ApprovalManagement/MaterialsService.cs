@@ -1,6 +1,6 @@
 ﻿using B2H.MaterialsList.Core.Service.ExceptionService;
 using B2H.MaterialsList.Core.ApprovalManagement.Interface;
-using B2H.MaterialsList.Mapper.Externsions;
+using B2H.MaterialsList.Core.Mapper.Externsions;
 using B2H.MaterialsList.Core.Migrations;
 using B2H.MaterialsList.Core.Models;
 using B2H.MaterialsList.Infrastructure.Repository.Interfaces;
@@ -167,7 +167,7 @@ namespace B2H.MaterialsList.Core.ApprovalManagement
 		}
 		public async Task<IEnumerable<MaterialDto>> GetDraftMaterialsByUser(Guid? userId = null)
 		{
-			var materials = await ( userId != null ? _materialRepository.GetAllByFunc(x => x.UserId == userId || x.Status == MaterialStatus.Draft) : 
+			var materials = await ( userId != null ? _materialRepository.GetAllByFunc(x => x.UserId == userId.ToString() || x.Status == MaterialStatus.Draft) : 
 											_materialRepository.GetAllByFunc(x => x.Status == MaterialStatus.Draft));
 			if (materials == null)
 			{

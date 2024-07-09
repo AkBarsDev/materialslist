@@ -28,11 +28,11 @@ namespace B2H.MaterialsList.Core.Models
 		public int StageNumber { get; set; }
 		public string? Description { get; set; }
 		public ApprovalStageStatus Status { get; set; }
-		public Guid? UserId { get; set; }
+		public string? UserId { get; set; }
 		public Guid? PreviousStageId { get; set; }
 		public Guid? NextStageId { get; set; }
 		public virtual Approval Approval { get; set; }
-		//public virtual B2HUser? User { get; set; }
+		public virtual B2HUser? User { get; set; }
 	}
 
 	public partial class ApprovalHistory
@@ -41,11 +41,11 @@ namespace B2H.MaterialsList.Core.Models
 		public Guid ApprovalHistoryId { get; set; }
 		public Guid ApprovalId { get; set; }
 		public ApprovalActionType ActionType { get; set; }
-		public Guid UserId { get; set; }
+		public string UserId { get; set; }
 		public string Reason { get; set; }
 		public DateTime Timestamp { get; set; }
 		public virtual Approval Approval { get; set; }
-		//public virtual B2HUser User { get; set; }
+		public virtual B2HUser User { get; set; }
 	}
 
 	public enum ApprovalStatus

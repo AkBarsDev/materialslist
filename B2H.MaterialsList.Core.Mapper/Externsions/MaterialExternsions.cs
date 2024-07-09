@@ -2,7 +2,7 @@
 using B2H.MaterialsList.Core.Models;
 using Microsoft.VisualBasic;
 
-namespace B2H.MaterialsList.Mapper.Externsions
+namespace B2H.MaterialsList.Core.Mapper.Externsions
 {
     public static class MaterialExternsions
     {
@@ -12,6 +12,7 @@ namespace B2H.MaterialsList.Mapper.Externsions
             Name = material.Name,
             CategoryId = material.CategoryId,
             Gost = material.Gost,
+            Grade = material.Grade,
             CreateAt = material.CreateAt,
             UpdateAt = material.UpdateAt,
             Images = material.MaterialImages?.AsParallel().Select(x => x.ImageId).AsEnumerable(),
@@ -25,6 +26,7 @@ namespace B2H.MaterialsList.Mapper.Externsions
             Name = material.Name,
             CategoryId = material.CategoryId,
             Gost = material.Gost,
+            Grade = material.Grade,
             CreateAt = material.CreateAt,
             UpdateAt = material.UpdateAt,
             FileId = material.FileId,

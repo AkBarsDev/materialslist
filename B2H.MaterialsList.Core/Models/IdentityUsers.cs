@@ -4,6 +4,10 @@ namespace B2H.MaterialsList.Core.Models
 {
 	public class B2HUser : IdentityUser
 	{ 
+		public string FirstName { get; set; } = string.Empty;
+		public string LastName { get; set; } = string.Empty;
+		public string? MiddleName {  get; set; }
+		public bool IsActived { get; set; } = true;
 		public virtual ICollection<B2HUserClaim> Claims { get; set; }
 		public virtual ICollection<B2HUserLogin> Logins { get; set; }
 		public virtual ICollection<B2HUserToken> Tokens { get; set; }

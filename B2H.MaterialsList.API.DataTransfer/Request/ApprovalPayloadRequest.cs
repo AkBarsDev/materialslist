@@ -28,17 +28,17 @@ namespace B2H.MaterialsList.API.DataTransfer.Request
 		public DateTime? dataTo { get; set; }
 		public string search { get; set; }
 		public Guid categoryId { get; set; }
-		public Guid userId { get; set; }
+		public string userId { get; set; }
 		public ApprovalStatusDto approvalStatusDto { get; set; }
 	}
 	public class SubmitApprovalRequest
 	{
-		public Guid userId { get; set; }
+		public string userId { get; set; }
 		public Guid materialId { get; set; }
 	}
 	public class ProcessApprovalRequest
 	{
-		public Guid userId { get; set; }
+		public string userId { get; set; }
 		public Guid approvalId { get; set; }
 		public string reason { get; set; }
 	}

@@ -3,7 +3,7 @@ using B2H.MaterialsList.Core.Models;
 using Microsoft.VisualBasic;
 using System.Linq;
 
-namespace B2H.MaterialsList.Mapper.Externsions
+namespace B2H.MaterialsList.Core.Mapper.Externsions
 {
     public static class CategoryExtensions
     {

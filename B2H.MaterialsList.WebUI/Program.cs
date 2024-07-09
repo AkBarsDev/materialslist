@@ -1,10 +1,14 @@
 using B2H.MaterialsList.API;
 using Serilog;
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateBootstrapLogger();
+	.MinimumLevel.Information()
+	.Enrich.WithProperty("Application", "UI")
+	.WriteTo.Console()
+	.WriteTo.Seq("http://seq:5341")
+	.CreateLogger();
 
 Log.Information("Starting up");
+
 try
 {
     var builder = WebApplication.CreateBuilder(args);

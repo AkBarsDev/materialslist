@@ -27,7 +27,6 @@ namespace B2H.MaterialsList.API
 
             // Add services to the container.2
             builder.Services.AddRazorPages();
-
             builder.Services.AddDistributedMemoryCache();   // add IDistributedMemoryCache
             builder.Services.AddSession();                  // add session services
 

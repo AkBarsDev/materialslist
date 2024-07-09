@@ -13,90 +13,113 @@ using Microsoft.AspNetCore.Identity;
 using B2H.MaterialsList.Core.Models;
 using Microsoft.Extensions.Options;
 using B2H.MaterialsList.Infrastructure.ApprovalManagement;
+using Microsoft.OpenApi.Models;
 
 namespace B2H.MaterialsList.API
 {
-    internal static class HostingExtensions
-    {
-        public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
-        {
-            builder.Services.AddCors();
-            builder.Services.AddDbContextFactory<MaterialsListContext>(option => option.UseSqlServer(
-                                                                        Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
-																	    builder.Configuration.GetConnectionString("MSServerConnection") ??
-                                                                        string.Empty));
-            builder.Services.AddDbContextFactory<B2HMaterialsIdentityContext>(option => option.UseNpgsql(
-                                                                        Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING") ??
+	internal static class HostingExtensions
+	{
+		public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
+		{
+			IConfiguration Configuration = builder.Configuration;
+			builder.Services.AddCors();
+			//builder.Services.AddDbContextFactory<MaterialsListContext>(option => option.UseSqlServer(
+			//															Environment.GetEnvironmentVariable("CONNECTINGSTRING") ??
+			//															builder.Configuration.GetConnectionString("MSServerConnection") ??
+			//															string.Empty));
+			builder.Services.AddDbContextFactory<B2HMaterialsIdentityContext>(option => option.UseNpgsql(
+																		Environment.GetEnvironmentVariable("POSTGRESS_CONNECTINGSTRING") ??
 																		builder.Configuration.GetConnectionString("PostgresConnection")));
 
 			builder.Services.AddIdentity<B2HUser, B2HRole>(options => options.SignIn.RequireConfirmedAccount = true)
-		        .AddEntityFrameworkStores<B2HMaterialsIdentityContext>();
+				.AddEntityFrameworkStores<B2HMaterialsIdentityContext>()
+				.AddDefaultTokenProviders();
 			builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = true;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidIssuer = AuthOptions.ISSUER,
-                    ValidateAudience = true,
-                    ValidAudience = AuthOptions.AUDIENCE,
-                    ValidateIssuerSigningKey = true,
-                    RequireExpirationTime = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero,
-                    IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey()
-                };
-            });
+			.AddJwtBearer(x =>
+			{
+				x.RequireHttpsMetadata = true;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuer = true,
+					ValidateAudience = true,
+					ValidateLifetime = true,
+					ValidateIssuerSigningKey = true,
+					ValidIssuer = Configuration["Jwt:Issuer"],
+					ValidAudience = Configuration["Jwt:Audience"],
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+				};
+			});
 
-            builder.Services.AddAuthorization();
-            builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-            builder.Services.AddScoped<IBreadcrumbAwareRepository, BreadcrumbAwareRepository>();
-            builder.Services.AddScoped<IMaterialImageRepository, MaterialImageRepository>();
-            builder.Services.AddScoped<IMaterialsService, MaterialsService>();
-            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-			//builder.Services.AddScoped<ILoginService, LoginService>();
-			//builder.Services.AddScoped<UserManager<B2HUser>>();
+			builder.Services.AddAuthorization(options =>
+			{
+				options.AddPolicy("AdminPolicy", policy =>
+					policy.RequireRole(Roles.Admin));
+				options.AddPolicy("ResourcePolicy", policy =>
+					policy.RequireRole(Roles.Resource));
+				options.AddPolicy("TIMPolicy", policy =>
+					policy.RequireRole(Roles.TIM));
+				options.AddPolicy("ArchitectPolicy", policy =>
+					policy.RequireRole(Roles.Architect));
+				options.AddPolicy("UserPolicy", policy =>
+					policy.RequireRole(Roles.User));
+			});
+			builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+			builder.Services.AddScoped<IBreadcrumbAwareRepository, BreadcrumbAwareRepository>();
+			builder.Services.AddScoped<IMaterialImageRepository, MaterialImageRepository>();
+			builder.Services.AddScoped<IMaterialsService, MaterialsService>();
+			builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 			builder.Services.AddControllers();
-            //IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-            //builder.Services.AddSingleton(mapper);
-            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            // Add services to the container.
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-            // Serilog
+			builder.Services.AddEndpointsApiExplorer();
+			builder.Services.AddSwaggerGen(c =>
+			{
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "B2H_API", Version = "v1" });
+			});
+			// Serilog
 			builder.Services.AddSerilog(Log.Logger);
 
 			return builder.Build();
-        }
+		}
 
-        public static WebApplication ConfigurePipeline(this WebApplication app)
-        {
-            app.UseCors(builder => builder.AllowAnyOrigin());
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-            app.UseSerilogRequestLogging();
-            app.UseHttpsRedirection();
+		public static WebApplication ConfigurePipeline(this WebApplication app)
+		{
+			app.UseCors(builder => builder.AllowAnyOrigin());
+			// Configure the HTTP request pipeline.
+			if (app.Environment.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseSwagger();
+				app.UseSwaggerUI();
+			}
+			app.UseSerilogRequestLogging();
+			app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+			app.UseAuthorization();
 			app.MapControllers();
-            return app;
-        }
-        public class AuthOptions
-        {
-            public const string ISSUER = "MyAuthServer"; // издатель токена
-            public const string AUDIENCE = "MyAuthClient"; // потребитель токена
-            const string KEY = "8c69a9b04d4448a0aaea32c6a7a5c7d51d52897c0f24a65feeba95a38e9c2a62!123";   // ключ для шифрации
-            public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
-                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
-        }
-    }
+			return app;
+		}
+		public class AuthOptions
+		{
+			public const string ISSUER = "MyAuthServer"; // издатель токена
+			public const string AUDIENCE = "MyAuthClient"; // потребитель токена
+			const string KEY = "8c69a9b04d4448a0aaea32c6a7a5c7d51d52897c0f24a65feeba95a38e9c2a62!123";   // ключ для шифрации
+			public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+				new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
+		}
+		public static class Roles
+		{
+			public const string Admin = "Administrator";
+			public const string Resource = "Resource";
+			public const string TIM = "TIM";
+			public const string Architect = "Architect";
+			public const string User = "User";
+			public static IEnumerable<string> All => new[] { Admin, Resource, TIM, Architect, User };
+
+			public static bool IsValid(string roleName)
+			{
+				return All.Contains(roleName);
+			}
+		}
+	}
 }

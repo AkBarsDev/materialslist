@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Serilog;
 using Newtonsoft.Json;
+using System.Data;
 
 namespace materialslist_ui.Controllers
 {
@@ -45,18 +46,17 @@ namespace materialslist_ui.Controllers
             return View(model);
         }
 
-        private async Task Authenticate(AuthUserDto userName)
+        private async Task Authenticate(AuthUserDto user)
         {
             try
             {
 				// создаем один claim
 				var claims = new List<Claim>
 				{
-					new Claim("Guid", userName.GuId.ToString()),
-					new Claim("Name", userName.Name),
-					new Claim("Role", userName.Role),
-					new Claim("Mail", userName.Mail),
-					new Claim("AccessToken", userName.AccessToken.Replace("\"",""))
+					new Claim(ClaimTypes.Name, user.UserName),
+					new Claim(ClaimTypes.NameIdentifier, user.GuId),
+					new Claim(ClaimTypes.Role, user.Role),
+					new Claim("AccessToken", user.AccessToken.Replace("\"",""))
 				};
 				// создаем объект ClaimsIdentity
 				ClaimsIdentity id = new ClaimsIdentity(claims, "cookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

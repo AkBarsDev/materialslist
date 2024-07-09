@@ -47,7 +47,7 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 				query = query.Where(a => a.Material.Name.Contains(request.filters.search));
 			if (request.filters.categoryId != Guid.Empty)
 				query = query.Where(a => a.Material.CategoryId == request.filters.categoryId);
-			if (request.filters.userId != Guid.Empty)
+			if (request.filters.userId != string.Empty)
 				query = query.Where(a => a.Material.UserId == request.filters.userId);
 			if (request.filters.approvalStatusDto != null)
 				query = query.Where(a => a.Status == (ApprovalStatus)Enum.Parse(typeof(ApprovalStatus), request.filters.approvalStatusDto.ToString()));
@@ -180,7 +180,7 @@ namespace B2H.MaterialsList.Infrastructure.ApprovalManagement
 			return approval.ToDto();
 		}
 
-		private async Task AddApprovalHistory(Guid approvalId, Guid userId, ApprovalActionType actionType, string? reason)
+		private async Task AddApprovalHistory(Guid approvalId, string userId, ApprovalActionType actionType, string? reason)
 		{
 			var history = new ApprovalHistory
 			{
